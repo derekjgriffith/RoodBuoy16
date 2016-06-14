@@ -1,4 +1,4 @@
-Directory = 'D:\Projects\Calval\Roodeplaat\Data\ASDIrrad\20160605\';
+Directory = '.\20160605\';
 ASDIrrad = ASD([Directory 'Irrad*.asd.irr.txt']);
 % Print the dates and times of measurements (Computer clock should be set
 % to UTC). The overpass time is 07:42:31

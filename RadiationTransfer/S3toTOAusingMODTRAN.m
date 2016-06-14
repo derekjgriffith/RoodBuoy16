@@ -269,7 +269,8 @@ ChnRad = ChnRad * 10000 * 1000;  % Convert from W/sr/cm^2/nm to mW/sr/m^2/nm
 plot(Albedo,ChnRad'); 
 
 %% Obtain the mean area-averaged channel radiances from the S3 overpass
-S3AApixData = importSNAPpixels('S3Images/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt');
+
+S3AApixData = importSNAPpixels('../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt');
 CentreWavelengths = mean(S3AApixData.all_lambda0);
 TargetChnRad = mean(S3AApixData.all_radiance);  % mW/sr/m^2/nm
 % Exclude b21
@@ -325,7 +326,7 @@ grid();
 
 %% Read in the BWTek data for comparison 
 % Uncertainty over the clock - is there a clock in the instrument ?
-load BWTekData20160605.mat
+load ..\Data\BWtekData\BWTekData20160605.mat
 plot(Wv, fastsmooth(GlobalBOAirrad, 30), BWTekDataOrdered(1).Wavelength,  BWTekDataOrdered(1).IrradiancemWcm2nm1/1000, ...
     BWTekDataOrdered(end-10).Wavelength,  BWTekDataOrdered(end-10).IrradiancemWcm2nm1/1000);
 title('Total Downwelling Irradiance at BOA');
@@ -334,7 +335,7 @@ ylabel('Total Irradiance [W/cm^2/nm]');
 grid();
 
 %% Read in and plot the ASD data - definitely UTC
-load ASDIrradS3on20160605.mat
+load ..\Data\ASDIrrad\ASDIrradS3on20160605.mat
 plot(Wv, fastsmooth(GlobalBOAirrad, 120), ASDIrradMean.Wv, ASDIrradMean.RadData/10000); % Converting to W/cm^2/nm
 title('Total Downwelling Irradiance at BOA');
 xlabel('Wavelength [nm]');
@@ -344,7 +345,7 @@ legend('MODTRAN Smoothed', 'ASD', 'location', 'best');
 grid();
 %% Compute the water-leaving radiance
 % First read in the R_rs values from Mark Matthews
-RoodeRrsAll = dlmread('Roodeplaat_ASD_rrs.txt', '\t');
+RoodeRrsAll = dlmread('..\Data\Rrs\Roodeplaat_ASD_rrs.txt', '\t');
 RrsWv = RoodeRrsAll(:,1);
 Rrs0605 = RoodeRrsAll(:, 1 + [1 3 5 7]);  % Select for June 5
 plot(RrsWv, Rrs0605);
@@ -404,23 +405,31 @@ S3Sky.Run;
 WaterReflRho = 0.02;
 WaterReflectedSkyRadiance = S3Sky.sc7.TOTALRAD * 0.02; % microwatts/sr/cm^2/nm
 
-% Plot the waterleaving radiance and water-reflected sky radiance together
+%% Plot the waterleaving radiance and water-reflected sky radiance together
 % Remember to convert to common units of microwatts/sr/cm^2/nm
 TotalRadianceBOA = Lw * 1e6 + repmat(WaterReflectedSkyRadiance, 1, size(Lw, 2));  % microwatts/sr/cm^2/nm
-plot(Wv, Lw*1000000, Wv, WaterReflectedSkyRadiance);
+plot(Wv, Lw*1e6, Wv, WaterReflectedSkyRadiance);
 title('Water-leaving and Sky-Reflected Radiance at BOA, S3 on 2016-06-05')
 xlabel('Wavelength [nm]');
 ylabel('L_w and Sky-Reflected L at BOA [\muW/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'Sky-Reflected', 'location', 'best');
 grid();
 
-% Compute total radiance at TOA
+%% Compute and plot total radiance at TOA
 TotalLTOA = TotalRadianceBOA .* repmat(S3.sc7.TRANS, 1, size(Lw, 2)) ...
-                    + repmat(S3.sc7.TOTALRAD, 1, size(Lw, 2));
+                    + repmat(S3.sc7.TOTALRAD, 1, size(Lw, 2));  % microwatts/sr/cm^2/nm
 plot(Wv, TotalLTOA);
 title('Total Radiance at TOA, S3 on 2016-06-05')
 xlabel('Wavelength [nm]');
 ylabel('Total Radiance at TOA [\muW/sr/cm^2/nm]')
+legend('P1','P2','P3','P4', 'location', 'best');
+grid();
+
+%% Plot LwTOA over TotalLTOA
+plot(Wv, 1e6 * LwTOA ./ TotalLTOA)
+title('L_w Over Total L at TOA, S3 on 2016-06-05')
+xlabel('Wavelength [nm]');
+ylabel('L_w at TOA / Total L')
 legend('P1','P2','P3','P4', 'location', 'best');
 grid();
 
@@ -448,7 +457,7 @@ ChanLTOAmW = ChanLTOA * 10;
     Oa05_radiance,Oa06_radiance,Oa07_radiance,Oa08_radiance,Oa09_radiance,Oa10_radiance, ...
     Oa11_radiance,Oa12_radiance,Oa13_radiance,Oa14_radiance,Oa15_radiance,Oa16_radiance, ...
     Oa17_radiance,Oa18_radiance,Oa19_radiance,Oa20_radiance, all_radiance] ...
- = importSNAPpins('S3Images/WaterDominatedPixelsRoodeplaatS3on20160605.txt');
+ = importSNAPpins('..\Data\Sentinel3\WaterDominatedPixelsRoodeplaatS3on20160605.txt');
 
 ChanWv = [400.0	412.5	442.5	490.0	510.0	560.0	620.0	665.0	...
     673.75	681.25	708.75	753.75	761.25	764.375	767.5	778.75	...

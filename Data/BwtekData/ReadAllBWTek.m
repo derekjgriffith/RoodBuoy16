@@ -1,5 +1,5 @@
 %% Read all the BWTek data files in a directory
-Directory = 'D:\Projects\Calval\Roodeplaat\Data\BwtekData\';
+Directory = '.\Irrad20160605\';
 BWTekFiles = dir([Directory '*.csv']);
 for iFil = 1:numel(BWTekFiles)
     if iFil == 1
