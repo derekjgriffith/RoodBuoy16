@@ -3,7 +3,7 @@ A repository of documents, data and related processing code for the Roodeplaat D
 
 Roodeplaat Dam, a water reservoir and recreation area, is located near Pretoria, South Africa.
 
-Activities related to satellite observation of the dam, particularly related to the Sentinel 2 and 3 satellites included the following.
+Campaign activities, particularly those related to the Sentinel 2 and 3 satellites included the following.
 
 1. Measurements of remote sensing reflectance at 4 points on Roodeplaat Dam using an ASD spectroradiometer, above water from a boat on 2016-06-05 and 2016-06-06.
 2. Measurements of downwelling spectral irradiance using an ASD and a BWTek spectrometer on the shoreline on 2016-06-05 and 2016-06-06.
