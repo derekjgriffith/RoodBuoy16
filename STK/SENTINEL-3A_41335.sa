@@ -1,0 +1,1239 @@
+stk.v.10.0
+WrittenBy    STK_v10.1.0
+
+BEGIN Satellite
+
+Name		SENTINEL-3A_41335
+
+BEGIN VehiclePath
+	CentralBody				Earth
+
+    BEGIN Interval
+
+         StartTime            5 Jun 2016 00:00:00.000000000
+         StopTime             31 Jul 2016 00:00:00.000000000
+
+    END Interval
+
+	StoreEphemeris				Yes
+	SmoothInterp				No
+
+    BEGIN SGP4
+
+    VersionIndicator    20080918
+
+    SSCNumber           41335
+    IntlDesignator      2016-011A  
+    CommonName          SENTINEL-3A
+    UseScenInterval     No
+    EphemSmartInterval
+	BEGIN	EVENTINTERVAL
+			EventInterval
+				BEGIN	EVENTINTERVAL
+					Type	EVENTINTERVAL_LINKTO
+					Name	AnalysisInterval
+					AbsolutePath	Scenario
+				END	EVENTINTERVAL
+			IntervalState	Implicit
+	END	EVENTINTERVAL
+
+    StartTime           5 Jun 2016 00:00:00.000
+    StopTime            31 Jul 2016 00:00:00.000
+    TimeStep            300.000000
+    Use1PtInterpolation Yes
+    Use1PtValidation    No
+    Use1PtInterpWarning No
+    UpdateMode          OnlineAGI
+    RetrieveMethod      AllTLEs
+    UpdateSwitchMethod  Epoch
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         4 Jun 2016 20:38:51.257
+
+    TLE
+    1 41335U 16011A   16156.86031548 -.00000044  00000-0  00000-0 0  9998
+    2 41335  98.6271 223.6925 0001421  97.3758 262.7553 14.26734023 15555
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         5 Jun 2016 01:41:49.007
+
+    TLE
+    1 41335U 16011A   16157.07070610 -.00000044  00000-0  00000+0 0  9994
+    2 41335  98.6270 223.9000 0001412  96.5568 263.5770 14.26733737 15585
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         5 Jun 2016 10:06:45.164
+
+    TLE
+    1 41335U 16011A   16157.42135607 -.00000044  00000-0  00000+0 0  9991
+    2 41335  98.6269 224.2452 0001377  94.2690 265.8650 14.26734082 15631
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         5 Jun 2016 16:50:42.079
+
+    TLE
+    1 41335U 16011A   16157.70187592 -.00000044  00000-0  00000+0 0  9992
+    2 41335  98.6266 224.5211 0001375  96.9843 263.1514 14.26734642 15677
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         5 Jun 2016 21:53:39.737
+
+    TLE
+    1 41335U 16011A   16157.91226547 -.00000044  00000-0  00000-0 0  9990
+    2 41335  98.6266 224.7284 0001382  98.1710 261.9584 14.26733609 15703
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         6 Jun 2016 01:15:38.279
+
+    TLE
+    1 41335U 16011A   16158.05252638 -.00000044  00000-0  00000+0 0  9995
+    2 41335  98.6264 224.8670 0001415  96.7421 263.3910 14.26733268 15723
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         6 Jun 2016 09:40:34.456
+
+    TLE
+    1 41335U 16011A   16158.40317657 -.00000044  00000-0  00000+0 0  9997
+    2 41335  98.6265 225.2127 0001406 101.3329 258.8029 14.26733594 15773
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         6 Jun 2016 16:24:31.352
+
+    TLE
+    1 41335U 16011A   16158.68369620 -.00000044  00000-0  00000+0 0  9994
+    2 41335  98.6261 225.4893 0001432 103.0362 257.0994 14.26733961 15811
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         6 Jun 2016 21:27:29.027
+
+    TLE
+    1 41335U 16011A   16158.89408596 -.00000044  00000-0  00000-0 0  9994
+    2 41335  98.6260 225.6961 0001330  96.3415 263.7876 14.26733446 15842
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         7 Jun 2016 00:49:27.567
+
+    TLE
+    1 41335U 16011A   16159.03434684 -.00000044  00000-0  00000+0 0  9997
+    2 41335  98.6259 225.8340 0001384  93.9530 266.1801 14.26733274 15869
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         7 Jun 2016 09:14:23.744
+
+    TLE
+    1 41335U 16011A   16159.38499704 -.00000044  00000-0  00000+0 0  9999
+    2 41335  98.6255 226.1801 0001354  91.9037 268.2310 14.26733722 15910
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         7 Jun 2016 17:39:19.867
+
+    TLE
+    1 41335U 16011A   16159.73564661 -.00000044  00000-0  00000+0 0  9993
+    2 41335  98.6254 226.5261 0001378  90.1172 270.0175 14.26734306 15964
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         7 Jun 2016 21:01:18.316
+
+    TLE
+    1 41335U 16011A   16159.87590644 -.00000044  00000-0  00000-0 0  9999
+    2 41335  98.6254 226.6642 0001346  89.5045 270.6284 14.26734389 15984
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         8 Jun 2016 02:04:16.019
+
+    TLE
+    1 41335U 16011A   16160.08629652 -.00000044  00000-0  00000+0 0  9995
+    2 41335  98.6256 226.8720 0001360  89.2504 270.8842 14.26734451 16015
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         8 Jun 2016 17:13:09.022
+
+    TLE
+    1 41335U 16011A   16160.71746553 -.00000044  00000-0  00000+0 0  9995
+    2 41335  98.6251 227.4949 0001371  87.4727 272.6614 14.26735246 16109
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         8 Jun 2016 22:16:06.701
+
+    TLE
+    1 41335U 16011A   16160.92785533 -.00000044  00000-0  00000-0 0  9990
+    2 41335  98.6253 227.7018 0001350  89.5690 270.5630 14.26734989 16131
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         9 Jun 2016 03:19:04.413
+
+    TLE
+    1 41335U 16011A   16161.13824552 -.00000044  00000-0  00000+0 0  9998
+    2 41335  98.6255 227.9098 0001435  94.5163 265.6182 14.26734652 16165
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         9 Jun 2016 10:03:01.327
+
+    TLE
+    1 41335U 16011A   16161.41876536 -.00000044  00000-0  00000+0 0  9998
+    2 41335  98.6253 228.1868 0001393  94.1284 266.0061 14.26734661 16200
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         9 Jun 2016 18:27:57.457
+
+    TLE
+    1 41335U 16011A   16161.76941501 -.00000044  00000-0  00000+0 0  9991
+    2 41335  98.6252 228.5321 0001423  94.3374 265.7964 14.26734751 16256
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         9 Jun 2016 21:49:55.925
+
+    TLE
+    1 41335U 16011A   16161.90967506 -.00000044  00000-0  00000-0 0  9991
+    2 41335  98.6256 228.6707 0001386  95.2508 264.8813 14.26734380 16279
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         10 Jun 2016 02:52:53.651
+
+    TLE
+    1 41335U 16011A   16162.12006540 -.00000044  00000-0  00000+0 0  9997
+    2 41335  98.6256 228.8777 0001454  99.5596 260.5757 14.26734202 16305
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         10 Jun 2016 09:36:50.562
+
+    TLE
+    1 41335U 16011A   16162.40058521 -.00000044  00000-0  00000+0 0  9994
+    2 41335  98.6255 229.1546 0001396  99.6069 260.5277 14.26734128 16341
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         10 Jun 2016 18:01:46.682
+
+    TLE
+    1 41335U 16011A   16162.75123474 -.00000044  00000-0  00000+0 0  9992
+    2 41335  98.6254 229.4993 0001350  91.2162 268.9149 14.26734431 16393
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         10 Jun 2016 21:23:45.185
+
+    TLE
+    1 41335U 16011A   16162.89149520 -.00000044  00000-0  00000-0 0  9998
+    2 41335  98.6255 229.6376 0001342  94.2904 265.8435 14.26734453 16410
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         11 Jun 2016 02:26:42.870
+
+    TLE
+    1 41335U 16011A   16163.10188507 -.00000044  00000-0  00000+0 0  9990
+    2 41335  98.6257 229.8448 0001323  94.7268 265.4077 14.26734604 16440
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         11 Jun 2016 09:10:39.776
+
+    TLE
+    1 41335U 16011A   16163.38240482 -.00000044  00000-0  00000+0 0  9991
+    2 41335  98.6255 230.1216 0001295  92.4818 267.6509 14.26734312 16484
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         11 Jun 2016 17:35:35.888
+
+    TLE
+    1 41335U 16011A   16163.73305426 -.00000044  00000-0  00000+0 0  9990
+    2 41335  98.6256 230.4675 0001302  86.2703 273.8627 14.26735118 16531
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         12 Jun 2016 02:00:32.045
+
+    TLE
+    1 41335U 16011A   16164.08370423 -.00000044  00000-0  00000+0 0  9998
+    2 41335  98.6259 230.8134 0001257  91.6336 268.5022 14.26735422 16582
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         12 Jun 2016 10:25:28.148
+
+    TLE
+    1 41335U 16011A   16164.43435356 -.00000044  00000-0  00000+0 0  9994
+    2 41335  98.6256 231.1595 0001223  84.7936 275.3387 14.26735235 16634
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         12 Jun 2016 17:09:25.039
+
+    TLE
+    1 41335U 16011A   16164.71487314 -.00000044  00000-0  00000+0 0  9996
+    2 41335  98.6254 231.4356 0001294  84.3225 275.8097 14.26735509 16676
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         13 Jun 2016 09:59:17.342
+
+    TLE
+    1 41335U 16011A   16165.41617294 -.00000044  00000-0  00000+0 0  9996
+    2 41335  98.6257 232.1280 0001366  90.3150 269.8176 14.26734839 16774
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         14 Jun 2016 08:00:52.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         13 Jun 2016 18:24:13.501
+
+    TLE
+    1 41335U 16011A   16165.76682293 -.00000044  00000-0  00000+0 0  9995
+    2 41335  98.6257 232.4735 0001482  93.1434 266.9913 14.26734879 16824
+
+    END TwoLineElement
+
+
+    END SGP4
+
+BEGIN PassDefn
+
+    Break               Ascending
+    CoordSystem         Inertial
+    BreakType           Latitude
+    BreakAngle          0.000000000000e+000
+    PartialPassMethod   ByTime
+    DisplayFlag         Both
+    FirstPass           1557
+    FirstPath           1
+    RepeatCycle         1
+    MaintainPassNum     State
+    RangeFirstPass      1
+    RangeLastPass       2147483647
+    DisplayScheme       AllEphemeris
+    ScenarioEpoch       5 Jun 2016 00:00:00.000000
+END PassDefn
+
+END VehiclePath
+
+BEGIN MassProperties
+
+	Mass           1.000000000000e+003
+	InertiaXX      4.500000000000e+003
+	InertiaYX      0.000000000000e+000
+	InertiaYY      4.500000000000e+003
+	InertiaZX      0.000000000000e+000
+	InertiaZY      0.000000000000e+000
+	InertiaZZ      4.500000000000e+003
+
+END MassProperties
+
+BEGIN Attitude
+
+     	ScenarioEpoch		 5 Jun 2016 00:00:00.000000
+
+      BEGIN Profile
+          Name			 CBIVelLHAtt
+          UserNamed			 No
+          StartTime			 0.000000000000e+000
+          BEGIN ECIVVLH
+             	Azimuth		 0.000000000000e+000
+          END ECIVVLH
+      END Profile
+
+END Attitude
+
+BEGIN Swath
+
+    SwathType           ElevAngleEnvelope
+    ElevationAngle      0.000000000000e+000
+    HalfAngle           0.000000000000e+000
+    Distance            0.000000000000e+000
+    RepType             NoSwath
+
+END Swath
+
+BEGIN Eclipse
+
+    Sunlight                Off
+    SunlightColor           #ff0000
+    SunlightLineStyle       0
+    SunlightLineWidth       3
+    SunlightMarkerStyle     4
+
+    Penumbra                Off
+    PenumbraColor           #ff0000
+    PenumbraLineStyle       0
+    PenumbraLineWidth       3
+    PenumbraMarkerStyle     4
+
+    Umbra                   Off
+    UmbraColor              #ff0000
+    UmbraLineStyle          0
+    UmbraLineWidth          3
+    UmbraMarkerStyle        4
+
+    SunlightPenumbraLine    Off
+    PenumbraUmbraLine       Off
+
+    UseCustomEclipseBodies  No
+
+END Eclipse
+
+BEGIN Extensions
+    
+    BEGIN Graphics
+
+        BEGIN GenericGraphics
+            ShowPassLabel        Off
+            ShowPathLabel        Off
+            TransformTrajectory  On
+            MinGfxGndTrkTimeStep 0.000000000000e+000
+            MaxGfxGndTrkTimeStep 6.000000000000e+002
+            MinGfxOrbitTimeStep  0.000000000000e+000
+            MaxGfxOrbitTimeStep  6.000000000000e+002
+            ShowGlintPoint       Off
+            ShowGlintColor       #ffffff
+            ShowGlintStyle       2
+        END GenericGraphics
+
+        BEGIN AttributeData
+
+            AttributeType    Basic
+            ScenarioEpoch 5 Jun 2016 00:00:00.000000
+
+            ShowGfx          On
+
+            IntvlHideShowAll Off
+
+            BEGIN DefaultAttributes
+                Show                 On
+                Inherit              On
+                ShowLabel            On
+                ShowGndTrack         On
+                ShowGndMarker        On
+                ShowOrbit            On
+                ShowOrbitMarker      On
+                ShowElsetNum         Off
+                ShowSpecialSwath     On
+                MarkerColor          #ff0000
+                GroundTrackColor     #ff0000
+                SwathColor           #ff0000
+                LabelColor           #ff0000
+                LineStyle            0
+                LineWidth            1.000000
+                MarkerStyle          4
+                FontStyle            0
+                SwathLineStyle       0
+                SpecSwathLineStyle   1
+            END DefaultAttributes
+
+            BEGIN CustomIntervalList
+                BEGIN DefaultAttributes
+                    Show                 On
+                    Inherit              On
+                    ShowLabel            On
+                    ShowGndTrack         On
+                    ShowGndMarker        On
+                    ShowOrbit            On
+                    ShowOrbitMarker      On
+                    ShowElsetNum         Off
+                    ShowSpecialSwath     On
+                    MarkerColor          #ff0000
+                    GroundTrackColor     #ff0000
+                    SwathColor           #ff0000
+                    LabelColor           #ff0000
+                    LineStyle            0
+                    LineWidth            1.000000
+                    MarkerStyle          4
+                    FontStyle            0
+                    SwathLineStyle       0
+                    SpecSwathLineStyle   1
+                END DefaultAttributes
+            END CustomIntervalList
+
+            BEGIN AccessIntervalsAttributes
+                BEGIN AttrDuringAccess
+                    Show                 On
+                    Inherit              On
+                    ShowLabel            On
+                    ShowGndTrack         On
+                    ShowGndMarker        On
+                    ShowOrbit            On
+                    ShowOrbitMarker      On
+                    ShowElsetNum         Off
+                    ShowSpecialSwath     On
+                    MarkerColor          #ff0000
+                    GroundTrackColor     #ff0000
+                    SwathColor           #ff0000
+                    LabelColor           #ff0000
+                    LineStyle            0
+                    LineWidth            1.000000
+                    MarkerStyle          4
+                    FontStyle            0
+                    SwathLineStyle       0
+                    SpecSwathLineStyle   1
+                END AttrDuringAccess
+                BEGIN AttrDuringNoAccess
+                    Show                 Off
+                    Inherit              On
+                    ShowLabel            On
+                    ShowGndTrack         On
+                    ShowGndMarker        On
+                    ShowOrbit            On
+                    ShowOrbitMarker      On
+                    ShowElsetNum         Off
+                    ShowSpecialSwath     On
+                    MarkerColor          #ffffff
+                    GroundTrackColor     #ffffff
+                    SwathColor           #ffffff
+                    LabelColor           #ffffff
+                    LineStyle            0
+                    LineWidth            1.000000
+                    MarkerStyle          4
+                    FontStyle            0
+                    SwathLineStyle       0
+                    SpecSwathLineStyle   1
+                END AttrDuringNoAccess
+            END AccessIntervalsAttributes
+
+            BEGIN TimeComponentIntervalsAttributes
+                BEGIN DefaultAttributes
+                    Show                 On
+                    Inherit              On
+                    ShowLabel            On
+                    ShowGndTrack         On
+                    ShowGndMarker        On
+                    ShowOrbit            On
+                    ShowOrbitMarker      On
+                    ShowElsetNum         Off
+                    ShowSpecialSwath     On
+                    MarkerColor          #ff0000
+                    GroundTrackColor     #ff0000
+                    SwathColor           #ff0000
+                    LabelColor           #ff0000
+                    LineStyle            0
+                    LineWidth            1.000000
+                    MarkerStyle          4
+                    FontStyle            0
+                    SwathLineStyle       0
+                    SpecSwathLineStyle   1
+                END DefaultAttributes
+            END TimeComponentIntervalsAttributes
+
+            BEGIN RealTimeAttributes
+                BEGIN HistoryAttr
+                    Show                 On
+                    Inherit              On
+                    ShowLabel            On
+                    ShowGndTrack         On
+                    ShowGndMarker        On
+                    ShowOrbit            On
+                    ShowOrbitMarker      On
+                    ShowElsetNum         Off
+                    ShowSpecialSwath     On
+                    MarkerColor          #00ff00
+                    GroundTrackColor     #00ff00
+                    SwathColor           #00ff00
+                    LabelColor           #00ff00
+                    LineStyle            0
+                    LineWidth            1.000000
+                    MarkerStyle          4
+                    FontStyle            0
+                    SwathLineStyle       0
+                    SpecSwathLineStyle   1
+                END HistoryAttr
+                BEGIN SplineAttr
+                    Show                 On
+                    Inherit              On
+                    ShowLabel            On
+                    ShowGndTrack         On
+                    ShowGndMarker        On
+                    ShowOrbit            On
+                    ShowOrbitMarker      On
+                    ShowElsetNum         Off
+                    ShowSpecialSwath     On
+                    MarkerColor          #ffff00
+                    GroundTrackColor     #ffff00
+                    SwathColor           #ffff00
+                    LabelColor           #ffff00
+                    LineStyle            0
+                    LineWidth            1.000000
+                    MarkerStyle          4
+                    FontStyle            0
+                    SwathLineStyle       0
+                    SpecSwathLineStyle   1
+                END SplineAttr
+                BEGIN LookAheadAttr
+                    Show                 On
+                    Inherit              On
+                    ShowLabel            On
+                    ShowGndTrack         On
+                    ShowGndMarker        On
+                    ShowOrbit            On
+                    ShowOrbitMarker      On
+                    ShowElsetNum         Off
+                    ShowSpecialSwath     On
+                    MarkerColor          #ffffff
+                    GroundTrackColor     #ffffff
+                    SwathColor           #ffffff
+                    LabelColor           #ffffff
+                    LineStyle            0
+                    LineWidth            1.000000
+                    MarkerStyle          4
+                    FontStyle            0
+                    SwathLineStyle       0
+                    SpecSwathLineStyle   1
+                END LookAheadAttr
+                BEGIN DropOutAttr
+                    Show                 On
+                    Inherit              On
+                    ShowLabel            On
+                    ShowGndTrack         On
+                    ShowGndMarker        On
+                    ShowOrbit            On
+                    ShowOrbitMarker      On
+                    ShowElsetNum         Off
+                    ShowSpecialSwath     On
+                    MarkerColor          #ff0000
+                    GroundTrackColor     #ff0000
+                    SwathColor           #ff0000
+                    LabelColor           #ff0000
+                    LineStyle            0
+                    LineWidth            1.000000
+                    MarkerStyle          4
+                    FontStyle            0
+                    SwathLineStyle       0
+                    SpecSwathLineStyle   1
+                END DropOutAttr
+            END RealTimeAttributes
+        END AttributeData
+
+        BEGIN LeadTrailData
+                GtLeadingType             OnePass
+                GtTrailingType            OnePass
+                OrbitLeadingType          OnePass
+                OrbitTrailingType         OnePass
+        END LeadTrailData
+            BEGIN SaaData
+               ShowSaa             Off
+               ShowSaaFill         Off
+               SaaFillTranslucency 0.700000
+               TrackSaa            On
+               SaaAltitude         500000.000000
+            END SaaData
+            Begin GroundTracks
+                Begin GroundTrack
+                    CentralBody  Earth
+                End GroundTrack
+            End GroundTracks
+        BEGIN EllipseSetGxData
+            BEGIN DefEllipseSetGx
+                ShowStatic     On
+                ShowDynamic    On
+                UseLastDynPos  Off
+                HoldLastDynPos Off
+                ShowName       Off
+                ShowMarker     On
+                MarkerStyle    0
+                LineStyle      0
+                LineWidth      1.000000
+            END DefEllipseSetGx
+        END EllipseSetGxData
+    END Graphics
+    
+    BEGIN ClsApp
+		RangeConstraint         5000.000
+		ApoPeriPad              30000.000
+		OrbitPathPad            100000.000
+		TimeDistPad             30000.000
+		OutOfDate               2592000.000
+		MaxApoPeriStep          900.000
+		ApoPeriAngle            0.785
+		UseApogeePerigeeFilter  Yes
+		UsePathFilter           No
+		UseTimeFilter           Yes
+		UseOutOfDate            Yes
+		CreateSats              No
+		MaxSatsToCreate         500
+		UseModelScale           No
+		ModelScale              0.000
+		UseCrossRefDb           Yes
+		CollisionDB                     stkAllTLE.tce
+		CollisionCrossRefDB             stkAllTLE.sd
+		ShowLine                Yes
+		AnimHighlight           Yes
+		StaticHighlight         Yes
+		UseLaunchWindow                         No
+		LaunchWindowUseEntireTraj               Yes
+		LaunchWindowTrajMETStart                0.000
+		LaunchWindowTrajMETStop                 900.000
+		LaunchWindowStart                       0.000
+		LaunchWindowStop                        0.000
+		LaunchMETOffset                         0.000
+		LaunchWindowUseSecEphem                 No 
+		LaunchWindowUseScenFolderForSecEphem    Yes
+		LaunchWindowUsePrimEphem                No 
+		LaunchWindowUseScenFolderForPrimEphem   Yes
+    LaunchWindowIntervalPtr
+	BEGIN	EVENTINTERVAL
+			BEGIN Interval
+				Start	5 Jun 2016 00:00:00.000000000
+				Stop	1 Oct 2016 00:00:00.000000000
+			END Interval
+			IntervalState	Explicit
+	END	EVENTINTERVAL
+
+		LaunchWindowUsePrimMTO                  No 
+		GroupLaunches                           No 
+		LWTimeConvergence                       1.000e-003
+		LWRelValueConvergence                   1.000e-008
+		LWTSRTimeConvergence                    1.000e-004
+		LWTSRRelValueConvergence                1.000e-010
+		LaunchWindowStep                        300.000
+		MaxTSRStep                              180.000
+		MaxTSRRelMotion                         20.000
+		UseLaunchArea                           No 
+		LaunchAreaOrientation                   North
+		LaunchAreaAzimuth                       0.000
+		LaunchAreaXLimits                       -10000.000   10000.000
+		LaunchAreaYLimits                       -10000.000   10000.000
+		LaunchAreaNumXIntrPnts                  1
+		LaunchAreaNumYIntrPnts                  1
+		LaunchAreaAltReference                  Ellipsoid
+		TargetSameStop                          No 
+		SkipSurfaceMetric                       No 
+		LWAreaTSRRelValueConvergence            1.000e-010
+		AreaLaunchWindowStep                    300.000
+		AreaMaxTSRStep                          30.000
+		AreaMaxTSRRelMotion                     1.000
+		ShowLaunchArea                          No 
+		ShowBlackoutTracks                      No 
+		BlackoutColor                           #ff0000
+		ShowClearedTracks                       No 
+		UseObjectForClearedColor                No 
+		ClearedColor                             #ffffff
+		ShowTracksSegments                      Yes
+		ShowMinRangeTracks                      Yes
+		MinRangeTrackTimeStep                   0.500000
+		UsePrimStepForTracks                    Yes
+		GfxTracksTimeStep                       30.000
+		GfxAreaNumXIntrPnts                     1
+		GfxAreaNumYIntrPnts                     1
+		CreateLaunchMTO                         No 
+		CovarianceSigmaScale                    3.000
+		CovarianceMode                          None 
+    END ClsApp
+    
+    BEGIN ExternData
+    END ExternData
+    
+    BEGIN Lifetime
+        Semi_parameter       6.678137000000e+006
+        Eccentricity         0.000000000000e+000
+        Argument_Perigee     0.000000000000e+000
+        RA_Asc_Node          0.000000000000e+000
+        Inclination          4.974188368180e-001
+        UTC_Year             1997
+        UTC_Month            1
+        UTC_Day              1
+        UTC_Hour             0
+        UTC_Minute           0
+        UTC_Second           0.000000000000e+000
+        Limit_Type           OrbitCount
+        Duration_Limit       36525.000000
+        Rev_Count_Limit      99999
+        Revs_Calculation     10
+        Gaussian_Quadratures 1
+        Flux_Sigma_Level     0.000000
+        Gravity_Model_Flag   1
+        Reflection_Coef      1.000000000000e+000
+        Sun_Area             1.543000000000e+001
+        Mass                 -1.000000000000e+000
+        Drag_Coef            2.200000000000e+000
+        Drag_Area            1.365000000000e+001
+        Rotating_Atm_Flag    0
+        Compute_Gamma_Flag   0
+        Initial_Time         0.000000000000e+000
+        Decay_Alt            6.500000000000e+004
+    END Lifetime
+    
+    BEGIN ADFFileData
+    END ADFFileData
+    
+    BEGIN AccessConstraints
+		LineOfSight   IncludeIntervals 
+    END AccessConstraints
+    
+    BEGIN AttitudeSimulator
+	UseReferenceForAttitude  No
+	UseForAttitude  No
+	UsePctCmplt  Yes
+	PctCmpltDivisor  24
+	PctCmpltTitle  Attitude Simulation
+	UseAnimate  No
+	AnimateSampling 1.0000000000000000e+000
+	StartTime  5 Jun 2016 00:00:00.000000000
+	StopTime  1 Oct 2016 00:00:00.000000000
+	Step  0.0000000000000000e+000
+	InitialTime  5 Jun 2016 00:00:00.000000000
+    SmartEpochPtr
+	BEGIN	EVENT
+			Epoch	5 Jun 2016 00:00:00.000000000
+			EventEpoch
+				BEGIN	EVENT
+					Type	EVENT_LINKTO
+					Name	EphemerisStartTime
+				END	EVENT
+			EpochState	Implicit
+	END	EVENT
+
+    SmartIntervalPtr
+	BEGIN	EVENTINTERVAL
+			EventInterval
+				BEGIN	EVENTINTERVAL
+					Type	EVENTINTERVAL_LINKTO
+					Name	EphemerisTimeSpan
+				END	EVENTINTERVAL
+			IntervalState	Implicit
+	END	EVENTINTERVAL
+
+	BEGIN InitialAttitude
+		0.0000000000000000e+000
+		0.0000000000000000e+000
+		0.0000000000000000e+000
+		1.0000000000000000e+000
+	END InitialAttitude
+	Representation  0
+	Sequence  0
+	BEGIN InitialAngVel
+		0.0000000000000000e+000
+		0.0000000000000000e+000
+		0.0000000000000000e+000
+	END InitialAngVel
+	BEGIN InitialMomentumBias
+		0.0000000000000000e+000
+		0.0000000000000000e+000
+		0.0000000000000000e+000
+	END InitialMomentumBias
+	UseMomentumBias  No
+	BEGIN IntegratedSimulation
+		BEGIN Integrator
+			Type RK78
+			RelTol 1.0000000000000000e-003
+			AbsTol 9.9999999999999995e-007
+			MinStep 9.9999999999999995e-007
+			UseMinStep		No
+			MaxStep 1.0000000000000000e+001
+			UseMaxStep		No
+			NumIter 10
+			UseIter		No
+			UseStat		No
+		END Integrator
+		BEGIN Formulation
+		BEGIN EnvironmentData
+			UseApproxAlt    No
+			MeanFlux    150
+			DailyFlux    150
+			GeoMagIndex       3.0000000000000000
+			RefAlt       0.0000000000000000
+			ScaleAlt    8500.0000000000000000
+			RefDensity       1.2170000000000001
+			DensityModel  Exponential
+		END EnvironmentData
+			BEGIN InitList
+			END InitList
+			BEGIN UpdateList
+			END UpdateList
+			BEGIN PostList
+			END PostList
+			UseInitialUpdateStep  No
+			UseUpdateStep  No
+		END Formulation
+	END IntegratedSimulation
+    END AttitudeSimulator
+    
+    BEGIN ObjectCoverage
+    END ObjectCoverage
+    
+    BEGIN Desc
+        ShortText    0
+
+        LongText    0
+
+    END Desc
+    
+    BEGIN Ellipse
+        TimesTrackVehStartTime Yes
+    END Ellipse
+    
+    BEGIN AcquisitionData
+    DataType                   IIRV9
+    CoordinateSystem           1
+    MassAtEpoch                1000.000000
+    IIRV_MessageID                  0
+    IIRV_MessageClass               10
+    IIRV_MessageOrigin              A
+    IIRV_MessageDestination         GSVL
+    IIRV_VectorType                 1
+    IIRV_VectorSource               1
+    IIRV_SupportID                  0
+    IIRV_VehicleIdentificationCode  1
+    IIRV_CounterStart               1
+    IIRV_Area                       0.000000
+    IIRV_DragCoefficient            2.000000
+    IIRV_SolarReflectivity          0.000000
+    IIRV_OriginRouteMsg             HJSC
+    IIRV9_MessageOrigin              A
+    IIRV9_MessageDestination         GSVL
+    IIRV9_VectorSource               1
+    IIRV9_IRON                       1
+    IIRV9_PerturbationCoeffType      0
+    IIRV9_DragCoefficient            2.000000
+    IIRV9_SRPCoefficient             1.000000
+    IIRV9_Area                       0.000000
+    IIRV9_OriginRouteMsg             HJSC
+    IIRV1_MessageDestination         GSVL
+    IIRV1_VectorType                 1
+    IIRV1_VectorSource               1
+    IIRV1_SupportID                  0
+    IIRV1_VehicleIdentificationCode  5
+    IIRV1_CounterStart               1
+    IIRV1_Area                       0.000000
+    IIRV1_DragCoefficient            2.000000
+    IIRV1_OriginRouteMsg             HJSC
+    EPV_MessageID                  1
+    EPV_MessageClass               10
+    EPV_MessageOrigin              A
+    EPV_MessageDestination         GSVL
+    EPV_VectorType                 1
+    EPV_VectorSource               1
+    EPV_SupportID                  0
+    EPV_VehicleIdentificationCode  1
+    EPV_CounterStart               1
+    NASA_MissionID                  eol
+    NASA_MessageID                  0
+    NASA_MessageClass               10
+    NASA_RoutIndicator              GSVL
+    NASA_VectorType                 1
+    NASA_VectorSource               1
+    NASA_Area                       0.000000
+    NASA_DragCoefficient            2.000000
+    NASA_SolarReflectivity          0.000000
+    NASA_OriginRouteMsg             0
+    END AcquisitionData
+    
+    BEGIN Identification
+    END Identification
+    
+    BEGIN Crdn
+    END Crdn
+    
+    BEGIN VO
+    END VO
+
+END Extensions
+
+BEGIN SubObjects
+
+END SubObjects
+
+END Satellite
+
