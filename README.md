@@ -11,7 +11,7 @@ Campaign activities, particularly those related to the Sentinel 2 and 3 satellit
 3. Mooring of a buoy for multiple in-situ measurements on 2016-06-07. The duration of the mooring could be several weeks to months.
 4. Radiative transfer using in-situ measurements to estimate TOA radiances for Sentinel 2 and Sentinel 3 on 2016-06-05 and 2016-06-06.
 
-See the blog postings at http://cyanolakes.com/2016/06/09/sentinel-23-validation-roodeplaat-dam/ and http://cyanolakes.com/2016/06/04/validation-of-sentinel-3/
+See the blog postings at http://cyanolakes.com/validation-roodeplaat-dam/ and http://cyanolakes.com/sentinel-3-validation/
 
 
 
