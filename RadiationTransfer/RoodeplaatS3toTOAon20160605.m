@@ -1,0 +1,86 @@
+%% MODTRAN method of taking Sentinel 3 measurements to TOA
+clear all
+close all
+% The general procedure is:
+% 1) Set up atmospheric model with MicroTOPS data.
+% 2) Estimate mean area-averaged surface spectral reflectance.
+% 3) Compute total downwelling spectral irradiance at BOA for
+%    time of satellite overpass using MODTRAN. This can be
+%    checked against our shoreline measurements, but there are 2 instruments and
+%    they don't agree very well. Will probably revert to using some scaling to
+%    obtain a result that is scale-consistent with measurements and RTC. 
+% 4) Compute water-leaving spectral radiance Lw at BOA with your measured Rrs
+%    data. 
+% 5) Add in water surface-reflected spectral radiance for time of
+%    satellite overpass with atmospheric model (1) to obtain total upwelling
+%    radiance at BOA. Surprisingly, this gave me a bit of opposition last time
+%    I tried it. MODTRAN does not have a water surface reflectance model, so I
+%    will use a water BRDF model with libRadtran. Sanity check can be
+%    performed using computation of sky radiance and multiplying by mean water
+%    reflectance calculated from refractive index of pure water. 
+% 6) Propagate total upwelling radiance at BOA to TOA using atmospheric model (1)
+%    spectral transmittance. 
+% 7) Add in atmospheric spectral path radiance for
+%    atmospheric model (1) to obtain total spectral radiance at TOA. 
+% 8) Compute band spectral radiances for comparison to real S2/S3 data.
+
+%% Set up viewing and solar azimuth geometry
+% The following are exact angles taken from S3 image data
+% In MODTRAN H2 is the target pixel and H1 is the satellite
+% Satellite was in the east as viewed from the dam
+
+OverpassDateVec = [2016 06 05 7 42 31];  % UTC
+OverpassDate = datestr(OverpassDateVec, 'YYYYmmdd');
+OverpassDateNum = datenum(OverpassDateVec);
+OAA = 104.01066;  % deg. Observation azimuth angle (presumably relative to north through east, satellite from dam)
+OZA = 14.151356;  % deg. Observation zenith angle (satellite zenith angle as seen from the dam)
+SAA = 38.719933;  % deg. Solar azimuth angle (presumably relative to north through east)
+SZA = 59.316036;  % deg. Solar zenith angle
+
+% Note : the observation zenith angle is also the angle at which the
+% observation ray strikes the water. It is therefore necessary to compute
+% the sky radiance looking up from BOA at the complementary azimuth 
+% which is OAA - 180 (or OAA + 180 whichever is in the range 0 to 360).
+% In MODTRAN, the solar azimuth is given relative to the
+% satellite azimuth, measured positive north through east.
+%% Set up major adjustables parameters for MODTRAN atmosphere
+GNDALT = 1.225; % km ground altitude
+
+%% First set up MODTRAN model and compute AA surface reflectance
+% The Area-Averaged (AA) surface reflectance is computed from a set
+% of S3 pixels in a radius of 1.3 km of the observation site.
+% This is computed by running MODTRAN with spectrally flat surface
+% reflectance at zero, 50% and 100% albedo. The oxygen absorption and
+% water absorption points are not used.
+% Set up basic MODTRAN satellite observation case
+% MicroTOPS readings are
+% AOT440 = 0.703
+% AOT500 = 0.615
+% AOT675 = 0.362
+% AOT870 = 0.206
+% AOT936 = 0.188
+AOTwv = [440 500 675 870];
+AOT = [0.703 0.615 0.362 0.206];
+AOT550 = interp1(AOTwv, AOT, 550);
+% Water vapour 1.05 cm
+% Surface pressure 892 mb
+% Temperature 22 degC
+% SZA 59.31
+% Time : 07:42:31 UTC
+
+H2O = 1.05; % cm  TBR ?????????????????????
+H2O = H2O * 1.0; % tweak water vapour column
+H2OSTR = ['g' num2str(H2O)];
+O3 = 0.2661; % atm-cm  TBR ????????????????????????????
+O3 = O3 * 1.0; % Tweak O3 column
+O3STR = ['a' num2str(O3)];
+NSTR = 4;  % Number of streams to use for DISORT
+
+% Set up file name of area SNAP pixels for retrieveing area-averaged 
+% ground reflectance. A diameter of about 2.6 km centred on the
+% irradiance station was used.
+AreaSNAPpixles = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt';
+
+%% Now do the heavy lifting
+S3toTOAusingMODTRAN;
+
