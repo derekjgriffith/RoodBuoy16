@@ -292,7 +292,7 @@ ylabel('R_{rs} [sr^{-1}]');
 legend('P1','P2','P3','P4', 'location', 'best')
 grid();
 
-% Compute water-leaving radiance by multuplying Rrs by the GlobBOAirrad
+%% Compute/plot water-leaving radiance by multuplying Rrs by the GlobBOAirrad
 Lw = repmat(GlobalBOAirrad, 1, size(Rrs06Interp, 2)) .* Rrs06Interp;
 % plot water-leaving radiance
 plot(Wv, Lw);
@@ -301,8 +301,10 @@ xlabel('Wavelength [nm]');
 ylabel('L_w [W/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'location', 'best')
 grid();
+print([ResultsFolder filesep 'LwAtBOARev' Rev '.pdf'], '-dpdf');
+print([ResultsFolder filesep 'LwAtBOARev' Rev '.png'], '-dpng');
 
-% Compute water-leaving radiance at TOA by multiplying by the path
+%% Compute/plot water-leaving radiance at TOA by multiplying by the path
 % transmittance
 LwTOA = repmat(S3.sc7.TRANS, 1, size(Lw, 2)) .* Lw;
 plot(Wv, LwTOA);
@@ -342,6 +344,8 @@ xlabel('Wavelength [nm]');
 ylabel('L_w and Sky-Reflected L at BOA [\muW/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'Sky-Reflected', 'location', 'best');
 grid();
+print([ResultsFolder filesep 'LwAndWaterReflLAtBOARev' Rev '.pdf'], '-dpdf');
+print([ResultsFolder filesep 'LwAndWaterReflLAtBOARev' Rev '.png'], '-dpng');
 
 %% Compute and plot total radiance at TOA
 TotalLTOA = TotalRadianceBOA .* repmat(S3.sc7.TRANS, 1, size(Lw, 2)) ...
@@ -352,6 +356,8 @@ xlabel('Wavelength [nm]');
 ylabel('Total Radiance at TOA [\muW/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'location', 'best');
 grid();
+print([ResultsFolder filesep 'TotalLatTOARev' Rev '.pdf'], '-dpdf');
+print([ResultsFolder filesep 'TotalLatTOARev' Rev '.png'], '-dpng');
 
 %% Plot LwTOA over TotalLTOA
 plot(Wv, 1e6 * LwTOA ./ TotalLTOA)
@@ -360,6 +366,8 @@ xlabel('Wavelength [nm]');
 ylabel('L_w at TOA / Total L')
 legend('P1','P2','P3','P4', 'location', 'best');
 grid();
+print([ResultsFolder filesep 'LwOverTotalLatTOARev' Rev '.pdf'], '-dpdf');
+print([ResultsFolder filesep 'LwOverTotalLatTOARev' Rev '.png'], '-dpng');
 
 %% Extract signals for S3 bands 1 to 20
 % First have to expand SRFs onto common wavelength grid
@@ -410,6 +418,8 @@ title(['Percentage Error : S3 vs MODTRAN at TOA on ' OverpassDate]);
 xlabel('Wavelength [nm]');
 ylabel('Error (Difference over Mean) [%]');
 grid;
+print([ResultsFolder filesep 'RelativeErrorMODTRANvsS3Rev' Rev '.pdf'], '-dpdf');
+print([ResultsFolder filesep 'RelativeErrorMODTRANvsS3Rev' Rev '.png'], '-dpng');
 
 %% Compare the solar flux data
 GlobalTOAsolirrad = S3.flx.DirectSol(:,2);  % W/cm^2/nm
@@ -440,6 +450,8 @@ title(['Flux-Corrected Percentage Error : S3 vs MODTRAN at TOA on ' OverpassDate
 xlabel('Wavelength [nm]');
 ylabel('Error (Difference over Mean) [%]');
 grid
+print([ResultsFolder filesep 'RelErrorMODTRANfluxcorrectedVsS3Rev' Rev '.pdf'], '-dpdf');
+print([ResultsFolder filesep 'RelErrorMODTRANfluxcorrectedVsS3Rev' Rev '.png'], '-dpng');
 
 
 
