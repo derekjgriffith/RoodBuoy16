@@ -32,6 +32,7 @@ close all
 OverpassDateVec = [2016 06 05 7 42 31];  % UTC
 OverpassDate = datestr(OverpassDateVec, 'YYYYmmdd');
 OverpassDateNum = datenum(OverpassDateVec);
+ResultsFolder = ['ResultsS3on ' OverpassDate];
 OAA = 104.01066;  % deg. Observation azimuth angle (presumably relative to north through east, satellite from dam)
 OZA = 14.151356;  % deg. Observation zenith angle (satellite zenith angle as seen from the dam)
 SAA = 38.719933;  % deg. Solar azimuth angle (presumably relative to north through east)
@@ -46,7 +47,7 @@ SZA = 59.316036;  % deg. Solar zenith angle
 %% Set up major adjustables parameters for MODTRAN atmosphere
 GNDALT = 1.225; % km ground altitude
 
-%% First set up MODTRAN model and compute AA surface reflectance
+%% First set up the key atmospheric model parameters
 % The Area-Averaged (AA) surface reflectance is computed from a set
 % of S3 pixels in a radius of 1.3 km of the observation site.
 % This is computed by running MODTRAN with spectrally flat surface
@@ -68,7 +69,8 @@ AOT550 = interp1(AOTwv, AOT, 550);
 % SZA 59.31
 % Time : 07:42:31 UTC
 
-H2O = 1.05; % cm  TBR ?????????????????????
+H2O = 1.30; % cm Retrieved from S3
+% H2O = 1.05; % From MicroTOPS
 H2O = H2O * 1.0; % tweak water vapour column
 H2OSTR = ['g' num2str(H2O)];
 O3 = 0.2661; % atm-cm  TBR ????????????????????????????
@@ -80,6 +82,12 @@ NSTR = 4;  % Number of streams to use for DISORT
 % ground reflectance. A diameter of about 2.6 km centred on the
 % irradiance station was used.
 AreaSNAPpixles = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt';
+%% Water surface reflectance
+% Set the spectral water reflectance for the specific geometry
+% Water reflectance at 550 nm can be computed from the Mobley tables
+% Spectral variation can be quite complex, but in the current situation
+% should be quite small.
+WaterReflRho = [350 0.02; 1000 0.02];
 
 %% Now do the heavy lifting
 S3toTOAusingMODTRAN;
