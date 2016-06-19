@@ -56,7 +56,7 @@ S3.CO2MX = 380;      % CO2 mixing ratio, xxx ppm by volume
 S3.H2OSTR = H2OSTR;  % Scale/set of water vapor amount
 S3.O3STR = O3STR;    % Scale/set of ozone profile amount
 S3.C_PROF = '0';     % No scaling of default molecular species profiles
-S3.LSUNFL = 'f';     % Don't read alternative solar irradiance data
+S3.LSUNFL = LSUNFL;     % Read specified solar irradiance data
 S3.LBMNAM = 'f';     % Don't read alternative band model file
 S3.LFLTNM = 't';     % Must read filter file specified
 S3.H2OAER = 'f';     % Don't bother to modify aerosol properties on the basis of H2OSTR
@@ -329,9 +329,9 @@ end
 S3Sky.PARM1 = SunRelAzToSky; % Set the solar-relative viewing azimuth
 S3Sky.Run;
 
-% Set the (spectrally neutral water reflectance)
-WaterReflRho = 0.02;
-WaterReflectedSkyRadiance = S3Sky.sc7.TOTALRAD * 0.02; % microwatts/sr/cm^2/nm
+% Interpolate the water reflectance to the wavelength grid
+WaterReflRhoInterp = interp1(WaterReflRho(:,1), WaterReflRho(:,2), Wv, 'pchip');
+WaterReflectedSkyRadiance = S3Sky.sc7.TOTALRAD .* WaterReflRhoInterp; % microwatts/sr/cm^2/nm
 
 %% Plot the waterleaving radiance and water-reflected sky radiance together
 % Remember to convert to common units of microwatts/sr/cm^2/nm
@@ -361,7 +361,7 @@ ylabel('L_w at TOA / Total L')
 legend('P1','P2','P3','P4', 'location', 'best');
 grid();
 
-% Extract signals for S3 bands 1 to 20
+%% Extract signals for S3 bands 1 to 20
 % First have to expand SRFs onto common wavelength grid
 S3FltInterp = Mod5.InterpFltOnto(S3Flt, Wv);
 % Compute the integrals of the SRFs
@@ -381,17 +381,18 @@ end
 ChanLTOAmW = ChanLTOA * 10;
 
 % Read some water dominated pixels from the S3 image
-[Name,X,Y,Lon,Lat,Color1,Label,Desc,Oa01_radiance,Oa02_radiance,Oa03_radiance,Oa04_radiance, ...
-    Oa05_radiance,Oa06_radiance,Oa07_radiance,Oa08_radiance,Oa09_radiance,Oa10_radiance, ...
-    Oa11_radiance,Oa12_radiance,Oa13_radiance,Oa14_radiance,Oa15_radiance,Oa16_radiance, ...
-    Oa17_radiance,Oa18_radiance,Oa19_radiance,Oa20_radiance, all_radiance] ...
- = importSNAPpins(['..\Data\Sentinel3\WaterDominatedPixelsRoodeplaatS3on' OverpassDate '.txt']);
-
+% [Name,X,Y,Lon,Lat,Color1,Label,Desc,Oa01_radiance,Oa02_radiance,Oa03_radiance,Oa04_radiance, ...
+%     Oa05_radiance,Oa06_radiance,Oa07_radiance,Oa08_radiance,Oa09_radiance,Oa10_radiance, ...
+%     Oa11_radiance,Oa12_radiance,Oa13_radiance,Oa14_radiance,Oa15_radiance,Oa16_radiance, ...
+%     Oa17_radiance,Oa18_radiance,Oa19_radiance,Oa20_radiance, all_radiance] ...
+%  = importSNAPpins(['..\Data\Sentinel3\WaterDominatedPixelsRoodeplaatS3on' OverpassDate '.txt']);
+S3SNAPpixels = ReadSNAPpinData(['..\Data\Sentinel3\WaterDominatedPixelsRoodeplaatS3on' OverpassDate '.txt'], ...
+    'all_radiance', 'Oa([0-9]+)_radiance');
 ChanWv = [400.0	412.5	442.5	490.0	510.0	560.0	620.0	665.0	...
     673.75	681.25	708.75	753.75	761.25	764.375	767.5	778.75	...
     865.0	885.0	900.0	940.0];
 % Plot the S3 TOA radiances with MODTRAN TOA radiances
-plot(ChanWv, ChanLTOAmW, ChanWv, all_radiance, 'o');
+plot(ChanWv, ChanLTOAmW, ChanWv, S3SNAPpixels.all_radiance', 'o');
 title(['TOA Channel Radiance : S3 on ' OverpassDate ' at Roodeplaat']);
 xlabel('Wavelength [nm]');
 ylabel('Channel Radiance [mW/sr/m^2/nm]');
@@ -399,16 +400,46 @@ legend('MOD P1', 'MOD P2', 'MOD P3', 'MOD P4', 'S3');
 grid()
 
 %% Comparison of means
-MeanS3Radiances = mean(all_radiance, 2);
+MeanS3Radiances = mean(S3SNAPpixels.all_radiance);
 MeanChanLTOAmW = mean(ChanLTOAmW, 2);
 plot(ChanWv, MeanChanLTOAmW, 'o-', ChanWv, MeanS3Radiances, 'x-');
 
 % Percentage errors
-plot(ChanWv, 100*2*(MeanS3Radiances-MeanChanLTOAmW)./(MeanS3Radiances+MeanChanLTOAmW), 'o');
+plot(ChanWv, 100*2*(MeanS3Radiances-MeanChanLTOAmW')./(MeanS3Radiances+MeanChanLTOAmW'), 'o');
 title(['Percentage Error : S3 vs MODTRAN at TOA on ' OverpassDate]);
 xlabel('Wavelength [nm]');
-ylabel('Error (Difference ove Mean) [%]');
+ylabel('Error (Difference over Mean) [%]');
 grid;
+
+%% Compare the solar flux data
+GlobalTOAsolirrad = S3.flx.DirectSol(:,2);  % W/cm^2/nm
+GlobalTOAsolirrad = repmat(GlobalTOAsolirrad, 1, size(S3FltInterp, 2)); % W/cm^2/nm
+ChanGlobTOAsolirrad = trapz(Wv, GlobalTOAsolirrad .* S3FltInterp) ./ S3FltInterpIntegral;
+ChanGlobTOAsolirrad = ChanGlobTOAsolirrad * 1000 * 10000;  % Convert to mW/m^2/nm as for S3 data
+ChanGlobTOAsolDNI = ChanGlobTOAsolirrad ./ cos(deg2rad(SZA));   % Get the direct normal irradiance
+% Now read in the S3 data
+S3SolarIrrad = ReadSNAPpinData('..\Data\Sentinel3\S3SolarFluxDataAtRoodeplaatOn20160605.txt', 'all_solar_flux', 'solar_flux_band_([0-9]+)');
+% Unfortunately not in order, so determine the order
+BandOrder = str2double([S3SolarIrrad.all_solar_flux_toks{:}]);
+S3SolarFlux = mean(S3SolarIrrad.all_solar_flux);
+% And reorder
+NewOrder = sortrows([BandOrder' [1:numel(BandOrder)]']);
+S3SolarFlux = S3SolarFlux(NewOrder(:,2));
+%% Plot ratio of MODTRAN solar DNI at TOA to S3 product.
+plot(ChanWv, ChanGlobTOAsolDNI./S3SolarFlux, 'o');
+title(['Solar DNI at TOA : MODTRAN / S3 (Spectrum ' LSUNFL ' )']);
+xlabel('Wavelength [nm]')
+ylabel('Solar DNI MODTRAN / S3');
+grid();
+
+%% Comparison of means after correcting to S3 solar flux
+% Percentage errors
+MeanChanLTOAmWCorr = MeanChanLTOAmW' .* S3SolarFlux ./ ChanGlobTOAsolDNI;
+plot(ChanWv, 100*2*(MeanS3Radiances-MeanChanLTOAmWCorr)./(MeanS3Radiances+MeanChanLTOAmWCorr), 'o');
+title(['Flux-Corrected Percentage Error : S3 vs MODTRAN at TOA on ' OverpassDate]);
+xlabel('Wavelength [nm]');
+ylabel('Error (Difference over Mean) [%]');
+grid
 
 
 
