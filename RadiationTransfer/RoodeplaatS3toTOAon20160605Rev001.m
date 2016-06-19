@@ -33,7 +33,7 @@ OverpassDate = datestr(OverpassDateVec, 'YYYYmmdd');
 OverpassDateNum = datenum(OverpassDateVec);
 ScriptName = mfilename;
 Rev = ScriptName(end-2:end);  % Obtain the revision from the filename.
-ResultsFolder = ['ResultsS3on ' OverpassDate 'Rev' Rev];
+ResultsFolder = ['ResultsS3on' OverpassDate 'Rev' Rev];
 if ~exist(ResultsFolder, 'dir')
     mkdir(ResultsFolder);
 end
