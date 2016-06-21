@@ -82,8 +82,8 @@ AOT550 = interp1(AOTwv, AOT, 550);
 % SZA 59.31
 % Time : 07:42:31 UTC
 
-H2O = 1.30; % cm Retrieved from S3
-% H2O = 1.05; % From MicroTOPS
+%H2O = 1.30; % cm Retrieved from S3
+H2O = 1.05; % From MicroTOPS
 H2O = H2O * 1.0; % tweak water vapour column
 H2OSTR = ['g' num2str(H2O)];
 O3 = 0.2661; % atm-cm  TBR ????????????????????????????
@@ -94,7 +94,8 @@ NSTR = 4;  % Number of streams to use for DISORT
 % Set up file name of area SNAP pixels for retrieveing area-averaged 
 % ground reflectance. A diameter of about 2.6 km centred on the
 % irradiance station was used.
-AreaSNAPpixles = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt';
+AreaSNAPpixels = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt';
+WaterSNAPpixels = '../Data/Sentinel3/S3_0605_Roodeplaat_data.txt';
 %% Water surface reflectance
 % Set the spectral water reflectance for the specific geometry
 % Water reflectance at 550 nm can be computed from the Mobley tables

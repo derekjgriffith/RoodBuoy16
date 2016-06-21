@@ -198,7 +198,7 @@ plot(Albedo,ChnRad');
 %% Obtain the mean area-averaged channel radiances from the S3 overpass
 % Read pixels isolated from the S3 images for retrieving area-averaged
 % surface reflectance.
-S3AApixData = importSNAPpixels(AreaSNAPpixles);
+S3AApixData = importSNAPpixels(AreaSNAPpixels);
 CentreWavelengths = mean(S3AApixData.all_lambda0);
 TargetChnRad = mean(S3AApixData.all_radiance);  % mW/sr/m^2/nm
 % Exclude b21
@@ -394,7 +394,7 @@ ChanLTOAmW = ChanLTOA * 10;
 %     Oa11_radiance,Oa12_radiance,Oa13_radiance,Oa14_radiance,Oa15_radiance,Oa16_radiance, ...
 %     Oa17_radiance,Oa18_radiance,Oa19_radiance,Oa20_radiance, all_radiance] ...
 %  = importSNAPpins(['..\Data\Sentinel3\WaterDominatedPixelsRoodeplaatS3on' OverpassDate '.txt']);
-S3SNAPpixels = ReadSNAPpinData(['..\Data\Sentinel3\WaterDominatedPixelsRoodeplaatS3on' OverpassDate '.txt'], ...
+S3SNAPpixels = ReadSNAPpinData(WaterSNAPpixels, ...
     'all_radiance', 'Oa([0-9]+)_radiance');
 ChanWv = [400.0	412.5	442.5	490.0	510.0	560.0	620.0	665.0	...
     673.75	681.25	708.75	753.75	761.25	764.375	767.5	778.75	...
@@ -408,11 +408,15 @@ legend('MOD P1', 'MOD P2', 'MOD P3', 'MOD P4', 'S3');
 grid()
 
 %% Comparison of means
-MeanS3Radiances = mean(S3SNAPpixels.all_radiance);
+if size(S3SNAPpixels.all_radiance, 1) > 1  % Take mean over all pixels
+    MeanS3Radiances = mean(S3SNAPpixels.all_radiance);
+else
+    MeanS3Radiances = S3SNAPpixels.all_radiance;
+end
 MeanChanLTOAmW = mean(ChanLTOAmW, 2);
 plot(ChanWv, MeanChanLTOAmW, 'o-', ChanWv, MeanS3Radiances, 'x-');
 
-% Percentage errors
+%% Plot percentage errors
 plot(ChanWv, 100*2*(MeanS3Radiances-MeanChanLTOAmW')./(MeanS3Radiances+MeanChanLTOAmW'), 'o');
 title(['Percentage Error : S3 vs MODTRAN at TOA on ' OverpassDate]);
 xlabel('Wavelength [nm]');
