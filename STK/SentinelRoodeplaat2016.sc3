@@ -208,29 +208,6 @@ VO_V100
 
             Begin Globe
                 AA Yes
-                BeginCentralBody "Sun"
-                    Show Yes
-                    Textured No
-                    AltOffset 0.000000
-                    Color #ffff00
-                    SpecularColor #545454
-                    Shininess 40.000000
-                    ShowWater No
-                    _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
-                        BlendMode Value
-                        BlendFactor 1.000000
-                        BlendAltitudeLowerFactor 1.000000
-                        BlendAltitudeUpperFactor 0.000000
-                        BlendAltitudeLowerAltitude 500000.000000
-                        BlendAltitudeUpperAltitude 2500000.000000
-                        TextureRole Day
-                        URI "file:///Sun.jp2"
-                        BeginImageSetDefOn
-                        End
-                        InBase Yes
-                        BaseOn Yes
-                    End
-                EndCentralBody
                 BeginCentralBody "Moon"
                     Show Yes
                     Textured Yes
@@ -248,6 +225,29 @@ VO_V100
                         BlendAltitudeUpperAltitude 2500000.000000
                         TextureRole Day
                         URI "file:///Moon.jp2"
+                        BeginImageSetDefOn
+                        End
+                        InBase Yes
+                        BaseOn Yes
+                    End
+                EndCentralBody
+                BeginCentralBody "Sun"
+                    Show Yes
+                    Textured No
+                    AltOffset 0.000000
+                    Color #ffff00
+                    SpecularColor #545454
+                    Shininess 40.000000
+                    ShowWater No
+                    _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
+                        BlendMode Value
+                        BlendFactor 1.000000
+                        BlendAltitudeLowerFactor 1.000000
+                        BlendAltitudeUpperFactor 0.000000
+                        BlendAltitudeLowerAltitude 500000.000000
+                        BlendAltitudeUpperAltitude 2500000.000000
+                        TextureRole Day
+                        URI "file:///Sun.jp2"
                         BeginImageSetDefOn
                         End
                         InBase Yes
@@ -372,12 +372,12 @@ VO_V100
             End
             Begin CentralBodyOpts
                 BeginCentralBody
-                    Name "Sun"
-                    ShowLabel No
-                EndCentralBody
-                BeginCentralBody
                     Name "Moon"
                     ShowLabel Yes
+                EndCentralBody
+                BeginCentralBody
+                    Name "Sun"
+                    ShowLabel No
                 EndCentralBody
                 BeginCentralBody
                     Name "Earth"

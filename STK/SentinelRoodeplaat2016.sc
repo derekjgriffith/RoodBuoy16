@@ -23,12 +23,12 @@ END Epoch
 BEGIN Interval
 
 Start                   5 Jun 2016 00:00:00.000000000
-Stop                    31 Jul 2016 00:00:00.000000000
+Stop                    31 Aug 2016 00:00:00.000000000
     SmartInterval
 	BEGIN	EVENTINTERVAL
 			BEGIN Interval
 				Start	5 Jun 2016 00:00:00.000000000
-				Stop	31 Jul 2016 00:00:00.000000000
+				Stop	31 Aug 2016 00:00:00.000000000
 			END Interval
 			IntervalState	Explicit
 	END	EVENTINTERVAL
@@ -92,7 +92,7 @@ BEGIN Extensions
 BEGIN Animation
 
     StartTime          5 Jun 2016 00:00:00.000000000
-    EndTime            31 Jul 2016 00:00:00.000000000
+    EndTime            31 Aug 2016 00:00:00.000000000
     CurrentTime        6 Jun 2016 08:17:50.000000000
     Direction          Forward
     UpdateDelta        5.000000
@@ -812,7 +812,7 @@ END MapData
 		LaunchWindowTrajMETStart                0.000
 		LaunchWindowTrajMETStop                 900.000
 		LaunchWindowStart                       -136800.000
-		LaunchWindowStop                        -10245600.000
+		LaunchWindowStop                        -7567200.000
 		LaunchMETOffset                         0.000
 		LaunchWindowUseSecEphem                 No 
 		LaunchWindowUseScenFolderForSecEphem    Yes
@@ -1169,8 +1169,6 @@ END MapData
     END ExportDataFile
     
     BEGIN Desc
-        ShortText    0
-
         LongText    87
 Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in June 2016
     END Desc

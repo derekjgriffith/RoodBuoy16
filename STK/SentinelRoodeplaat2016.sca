@@ -8,16 +8,7 @@ BEGIN Access
     UpdateOnReference        Yes
     DupIsDifferent           No
     UIOrderReversed          No
-    UITimePeriod             Custom
-    CustomTimeInterval
-		BEGIN	EVENTINTERVAL
-				BEGIN Interval
-					Start	5 Jun 2016 00:00:00.000000000
-					Stop	30 Jun 2016 00:00:00.000000000
-				END Interval
-				IntervalState	Explicit
-		END	EVENTINTERVAL
-
+    UITimePeriod             Scenario
     UseLightTimeDelay        Yes
     ClockHost                Base
     TimeSense                Transmit
@@ -30,7 +21,7 @@ BEGIN Access
     RelValueConvergence      1.000000e-008
     DetectEventsUsingSamplesOnly No
 	BEGINUserList 
-        0.000000 2160000.000000
+        0.000000 7516800.000000
 	ENDUserList 
     Show                     Yes
     Inherit                  Yes
@@ -51,16 +42,7 @@ BEGIN Access
     UpdateOnReference        Yes
     DupIsDifferent           No
     UIOrderReversed          No
-    UITimePeriod             Custom
-    CustomTimeInterval
-		BEGIN	EVENTINTERVAL
-				BEGIN Interval
-					Start	5 Jun 2016 00:00:00.000000000
-					Stop	7 Jun 2016 00:00:00.000000000
-				END Interval
-				IntervalState	Explicit
-		END	EVENTINTERVAL
-
+    UITimePeriod             Scenario
     UseLightTimeDelay        Yes
     ClockHost                Base
     TimeSense                Transmit
@@ -73,7 +55,7 @@ BEGIN Access
     RelValueConvergence      1.000000e-008
     DetectEventsUsingSamplesOnly No
 	BEGINUserList 
-        0.000000 172800.000000
+        0.000000 7516800.000000
 	ENDUserList 
     Show                     Yes
     Inherit                  Yes

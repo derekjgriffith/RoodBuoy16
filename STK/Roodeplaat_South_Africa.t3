@@ -302,7 +302,7 @@ VO_V100
             ShowAxisLabels          No
             PosAtObject             Yes
             Transparent             Yes
-            PercentTransparent      79.999995
+            PercentTransparent      79.999989
             IgnoreSceneVAScale      No
             LineWidth               2.000000
             ColorIndex              #00ced1
@@ -376,7 +376,7 @@ VO_V100
     VaporRadius               1000.000000
     VaporExpansionRate        0.010000
     VaporStartTime            0.000000
-    VaporEndTime              4838400.000000
+    VaporEndTime              7516800.000000
     VaporIntervalPtr
 	BEGIN	EVENTINTERVAL
 			EventInterval
