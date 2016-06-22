@@ -396,6 +396,7 @@ ChanLTOAmW = ChanLTOA * 10;
 %  = importSNAPpins(['..\Data\Sentinel3\WaterDominatedPixelsRoodeplaatS3on' OverpassDate '.txt']);
 S3SNAPpixels = ReadSNAPpinData(WaterSNAPpixels, ...
     'all_radiance', 'Oa([0-9]+)_radiance');
+S3SNAPpixels.all_radiance = S3SNAPpixels.all_radiance(:,1:20);  % Take only first 20 channels
 ChanWv = [400.0	412.5	442.5	490.0	510.0	560.0	620.0	665.0	...
     673.75	681.25	708.75	753.75	761.25	764.375	767.5	778.75	...
     865.0	885.0	900.0	940.0];
@@ -457,5 +458,53 @@ grid
 print([ResultsFolder filesep 'RelErrorMODTRANfluxcorrectedVsS3Rev' Rev '.pdf'], '-dpdf');
 print([ResultsFolder filesep 'RelErrorMODTRANfluxcorrectedVsS3Rev' Rev '.png'], '-dpng');
 
+%% Now attempt a retrieval of Lw at BOA
+RadianceBOAWithoutLw = WaterReflectedSkyRadiance;  % microwatts/sr/cm^2/nm
+LTOAWithoutLw = RadianceBOAWithoutLw .* S3.sc7.TRANS ...
+                    + S3.sc7.TOTALRAD;  % microwatts/sr/cm^2/nm
+%% Compute channel radiances for LTOA Without Lw
+ChanLTOAWoLw = zeros(size(S3FltInterp, 2), size(LTOAWithoutLw, 2));
+for iChan = 1:numel(S3FltInterpIntegral)
+    % Grab the channel flt function and replicate up to the number of
+    % water sample positions
+    ChanFilter = repmat(S3FltInterp(:,iChan), 1, size(LTOAWithoutLw, 2));
+    ChanLTOAProductWoLw = ChanFilter .* LTOAWithoutLw;
+    ChanLTOAWoLw(iChan, :) = trapz(Wv, ChanLTOAProductWoLw) / S3FltInterpIntegral(iChan);
+end
+% Convert to mW/sr/m^2/nm from microwatts/sr/cm^2/nm, a factor of 10
+ChanLTOAmWWoLw = ChanLTOAWoLw * 10;
+
+%% Compute and plot the percentage difference between S3 at TOA
+% and MODTRAN at TOA without Lw
+MeanChanLTOAmWWoLw = mean(ChanLTOAmWWoLw, 2);
+plot(ChanWv, MeanChanLTOAmWWoLw, 'o-', ChanWv, MeanS3Radiances, 'x-');
+% Correct for solar flux differences
+MeanChanLTOAmWWoLwCorr = MeanChanLTOAmWWoLw' .* S3SolarFlux ./ ChanGlobTOAsolDNI;
+RetrievedLwAtTOA = MeanS3Radiances - MeanChanLTOAmWWoLwCorr;
+plot(ChanWv, RetrievedLwAtTOA);
+
+%% Now back to BOA by dividing by the path transmittance
+% First need to average the path transmittance over each of the S3
+% bands
+S3BandPathTransmittance = zeros(size(S3FltInterp, 2), size(LTOAWithoutLw, 2));
+for iChan = 1:numel(S3FltInterpIntegral)
+    % Grab the channel flt function and replicate up to the number of
+    % water sample positions
+    ChanFilter = S3FltInterp(:,iChan);
+    PathTransmittanceProduct = ChanFilter .* S3.sc7.TRANS;
+    % Compute Weighted mean path transmittance
+    S3BandPathTransmittance(iChan) = trapz(Wv, PathTransmittanceProduct) / S3FltInterpIntegral(iChan);
+end
+% Retrieve Lw at BOA
+RetrievedLwAtBOA = RetrievedLwAtTOA ./ S3BandPathTransmittance'; % mW/sr/m^2/nm
+%% Plot retrieved L_w at BOA
+% Lw is in units of W/sr/cm^2/sr, so multiply by 1000 * 100 * 100
+plot(Wv, Lw*100*100*1000, ChanWv, RetrievedLwAtBOA, 'ko-');  % in mW/sr/m^2/nm
+title('S3 Retrieved L_w and Calculated L_w at BOA');
+xlabel('Wavelength [nm]');
+ylabel('L_w at BOA [mW/sr/m^2/nm]');
+grid();
+print([ResultsFolder filesep 'S3RetrievedAndMeasuredLwAtBOARev' Rev '.pdf'], '-dpdf');
+print([ResultsFolder filesep 'S3RetrievedAndMeasuredLwAtBOARev' Rev '.png'], '-dpng');
 
 
