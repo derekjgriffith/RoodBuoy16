@@ -81,6 +81,7 @@ AOT550 = interp1(AOTwv, AOT, 550);
 % Temperature 22 degC
 % SZA 59.31
 % Time : 07:42:31 UTC
+NSSALB = 0;  % No single scattering albedo manipulation
 
 %H2O = 1.30; % cm Retrieved from S3
 H2O = 1.05; % From MicroTOPS
@@ -96,6 +97,8 @@ NSTR = 4;  % Number of streams to use for DISORT
 % irradiance station was used.
 AreaSNAPpixels = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt';
 WaterSNAPpixels = '../Data/Sentinel3/S3_0605_Roodeplaat_data.txt';
+RrsFile = '..\Data\Rrs\Roodeplaat_ASD_rrs.txt';
+RrsColumns = 1 + [1 3 5 7]; % Columns measured on 2016-06-05, see ../Data/Rrs/Roodeplaat_ASD_rrs_names.txt
 %% Water surface reflectance
 % Set the spectral water reflectance for the specific geometry
 % Water reflectance at 550 nm can be computed from the Mobley tables

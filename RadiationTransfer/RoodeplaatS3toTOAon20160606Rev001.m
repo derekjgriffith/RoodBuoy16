@@ -76,6 +76,10 @@ GNDALT = 1.225; % km ground altitude
 AOTwv = [440 500 675 870];
 AOT = [0.728 0.644 0.395 0.237];
 AOT550 = interp1(AOTwv, AOT, 550);
+%AOT550 = 0.45; %%%%%%%% ?????????????????????????????????????????????
+NSSALB = 4;  % Number of single scattering albedo point to read on card
+AWAVLN = [0.4 0.675 0.875 1.0];
+ASSALB = [0.9 0.85 0.82 0.79];  % Roughly taken from AERONET
 % Water vapour 0.99 cm
 % Surface pressure 894 mb
 % Temperature 20.5 degC
@@ -96,6 +100,8 @@ NSTR = 4;  % Number of streams to use for DISORT
 % irradiance station was used.
 AreaSNAPpixels = '../Data/Sentinel3/S3A_OL_1_EFR____20160606T071536_20160606T071836_20160607T180921_0179_005_063_3419_LN1_O_NT_001_geometry_Mask.txt';
 WaterSNAPpixels = '../Data/Sentinel3/S3_0606_Roodeplaat_data.txt';
+RrsFile = '..\Data\Rrs\Roodeplaat_ASD_rrs.txt';
+RrsColumns = 1 + [2 4 6 8]; % Columns measured on 2016-06-06, see ../Data/Rrs/Roodeplaat_ASD_rrs_names.txt
 %% Water surface reflectance
 % Set the spectral water reflectance for the specific geometry
 % Water reflectance at 550 nm can be computed from the Mobley tables
