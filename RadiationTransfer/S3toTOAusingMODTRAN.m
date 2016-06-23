@@ -13,7 +13,7 @@ Mod5.ParallelFriendly(true);
 % This case is visible/near-infared (VIS/NIR) wavelengths
 S3 = Mod5;    % Get a completely empty case instance
 % Set up name and short description
-S3 = S3.SetCaseName(['S3Rood2' OverpassDate]); % The SetCaseName method is the only way to set the CaseName property
+S3 = S3.SetCaseName(['S3Rood' OverpassDate]); % The SetCaseName method is the only way to set the CaseName property
 S3.CaseDescr = ['S3 Overpass at Roodeplaat Dam on ' OverpassDate];
 
 % Note that if a card is required, ALL parameters on that card must be set,
@@ -69,7 +69,13 @@ S3.CDASTM = ' ';     % No Angstrom law manipulations
 % S3.ASTMX
 % S3.ASTMO
 % S3.AERRH
-S3.NSSALB = 0;       % Use reference aerosol single-scattering albedo
+S3.NSSALB = NSSALB;       % Manipulate single scattering albedo if required
+
+% Card 1B for single scattering albedo
+if NSSALB > 0
+    S3.AWAVLN = AWAVLN;   % Wavelengths for single scattering albedo in microns
+    S3.ASSALB = ASSALB;   % Single scattering albdeo
+end
 
 % Deal with EO camera band filters
 % Read the Sentinel 3 spectral response functions
@@ -273,9 +279,9 @@ legend('MODTRAN Smoothed', 'ASD', 'location', 'best');
 grid();
 %% Compute the water-leaving radiance
 % First read in the R_rs values from Mark Matthews
-RoodeRrsAll = dlmread('..\Data\Rrs\Roodeplaat_ASD_rrs.txt', '\t');
+RoodeRrsAll = dlmread(RrsFile, '\t');
 RrsWv = RoodeRrsAll(:,1);
-Rrs06 = RoodeRrsAll(:, 1 + [1 3 5 7]);  % Select for June 5  ???????????
+Rrs06 = RoodeRrsAll(:, RrsColumns);  % Select for day
 plot(RrsWv, Rrs06);
 title(['R_{rs} for Roodeplaat Dam on ' OverpassDate]);
 xlabel('Wavelength [nm]');
