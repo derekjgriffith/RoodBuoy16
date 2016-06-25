@@ -58,6 +58,7 @@ SZA = 59.316036;  % deg. Solar zenith angle
 % 6 : Sub-region renormalized Kurucz 1997
 % 7 : Kurucz 1995 
 LSUNFL = '4';
+SolarSpectrum = 'Thuillier + Kurucz 1997';
 GNDALT = 1.225; % km ground altitude
 
 %% First set up the key atmospheric model parameters
