@@ -1,6 +1,11 @@
 % Run the script for the particular overpass and conditions before running
 % this script.
 %% Set up initial run of MODTRAN
+FileExts = {'pdf', 'png'};  % Save plots in these formats
+TagFontProperties = {'FontSize', 6, 'FontAngle', 'italic'}; % Tag font properties in plots
+% Get a Git description of the repo to use as the plot tag in lower left
+% corner
+[RetCode, GitDescr] = system('git describe --dirty --always --tags');
 % Set parallel friendly mode (allows multiple MODTRAN cases to run in parallel
 % on the same computer without a conflict.
 % Set up wavelength intervals and resolutions 
@@ -63,13 +68,23 @@ S3.H2OAER = 'f';     % Don't bother to modify aerosol properties on the basis of
 S3.CDTDIR = 'f';     % Data files are in the default location
 S3.SOLCON = -1;      % Unity scaling of TOA solar irradiance, but apply seasonal correction
 S3.CDASTM = ' ';     % No Angstrom law manipulations
-% Not really necessary to set the Angstrom law data since it will not be
-% used
-% S3.ASTMC
-% S3.ASTMX
-% S3.ASTMO
+% Set up Angstrom law perturbations if provided
+if exist('ASTMC', 'var')
+    S3.ASTMC = ASTMC; 
+end
+if exist('ASTMX', 'var')
+    S3.ASTMX = ASTMX;
+end
+if exist('ASTMO', 'var')
+    S3.ASTMO = ASTMO;
+end
 % S3.AERRH
 S3.NSSALB = NSSALB;       % Manipulate single scattering albedo if required
+
+% Deal with card 1A1 - user-defined solar spectrum
+if strcmpi(LSUNFL, 'T')
+    S3.USRSUN = ['..' filesep 'DATA' filesep USRSUN];   
+end
 
 % Card 1B for single scattering albedo
 if NSSALB > 0
@@ -185,6 +200,28 @@ S3.PlotTp7({'SINGSCAT', 'DRCTRFLT', 'TOTALRAD'});
 % Plot a few of the channel outputs
 S3.PlotChn({'PATH_TOTAL_SCAT_SOLAR','TOTAL_TRANSM_GRND_REFLECT'})
 S3.PlotChn('SPECTRAL_RADIANCE')
+%% Run with vertical path to verify the AOD/AOT
+S3Trans = S3;
+S3Trans.SetCaseName(['S3RoodTrans' OverpassDate]);
+% Set path vertical
+S3Trans.PHI = 0;
+S3Trans = S3Trans.Run;
+% Record the optical depth
+S3TransTotalOD = S3Trans.sc7.DEPTH;
+% Switch off aerosols and run again
+S3Trans.IHAZE = 0;
+S3Trans = S3Trans.Run;
+S3TransNoAerosolOD = S3Trans.sc7.DEPTH;
+S3AOD = S3TransTotalOD - S3TransNoAerosolOD;
+AODWv = S3Trans.sc7.WAVLNM;
+figure;
+plot(AODWv, S3AOD, AOTwv, AOT, 'o', 550, AOT550, 'o');
+title(['Vertical Aerosol Optical Depth, Roodeplaat ' OverpassDate])
+xlabel('Wavelength [nm]');
+ylabel('AOD')
+legend('MODTRAN', 'MicroTOPS', 'MicroTOPS Interpolated', 'location', 'best')
+grid();
+SaveTaggedPlots(GitDescr, ResultsFolder,  'AOD', Rev, FileExts, TagFontProperties)
 
 %% Now run again, this time with multiple surface reflectances
 Albedo = 0:0.25:1.0;
@@ -199,7 +236,7 @@ for iCase = 1:numel(S3SurRef)
     ChnRad(:, iCase) = S3SurRef(iCase).chn.SPECTRAL_RADIANCE;
 end
 ChnRad = ChnRad * 10000 * 1000;  % Convert from W/sr/cm^2/nm to mW/sr/m^2/nm
-plot(Albedo,ChnRad'); 
+%plot(Albedo, ChnRad'); 
 
 %% Obtain the mean area-averaged channel radiances from the S3 overpass
 % Read pixels isolated from the S3 images for retrieving area-averaged
@@ -218,7 +255,14 @@ end
 WantedChannels = [1:15 17:19];
 WantedRetrievedAlbedo = RetrievedAlbedo(WantedChannels);
 WantedCentreWv = CentreWavelengths(WantedChannels);
+figure;
 plot(WantedCentreWv, WantedRetrievedAlbedo);
+title(['Retrieved Area-Averaged Surface Reflectance, Roodeplaat ' OverpassDate])
+xlabel('Wavelength [nm]');
+ylabel('Area-Averaged Albedo')
+grid();
+SaveTaggedPlots(GitDescr, ResultsFolder,  'AreaAveAlbedo', Rev, FileExts, TagFontProperties);
+
 %% Set up run with retrieved AA surface reflectance on black target
 % Will run an NSURF = 2 case with black pixel and area-averaged albedo
 % Build a surface albedo structure for the area-averaged reflectance
@@ -242,34 +286,40 @@ figure;
 Wv = S3.flx.Spectral;  % nm
 % Compute total downwelling
 GlobalBOAirrad = S3.flx.DownDiff(:,1) + S3.flx.DirectSol(:,1);
+figure;
 plot(Wv, GlobalBOAirrad);
 title('Total Downwelling Irradiance at BOA');
 xlabel('Wavelength [nm]');
 ylabel('Total Irradiance [W/cm^2/nm]');
-
+SaveTaggedPlots(GitDescr, ResultsFolder,  'TotalDownIrradBOA', Rev, FileExts, TagFontProperties);
 % !!! Note that irradiances are in W/cm^2/nm, while
 % S3.sc7 radiances are in microwatts/sr/cm^2/nm
 
-% Also plot diffuse to global
+%% Also plot diffuse to global
 DiffuseToGlobalBOA = S3.flx.DownDiff(:,1) ./ GlobalBOAirrad;
+figure;
 plot(Wv, DiffuseToGlobalBOA);
 title('Diffuse/Global Ratio, Downwelling Irradiance at BOA');
 xlabel('Wavelength [nm]');
 ylabel('Diffuse/Global Ratio');
 grid();
+SaveTaggedPlots(GitDescr, ResultsFolder,  'DiffuseToGlobalIrradBOA', Rev, FileExts, TagFontProperties);
 
 %% Read in the BWTek data for comparison 
 % Uncertainty over the clock - is there a clock in the instrument ?
 load(['..\Data\BWtekData\BWTekData' OverpassDate '.mat']);
+figure;
 plot(Wv, fastsmooth(GlobalBOAirrad, 30), BWTekDataOrdered(1).Wavelength,  BWTekDataOrdered(1).IrradiancemWcm2nm1/1000, ...
     BWTekDataOrdered(end-10).Wavelength,  BWTekDataOrdered(end-10).IrradiancemWcm2nm1/1000);
 title('Total Downwelling Irradiance at BOA');
 xlabel('Wavelength [nm]');
 ylabel('Total Irradiance [W/cm^2/nm]');
 grid();
+%SaveTaggedPlots(GitDescr, ResultsFolder,  'BWTekIrradBOA', Rev, FileExts, TagFontProperties);
 
 %% Read in and plot the ASD data - definitely UTC
-load(['..\Data\ASDIrrad\ASDIrradS3on' OverpassDate '.mat'])
+load(['..\Data\ASDIrrad\ASDIrradS3on' OverpassDate '.mat']);
+figure;
 plot(Wv, fastsmooth(GlobalBOAirrad, 120), ASDIrradMean.Wv, ASDIrradMean.RadData/10000); % Converting to W/cm^2/nm
 title('Total Downwelling Irradiance at BOA');
 xlabel('Wavelength [nm]');
@@ -282,43 +332,48 @@ grid();
 RoodeRrsAll = dlmread(RrsFile, '\t');
 RrsWv = RoodeRrsAll(:,1);
 Rrs06 = RoodeRrsAll(:, RrsColumns);  % Select for day
-plot(RrsWv, Rrs06);
-title(['R_{rs} for Roodeplaat Dam on ' OverpassDate]);
-xlabel('Wavelength [nm]');
-ylabel('R_{rs} [sr^{-1}]');
-legend('P1','P2','P3','P4', 'location', 'best')
-grid();
+% figure;
+% plot(RrsWv, Rrs06);
+% title(['R_{rs} for Roodeplaat Dam on ' OverpassDate]);
+% xlabel('Wavelength [nm]');
+% ylabel('R_{rs} [sr^{-1}]');
+% legend('P1','P2','P3','P4', 'location', 'best')
+% grid();
 
-% Interpolate R_rs to flux/sc7 wavelength grid
+%% Interpolate R_rs to flux/sc7 wavelength grid and plot
 Rrs06Interp = interp1(RrsWv, Rrs06, Wv, 'linear');
+figure;
 plot(Wv, Rrs06Interp);
 title(['R_{rs} for Roodeplaat Dam on ' OverpassDate]);
 xlabel('Wavelength [nm]');
 ylabel('R_{rs} [sr^{-1}]');
 legend('P1','P2','P3','P4', 'location', 'best')
 grid();
+SaveTaggedPlots(GitDescr, ResultsFolder,  'RrsASD', Rev, FileExts, TagFontProperties);
 
 %% Compute/plot water-leaving radiance by multuplying Rrs by the GlobBOAirrad
 Lw = repmat(GlobalBOAirrad, 1, size(Rrs06Interp, 2)) .* Rrs06Interp;
 % plot water-leaving radiance
+figure
 plot(Wv, Lw);
 title(['Water-leaving Radiance at BOA, Roodeplaat ' OverpassDate])
 xlabel('Wavelength [nm]');
 ylabel('L_w [W/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'location', 'best')
 grid();
-print([ResultsFolder filesep 'LwAtBOARev' Rev '.pdf'], '-dpdf');
-print([ResultsFolder filesep 'LwAtBOARev' Rev '.png'], '-dpng');
+SaveTaggedPlots(GitDescr, ResultsFolder,  'LwAtBOA', Rev, FileExts, TagFontProperties);
 
 %% Compute/plot water-leaving radiance at TOA by multiplying by the path
 % transmittance
 LwTOA = repmat(S3.sc7.TRANS, 1, size(Lw, 2)) .* Lw;
+figure;
 plot(Wv, LwTOA);
 title(['Water-leaving Radiance at TOA, Roodeplaat ' OverpassDate])
 xlabel('Wavelength [nm]');
 ylabel('L_w at TOA [W/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'location', 'best')
 grid();
+SaveTaggedPlots(GitDescr, ResultsFolder,  'RemainingLwAtTOA', Rev, FileExts, TagFontProperties);
 
 %% Compute the sky radiance as seen by reflection
 % H1 = sensor, H2 = target
@@ -344,36 +399,38 @@ WaterReflectedSkyRadiance = S3Sky.sc7.TOTALRAD .* WaterReflRhoInterp; % microwat
 %% Plot the waterleaving radiance and water-reflected sky radiance together
 % Remember to convert to common units of microwatts/sr/cm^2/nm
 TotalRadianceBOA = Lw * 1e6 + repmat(WaterReflectedSkyRadiance, 1, size(Lw, 2));  % microwatts/sr/cm^2/nm
+figure;
 plot(Wv, Lw*1e6, Wv, WaterReflectedSkyRadiance);
 title(['Water-leaving and Sky-Reflected Radiance at BOA, S3 on ' OverpassDate]);
 xlabel('Wavelength [nm]');
 ylabel('L_w and Sky-Reflected L at BOA [\muW/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'Sky-Reflected', 'location', 'best');
 grid();
-print([ResultsFolder filesep 'LwAndWaterReflLAtBOARev' Rev '.pdf'], '-dpdf');
-print([ResultsFolder filesep 'LwAndWaterReflLAtBOARev' Rev '.png'], '-dpng');
+SaveTaggedPlots(GitDescr, ResultsFolder,  'LwAndWaterReflLAtBOA', Rev, FileExts, TagFontProperties);
 
 %% Compute and plot total radiance at TOA
 TotalLTOA = TotalRadianceBOA .* repmat(S3.sc7.TRANS, 1, size(Lw, 2)) ...
                     + repmat(S3.sc7.TOTALRAD, 1, size(Lw, 2));  % microwatts/sr/cm^2/nm
+figure;                
 plot(Wv, TotalLTOA);
 title(['Total Radiance at TOA, S3 on ' OverpassDate]);
 xlabel('Wavelength [nm]');
 ylabel('Total Radiance at TOA [\muW/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'location', 'best');
 grid();
-print([ResultsFolder filesep 'TotalLatTOARev' Rev '.pdf'], '-dpdf');
-print([ResultsFolder filesep 'TotalLatTOARev' Rev '.png'], '-dpng');
+SaveTaggedPlots(GitDescr, ResultsFolder,  'TotalLatTOA', Rev, FileExts, TagFontProperties);
+
 
 %% Plot LwTOA over TotalLTOA
+figure;
 plot(Wv, 1e6 * LwTOA ./ TotalLTOA)
 title(['L_w Over Total L at TOA, S3 on ' OverpassDate])
 xlabel('Wavelength [nm]');
 ylabel('L_w at TOA / Total L')
 legend('P1','P2','P3','P4', 'location', 'best');
 grid();
-print([ResultsFolder filesep 'LwOverTotalLatTOARev' Rev '.pdf'], '-dpdf');
-print([ResultsFolder filesep 'LwOverTotalLatTOARev' Rev '.png'], '-dpng');
+SaveTaggedPlots(GitDescr, ResultsFolder,  'LwOverTotalLatTOA', Rev, FileExts, TagFontProperties);
+
 
 %% Extract signals for S3 bands 1 to 20
 % First have to expand SRFs onto common wavelength grid
@@ -407,13 +464,14 @@ ChanWv = [400.0	412.5	442.5	490.0	510.0	560.0	620.0	665.0	...
     673.75	681.25	708.75	753.75	761.25	764.375	767.5	778.75	...
     865.0	885.0	900.0	940.0];
 % Plot the S3 TOA radiances with MODTRAN TOA radiances
+figure;
 plot(ChanWv, ChanLTOAmW, ChanWv, S3SNAPpixels.all_radiance', 'o');
 title(['TOA Channel Radiance : S3 on ' OverpassDate ' at Roodeplaat']);
 xlabel('Wavelength [nm]');
 ylabel('Channel Radiance [mW/sr/m^2/nm]');
 legend('MOD P1', 'MOD P2', 'MOD P3', 'MOD P4', 'S3');
-grid()
-
+grid();
+SaveTaggedPlots(GitDescr, ResultsFolder,  'S3andMODTRANTotalLatTOA', Rev, FileExts, TagFontProperties);
 %% Comparison of means
 if size(S3SNAPpixels.all_radiance, 1) > 1  % Take mean over all pixels
     MeanS3Radiances = mean(S3SNAPpixels.all_radiance);
@@ -421,16 +479,16 @@ else
     MeanS3Radiances = S3SNAPpixels.all_radiance;
 end
 MeanChanLTOAmW = mean(ChanLTOAmW, 2);
-plot(ChanWv, MeanChanLTOAmW, 'o-', ChanWv, MeanS3Radiances, 'x-');
+%plot(ChanWv, MeanChanLTOAmW, 'o-', ChanWv, MeanS3Radiances, 'x-');
 
 %% Plot percentage errors
+figure;
 plot(ChanWv, 100*2*(MeanS3Radiances-MeanChanLTOAmW')./(MeanS3Radiances+MeanChanLTOAmW'), 'o');
 title(['Percentage Error : S3 vs MODTRAN at TOA on ' OverpassDate]);
 xlabel('Wavelength [nm]');
 ylabel('Error (Difference over Mean) [%]');
 grid;
-print([ResultsFolder filesep 'RelativeErrorMODTRANvsS3Rev' Rev '.pdf'], '-dpdf');
-print([ResultsFolder filesep 'RelativeErrorMODTRANvsS3Rev' Rev '.png'], '-dpng');
+SaveTaggedPlots(GitDescr, ResultsFolder,  'RelativeErrorMODTRANvsS3', Rev, FileExts, TagFontProperties)
 
 %% Compare the solar flux data
 GlobalTOAsolirrad = S3.flx.DirectSol(:,2);  % W/cm^2/nm
@@ -447,22 +505,24 @@ S3SolarFlux = mean(S3SolarIrrad.all_solar_flux);
 NewOrder = sortrows([BandOrder' [1:numel(BandOrder)]']);
 S3SolarFlux = S3SolarFlux(NewOrder(:,2));
 %% Plot ratio of MODTRAN solar DNI at TOA to S3 product.
+figure
 plot(ChanWv, ChanGlobTOAsolDNI./S3SolarFlux, 'o');
-title(['Solar DNI at TOA : MODTRAN / S3 (Spectrum ' LSUNFL ' )']);
+title(['Solar DNI at TOA : MODTRAN / S3 (Spectrum ' SolarSpectrum ' )']);
 xlabel('Wavelength [nm]')
 ylabel('Solar DNI MODTRAN / S3');
 grid();
+SaveTaggedPlots(GitDescr, ResultsFolder,  'TOASolarDNIFluxMODTRANoverS3', Rev, FileExts, TagFontProperties);
 
 %% Comparison of means after correcting to S3 solar flux
 % Percentage errors
 MeanChanLTOAmWCorr = MeanChanLTOAmW' .* S3SolarFlux ./ ChanGlobTOAsolDNI;
+figure;
 plot(ChanWv, 100*2*(MeanS3Radiances-MeanChanLTOAmWCorr)./(MeanS3Radiances+MeanChanLTOAmWCorr), 'o');
 title(['Flux-Corrected Percentage Error : S3 vs MODTRAN at TOA on ' OverpassDate]);
 xlabel('Wavelength [nm]');
 ylabel('Error (Difference over Mean) [%]');
-grid
-print([ResultsFolder filesep 'RelErrorMODTRANfluxcorrectedVsS3Rev' Rev '.pdf'], '-dpdf');
-print([ResultsFolder filesep 'RelErrorMODTRANfluxcorrectedVsS3Rev' Rev '.png'], '-dpng');
+grid;
+SaveTaggedPlots(GitDescr, ResultsFolder,  'RelErrorMODTRANfluxcorrectedVsS3', Rev, FileExts, TagFontProperties);
 
 %% Now attempt a retrieval of Lw at BOA
 RadianceBOAWithoutLw = WaterReflectedSkyRadiance;  % microwatts/sr/cm^2/nm
@@ -483,10 +543,12 @@ ChanLTOAmWWoLw = ChanLTOAWoLw * 10;
 %% Compute and plot the percentage difference between S3 at TOA
 % and MODTRAN at TOA without Lw
 MeanChanLTOAmWWoLw = mean(ChanLTOAmWWoLw, 2);
+figure
 plot(ChanWv, MeanChanLTOAmWWoLw, 'o-', ChanWv, MeanS3Radiances, 'x-');
 % Correct for solar flux differences
 MeanChanLTOAmWWoLwCorr = MeanChanLTOAmWWoLw' .* S3SolarFlux ./ ChanGlobTOAsolDNI;
 RetrievedLwAtTOA = MeanS3Radiances - MeanChanLTOAmWWoLwCorr;
+figure;
 plot(ChanWv, RetrievedLwAtTOA);
 
 %% Now back to BOA by dividing by the path transmittance
@@ -505,11 +567,14 @@ end
 RetrievedLwAtBOA = RetrievedLwAtTOA ./ S3BandPathTransmittance'; % mW/sr/m^2/nm
 %% Plot retrieved L_w at BOA
 % Lw is in units of W/sr/cm^2/sr, so multiply by 1000 * 100 * 100
+figure;
 plot(Wv, Lw*100*100*1000, ChanWv, RetrievedLwAtBOA, 'ko-');  % in mW/sr/m^2/nm
 title('S3 Retrieved L_w and Calculated L_w at BOA');
 xlabel('Wavelength [nm]');
 ylabel('L_w at BOA [mW/sr/m^2/nm]');
 grid();
+SaveTaggedPlots(GitDescr, ResultsFolder,  'S3RetrievedAndMeasuredLwAtBOA', Rev, FileExts, TagFontProperties);
+
 print([ResultsFolder filesep 'S3RetrievedAndMeasuredLwAtBOARev' Rev '.pdf'], '-dpdf');
 print([ResultsFolder filesep 'S3RetrievedAndMeasuredLwAtBOARev' Rev '.png'], '-dpng');
 
