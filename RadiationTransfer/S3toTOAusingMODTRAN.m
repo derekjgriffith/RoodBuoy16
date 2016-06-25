@@ -67,7 +67,7 @@ S3.LFLTNM = 't';     % Must read filter file specified
 S3.H2OAER = 'f';     % Don't bother to modify aerosol properties on the basis of H2OSTR
 S3.CDTDIR = 'f';     % Data files are in the default location
 S3.SOLCON = -1;      % Unity scaling of TOA solar irradiance, but apply seasonal correction
-S3.CDASTM = ' ';     % No Angstrom law manipulations
+S3.CDASTM = CDASTM;     % Angstrom law perturbation flag.
 % Set up Angstrom law perturbations if provided
 if exist('ASTMC', 'var')
     S3.ASTMC = ASTMC; 

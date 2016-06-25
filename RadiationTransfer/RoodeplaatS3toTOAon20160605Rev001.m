@@ -82,6 +82,7 @@ AOT550 = interp1(AOTwv, AOT, 550);
 % Temperature 22 degC
 % SZA 59.31
 % Time : 07:42:31 UTC
+CDASTM = ' ';  % No aerosol Angstrom perturbations.
 NSSALB = 0;  % No single scattering albedo manipulation
 
 %H2O = 1.30; % cm Retrieved from S3
