@@ -58,6 +58,7 @@ SZA = 63.2531;  % deg. Solar zenith angle
 % 6 : Sub-region renormalized Kurucz 1997
 % 7 : Kurucz 1995 
 LSUNFL = '4';
+SolarSpectrum = 'Thuillier + Kurucz 1997';
 GNDALT = 1.225; % km ground altitude
 
 %% First set up the key atmospheric model parameters
@@ -77,6 +78,7 @@ AOTwv = [440 500 675 870];
 AOT = [0.728 0.644 0.395 0.237];
 AOT550 = interp1(AOTwv, AOT, 550);
 %AOT550 = 0.45; %%%%%%%% ?????????????????????????????????????????????
+ASTMX = 1.2;
 NSSALB = 4;  % Number of single scattering albedo point to read on card
 AWAVLN = [0.4 0.675 0.875 1.0];
 ASSALB = [0.9 0.85 0.82 0.79];  % Roughly taken from AERONET
@@ -84,7 +86,7 @@ ASSALB = [0.9 0.85 0.82 0.79];  % Roughly taken from AERONET
 % Surface pressure 894 mb
 % Temperature 20.5 degC
 % SZA 63.29
-WindSpeed = 1;  % m/s, probably less than 1
+WindSpeed = 0.5;  % m/s, probably less than 1
 
 %H2O = 1.1473; % cm Retrieved from S3
 H2O = 0.99; % From MicroTOPS
