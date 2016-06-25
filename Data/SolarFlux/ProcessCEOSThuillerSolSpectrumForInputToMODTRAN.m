@@ -8,6 +8,7 @@ Thui = dlmread('Solar_irradiance_Thuillier_2002.csv');
 Wv = Thui(:,1);
 ThuiRad = Thui(:,2);
 plot(Wv, ThuiRad);
+%% Code in this cell is obsolete, but FORTRAN comments (!) very important
 % Compute the wavenumber in cm^-1
 WvNum = flipud(1e7./Wv);
 % First convert from mW/m^2 to W/cm^2
@@ -29,15 +30,57 @@ ThuiRadWcm = flipud(ThuiRad/1000/100/100);
 % MODTRAN file header must be as follows
 %   FREQ     SOLAR IRRADIANCE
 %  (CM-1)    (W CM-2 / CM-1)
-ThuiRadWn = 1e7 * ThuiRadWcm ./ (WvNum.^2);
-plot(WvNum, ThuiRadWn);
-% Resample to 0.1 cm^-1 over the available range
-WvNum_p1 = min(round(WvNum * 10)./10):0.1:max(WvNum);
-%WvNum_p1 = min(WvNum):0.1:max(WvNum);
-ThuiRadWn_p1 = interp1(WvNum, ThuiRadWn, WvNum_p1, 'linear', 'extrap');
-plot(WvNum_p1, ThuiRadWn_p1);
-fid = fopen('SUNp1CEOSThuillier2005.dat', 'wt');
-fprintf(fid, '   FREQ     SOLAR IRRADIANCE\n');
-fprintf(fid, '  (CM-1)    (W CM-2 / CM-1)\n');
-fprintf(fid, '%8.2f     %11.4e\n', [WvNum_p1; ThuiRadWn_p1]);
+% User-defined solar irradiance files must follow these conventions
+% Taken from rdsun.f, SUBROUTINE RDUSRS
+% !     RDUSRS READS USER-SPECIFIED SOLAR IRRADIANCE FILE AND INTERPOLATES
+% !     DATA ONTO EITHER A 1.0 CM-1 OR 0.1 CM-1 SPECTRAL FREQUENCY GRID.
+% 
+% !     FILE USRSUN CONTAINS HEADER INFORMATION ON THE FIRST LINE FOLLOWED
+% !     BY ONE DATA PAIR PER LINE.  HEADER HAS TWO INTEGERS, EACH OF WHICH
+% !     IS 1, 2 OR 3.  THE FIRST DESIGNATES THE SPECTRAL GRID UNIT:
+% !       1 FOR SPECTRAL FREQUENCY IN CM-1
+% !       2 FOR SPECTRAL WAVELENTH IN NM
+% !       3 FOR SPECTRAL WAVELENTH IN MICRONS
+% 
+% !     THE SECOND INTEGER ON THE FIRST LINE DESIGNATES THE SOLAR
+% !     IRRADIANCE UNITS.
+% !       1 FOR SOLAR IRRADIANCE IN W CM-2 / CM-1
+% !       2 FOR SOLAR IRRADIANCE IN PHOTONS SEC-1 CM-2 / NM
+% !       3 FOR SOLAR IRRADIANCE IN mW M-2 / NM = W M-2 / MICRON
+% 
+% !     E.G., FOR FREQUENCY IN CM-1 AND IRRADIANCE IN W CM-2 / CM-1,
+% !     THE USER-CHOSEN FILE SHOULD LOOK LIKE THIS:
+% !       1   1
+% !       51    7.453E-10
+% !       52    7.711E-10
+% !       53    7.974E-10
+% !       54    8.243E-10
+% !       55    8.516E-10
+% !       ...
+% !       49982    2.800E-09
+% !       49983    2.603E-09
+
+% The following wrote an interpolated file which did not obey the above
+% rules and could not be read by 
+
+% ThuiRadWn = 1e7 * ThuiRadWcm ./ (WvNum.^2);
+% plot(WvNum, ThuiRadWn);
+% % Resample to 0.1 cm^-1 over the available range
+% WvNum_p1 = min(round(WvNum * 10)./10):0.1:max(WvNum);
+% %WvNum_p1 = min(WvNum):0.1:max(WvNum);
+% ThuiRadWn_p1 = interp1(WvNum, ThuiRadWn, WvNum_p1, 'linear', 'extrap');
+% plot(WvNum_p1, ThuiRadWn_p1);
+% fid = fopen('SUNp1CEOSThuillier2005.dat', 'wt');
+% fprintf(fid, '   FREQ     SOLAR IRRADIANCE\n');
+% fprintf(fid, '  (CM-1)    (W CM-2 / CM-1)\n');
+% fprintf(fid, '%8.2f     %11.4e\n', [WvNum_p1; ThuiRadWn_p1]);
+% fclose(fid);
+
+%% Write data as function of wavelength - see above FORTRAN comments
+plot(Wv, ThuiRad); % Original units are mW/m^2/nm
+
+fid = fopen('SUNnmCEOSThuillier2005.dat', 'wt');
+% Spectral variable is nm, Original units are mW/m^2/nm
+fprintf(fid, '2 3\n');
+fprintf(fid, '%8.2f     %11.4e\n', [Wv'; ThuiRad']);
 fclose(fid);
