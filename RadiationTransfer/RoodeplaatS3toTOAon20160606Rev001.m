@@ -23,6 +23,11 @@ close all
 % 7) Add in atmospheric spectral path radiance for
 %    atmospheric model (1) to obtain total spectral radiance at TOA. 
 % 8) Compute band spectral radiances for comparison to real S2/S3 data.
+%
+% Retrieval of Lw follows the same procedure except that the Lw component
+% is omitted before propagation to TOA. The shortfall in band radiance at
+% TOA is then taken to be surviving Lw at TOA and back-propagated to BOA
+% by dividing by the atmospheric path band transmittance.
 
 %% Set up viewing and solar azimuth geometry
 % The following are exact angles taken from S3 image data
