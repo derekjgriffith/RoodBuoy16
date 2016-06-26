@@ -48,11 +48,11 @@ Rev = ScriptName(end-2:end);  % Obtain the revision from the filename.
 ResultsFolder = ['ResultsS2on' OverpassDate 'Rev' Rev];
 if ~exist(ResultsFolder, 'dir')
     mkdir(ResultsFolder);
-end
-OAA = 0; % --TBC--;  % deg. Observation azimuth angle (presumably relative to north through east, satellite from dam)
-OZA = 0; % --TBC--;  % deg. Observation zenith angle (satellite zenith angle as seen from the dam)
-SAA = % ?;  % deg. Solar azimuth angle (presumably relative to north through east)
-SZA = % ?;  % deg. Solar zenith angle
+end        
+OAA = 84.0517; % --TBC--;  % deg. Observation azimuth angle (presumably relative to north through east, satellite from dam)
+OZA = 5.8908; % --TBC--;  % deg. Observation zenith angle (satellite zenith angle as seen from the dam)
+SAA = 30.7271;  % deg. Solar azimuth angle (presumably relative to north through east)
+SZA = 54.9419;  % deg. Solar zenith angle
 
 % Note : the observation zenith angle is also the angle at which the
 % observation ray strikes the water. It is therefore necessary to compute

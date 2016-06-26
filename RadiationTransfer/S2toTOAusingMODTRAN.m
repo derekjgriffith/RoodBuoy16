@@ -198,18 +198,20 @@ S2.PlotTp7({'SINGSCAT', 'DRCTRFLT', 'TOTALRAD'});
 % Plot a few of the channel outputs
 S2.PlotChn({'PATH_TOTAL_SCAT_SOLAR','TOTAL_TRANSM_GRND_REFLECT'});
 S2.PlotChn('SPECTRAL_RADIANCE');
+
 %% Run with vertical path to verify the AOD/AOT
 S2Trans = S2;
 S2Trans.SetCaseName(['S2RoodTrans' OverpassDate]);
 % Set path vertical
 S2Trans.PHI = 0;
+S2Trans.IEMSCT = 0;  % Switch to spectral transmittance only mode
 S2Trans = S2Trans.Run;
 % Record the optical depth
-S2TransTotalOD = S2Trans.sc7.DEPTH;
+S2TransTotalOD = -log(S2Trans.sc7.COMBINTRANS);
 % Switch off aerosols and run again
 S2Trans.IHAZE = 0;
 S2Trans = S2Trans.Run;
-S2TransNoAerosolOD = S2Trans.sc7.DEPTH;
+S2TransNoAerosolOD = -log(S2Trans.sc7.COMBINTRANS);
 S2AOD = S2TransTotalOD - S2TransNoAerosolOD;
 AODWv = S2Trans.sc7.WAVLNM;
 figure;
@@ -220,7 +222,7 @@ ylabel('AOD')
 legend('MODTRAN', 'MicroTOPS', 'MicroTOPS Interpolated', 'location', 'best')
 grid();
 SaveTaggedPlots(GitDescr, ResultsFolder,  'AOD', Rev, FileExts, TagFontProperties)
-return
+
 %% Now run again, this time with multiple surface reflectances
 Albedo = 0:0.25:1.0;
 SURREF = cellstr(strsplit(num2str(Albedo)));
@@ -239,18 +241,32 @@ ChnRad = ChnRad * 10000 * 1000;  % Convert from W/sr/cm^2/nm to mW/sr/m^2/nm
 %% Obtain the mean area-averaged channel radiances from the S2 overpass
 % Read pixels isolated from the S2 images for retrieving area-averaged
 % surface reflectance.
-S2AApixData = importSNAPpixels(AreaSNAPpixels);
-CentreWavelengths = mean(S2AApixData.all_lambda0);
-TargetChnRad = mean(S2AApixData.all_radiance);  % mW/sr/m^2/nm
-% Exclude b21
-TargetChnRad = TargetChnRad(1:end-1);  % Units are mW/sr/m^2/nm
+S2AApixData = ReadSNAPpinData(AreaSNAPpixels, ...
+        'all_refl', 'B([0-9]+[A]?)');
+CentreWavelengths = [443 490 560 665 705 740 783 842 865 945]; % B1 .. B9
+%% Convert S2 reflectances to radiances
+% First have to expand SRFs onto common wavelength grid
+Wv = S2.flx.Spectral;  % nm
+S2FltInterp = Mod5.InterpFltOnto(S2Flt, Wv);
+% Compute the integrals of the SRFs
+S2FltInterpIntegral = trapz(Wv, S2FltInterp);
+% Determine TOA solar band irradiance
+%
+GlobalTOAsolirrad = S2.flx.DirectSol(:,2);  % W/cm^2/nm
+GlobalTOAsolirrad = repmat(GlobalTOAsolirrad, 1, size(S2FltInterp, 2)); % W/cm^2/nm
+ChanGlobTOAsolirrad = trapz(Wv, GlobalTOAsolirrad .* S2FltInterp) ./ S2FltInterpIntegral;
+ChanGlobTOAsolirrad = ChanGlobTOAsolirrad * 1000 * 10000;  % Convert to mW/m^2/nm as for S2 data
+ChanGlobTOAsolDNI = ChanGlobTOAsolirrad ./ cos(deg2rad(SZA));   % Get the direct normal irradiance
+
+TargetChnRad = ChanGlobTOAsolirrad .* mean(S2AApixData.all_refl(:, 1:10))/10000/pi;  % mW/sr/m^2/nm
+
 % Interpolate the surface spectral albedo
 RetrievedAlbedo = [];
-for iChan = 1:20
+for iChan = 1:10
   RetrievedAlbedo(iChan) = interp1(ChnRad(iChan, :), Albedo, TargetChnRad(iChan), 'linear');
 end
-% Want to exclude band 16 (O2 absorption) and band 20 (water vapour absorption)
-WantedChannels = [1:15 17:19];
+% Want to exclude band 10 (B9) (water vapour absorption)
+WantedChannels = [1:9];
 WantedRetrievedAlbedo = RetrievedAlbedo(WantedChannels);
 WantedCentreWv = CentreWavelengths(WantedChannels);
 figure;
@@ -281,7 +297,7 @@ S2 = S2.Run;
 
 %% Calculate and plot the downwelling spectral irradiance
 figure;
-Wv = S2.flx.Spectral;  % nm
+
 % Compute total downwelling
 GlobalBOAirrad = S2.flx.DownDiff(:,1) + S2.flx.DirectSol(:,1);
 figure;
@@ -316,7 +332,7 @@ grid();
 %SaveTaggedPlots(GitDescr, ResultsFolder,  'BWTekIrradBOA', Rev, FileExts, TagFontProperties);
 
 %% Read in and plot the ASD data - definitely UTC
-load(['..\Data\ASDIrrad\ASDIrradS2on' OverpassDate '.mat']);
+load(['..\Data\ASDIrrad\ASDIrradS3on' OverpassDate '.mat']);
 figure;
 plot(Wv, fastsmooth(GlobalBOAirrad, 120), ASDIrradMean.Wv, ASDIrradMean.RadData/10000); % Converting to W/cm^2/nm
 title('Total Downwelling Irradiance at BOA');
@@ -431,10 +447,7 @@ SaveTaggedPlots(GitDescr, ResultsFolder,  'LwOverTotalLatTOA', Rev, FileExts, Ta
 
 
 %% Extract signals for S2 bands 1 to 10 (B1 ... B8, B8A, B9)
-% First have to expand SRFs onto common wavelength grid
-S2FltInterp = Mod5.InterpFltOnto(S2Flt, Wv);
-% Compute the integrals of the SRFs
-S2FltInterpIntegral = trapz(Wv, S2FltInterp);
+
 
 % Just do a loop rather that acrobatics with matrix dimensions
 % Final Destination si ChanLTOA - channel radiance at TOA
@@ -454,8 +467,9 @@ S2SNAPpixels = ReadSNAPpinData(WaterSNAPpixels, ...
     'all_refl', 'B([0-9]+[A]?)');
 S2BandLegends = [S2SNAPpixels.all_refl_toks{1:10}];
 S2SNAPpixels.all_refl = S2SNAPpixels.all_refl(:,1:10);  % Take only first 10 channels (VNIR)
-ChanWv = [];
+ChanWv = [443 490 560 665 705 740 783 842 865 945];
 %% Plot the S2 TOA radiances with MODTRAN TOA radiances
+% First have to convert S2 reflectances to radiances.
 figure;
 plot(ChanWv, ChanLTOAmW, ChanWv, S2SNAPpixels.all_radiance', 'o');
 title(['TOA Channel Radiance : S2 on ' OverpassDate ' at Roodeplaat']);
