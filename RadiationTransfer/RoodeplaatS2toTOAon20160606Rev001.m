@@ -40,7 +40,7 @@ close all
 % The following are exact angles taken from S2 image data
 % In MODTRAN H2 is the target pixel and H1 is the satellite
 % Satellite was in the east as viewed from the dam
-OverpassDateVec = %[2016 06 06 ? ? ?];  % UTC
+OverpassDateVec = [2016 06 06 8 16 44];  % UTC ---- TBC ----------
 OverpassDate = datestr(OverpassDateVec, 'YYYYmmdd');
 OverpassDateNum = datenum(OverpassDateVec);
 ScriptName = mfilename;
@@ -49,8 +49,8 @@ ResultsFolder = ['ResultsS2on' OverpassDate 'Rev' Rev];
 if ~exist(ResultsFolder, 'dir')
     mkdir(ResultsFolder);
 end
-OAA = % ?;  % deg. Observation azimuth angle (presumably relative to north through east, satellite from dam)
-OZA = % ?;  % deg. Observation zenith angle (satellite zenith angle as seen from the dam)
+OAA = 0; % --TBC--;  % deg. Observation azimuth angle (presumably relative to north through east, satellite from dam)
+OZA = 0; % --TBC--;  % deg. Observation zenith angle (satellite zenith angle as seen from the dam)
 SAA = % ?;  % deg. Solar azimuth angle (presumably relative to north through east)
 SZA = % ?;  % deg. Solar zenith angle
 
@@ -109,10 +109,10 @@ NSTR = 4;  % Number of streams to use for DISORT
 % Set up file name of area SNAP pixels for retrieveing area-averaged 
 % ground reflectance. A diameter of about 2.6 km centred on the
 % irradiance station was used.
-AreaSNAPpixels = '../Data/Sentinel2/MissingFilename.txt';
-WaterSNAPpixels = '../Data/Sentinel2/MissingFilename.txt';
+AreaSNAPpixels = '../Data/Sentinel2/S2A_OPER_MTD_SAFL1C_PDMC_20160607T085006_R135_V20160606T081644_20160606T081644_geometry_Mask_AA.txt';
+WaterSNAPpixels = '../Data/Sentinel2/S2A_OPER_MTD_SAFL1C_PDMC_20160607T085006_R135_V20160606T081644_20160606T081644_geometry_Mask.txt';
 RrsFile = '..\Data\Rrs\Roodeplaat_ASD_rrs.txt';  % To be updated ??????
-RrsColumns = 1 + [1 3 5 7]; % Columns measured on 2016-06-05, see ../Data/Rrs/Roodeplaat_ASD_rrs_names.txt
+RrsColumns = 1 + [2 4 6 8]; % Columns measured on 2016-06-06, see ../Data/Rrs/Roodeplaat_ASD_rrs_names.txt
 %% Water surface reflectance
 % Set the spectral water reflectance for the specific geometry
 % Water reflectance at 550 nm can be computed from the Mobley tables

@@ -9,8 +9,8 @@ TagFontProperties = {'FontSize', 6, 'FontAngle', 'italic'}; % Tag font propertie
 % Set parallel friendly mode (allows multiple MODTRAN cases to run in parallel
 % on the same computer without a conflict.
 % Set up wavelength intervals and resolutions 
-MODStartWv = 385; % Start wavelength in MODTRAN
-MODStopWv = 955; % Stop wavelength in MODTRAN, includes up to S2 b20
+MODStartWv = 410; % Start wavelength in MODTRAN, includes S2 B1
+MODStopWv = 975; % Stop wavelength in MODTRAN, includes up to S2 B9
 MODDV = 0.05; % Spectral interval in MODTRAN
 MODFWHM = 0.1; % Run at 0.1 nm smoothing (convolution) in MODTRAN
 MODWv = MODStartWv:MODDV:MODStopWv; % Anticipated MODTRAN output wavelengths
@@ -94,9 +94,7 @@ end
 
 % Deal with EO camera band filters
 % Read the Sentinel 3 spectral response functions
-S2Flt = Mod5.ReadFlt('Sentinel2SRF2011Cam4.flt');
-% Drop the last band
-S2Flt.Filters = S2Flt.Filters(1:end-1);
+S2Flt = Mod5.ReadFlt('Sentinel2VNIR20110909.flt');
 % Plot the filters
 Mod5.PlotFlt(S2Flt);
 % And attach the EO camera filters to the case
@@ -198,8 +196,8 @@ S2.PlotSc7({'SOLSCAT','SINGSCAT', 'GRNDRFLT','DRCTRFLT', 'TOTALRAD'});
 S2.PlotTp7({'SINGSCAT', 'DRCTRFLT', 'TOTALRAD'});
 
 % Plot a few of the channel outputs
-S2.PlotChn({'PATH_TOTAL_SCAT_SOLAR','TOTAL_TRANSM_GRND_REFLECT'})
-S2.PlotChn('SPECTRAL_RADIANCE')
+S2.PlotChn({'PATH_TOTAL_SCAT_SOLAR','TOTAL_TRANSM_GRND_REFLECT'});
+S2.PlotChn('SPECTRAL_RADIANCE');
 %% Run with vertical path to verify the AOD/AOT
 S2Trans = S2;
 S2Trans.SetCaseName(['S2RoodTrans' OverpassDate]);
@@ -222,7 +220,7 @@ ylabel('AOD')
 legend('MODTRAN', 'MicroTOPS', 'MicroTOPS Interpolated', 'location', 'best')
 grid();
 SaveTaggedPlots(GitDescr, ResultsFolder,  'AOD', Rev, FileExts, TagFontProperties)
-
+return
 %% Now run again, this time with multiple surface reflectances
 Albedo = 0:0.25:1.0;
 SURREF = cellstr(strsplit(num2str(Albedo)));
@@ -432,7 +430,7 @@ grid();
 SaveTaggedPlots(GitDescr, ResultsFolder,  'LwOverTotalLatTOA', Rev, FileExts, TagFontProperties);
 
 
-%% Extract signals for S2 bands 1 to 20
+%% Extract signals for S2 bands 1 to 10 (B1 ... B8, B8A, B9)
 % First have to expand SRFs onto common wavelength grid
 S2FltInterp = Mod5.InterpFltOnto(S2Flt, Wv);
 % Compute the integrals of the SRFs
@@ -452,18 +450,12 @@ end
 ChanLTOAmW = ChanLTOA * 10;
 
 % Read some water dominated pixels from the S2 image
-% [Name,X,Y,Lon,Lat,Color1,Label,Desc,Oa01_radiance,Oa02_radiance,Oa03_radiance,Oa04_radiance, ...
-%     Oa05_radiance,Oa06_radiance,Oa07_radiance,Oa08_radiance,Oa09_radiance,Oa10_radiance, ...
-%     Oa11_radiance,Oa12_radiance,Oa13_radiance,Oa14_radiance,Oa15_radiance,Oa16_radiance, ...
-%     Oa17_radiance,Oa18_radiance,Oa19_radiance,Oa20_radiance, all_radiance] ...
-%  = importSNAPpins(['..\Data\Sentinel2\WaterDominatedPixelsRoodeplaatS2on' OverpassDate '.txt']);
 S2SNAPpixels = ReadSNAPpinData(WaterSNAPpixels, ...
-    'all_radiance', 'Oa([0-9]+)_radiance');
-S2SNAPpixels.all_radiance = S2SNAPpixels.all_radiance(:,1:20);  % Take only first 20 channels
-ChanWv = [400.0	412.5	442.5	490.0	510.0	560.0	620.0	665.0	...
-    673.75	681.25	708.75	753.75	761.25	764.375	767.5	778.75	...
-    865.0	885.0	900.0	940.0];
-% Plot the S2 TOA radiances with MODTRAN TOA radiances
+    'all_refl', 'B([0-9]+[A]?)');
+S2BandLegends = [S2SNAPpixels.all_refl_toks{1:10}];
+S2SNAPpixels.all_refl = S2SNAPpixels.all_refl(:,1:10);  % Take only first 10 channels (VNIR)
+ChanWv = [];
+%% Plot the S2 TOA radiances with MODTRAN TOA radiances
 figure;
 plot(ChanWv, ChanLTOAmW, ChanWv, S2SNAPpixels.all_radiance', 'o');
 title(['TOA Channel Radiance : S2 on ' OverpassDate ' at Roodeplaat']);
