@@ -40,7 +40,7 @@ close all
 % The following are exact angles taken from S2 image data
 % In MODTRAN H2 is the target pixel and H1 is the satellite
 % Satellite was in the east as viewed from the dam
-OverpassDateVec = [2016 06 05 7 42 31];  % UTC
+OverpassDateVec = %[2016 06 06 ? ? ?];  % UTC
 OverpassDate = datestr(OverpassDateVec, 'YYYYmmdd');
 OverpassDateNum = datenum(OverpassDateVec);
 ScriptName = mfilename;
@@ -49,10 +49,10 @@ ResultsFolder = ['ResultsS2on' OverpassDate 'Rev' Rev];
 if ~exist(ResultsFolder, 'dir')
     mkdir(ResultsFolder);
 end
-OAA = 104.01066;  % deg. Observation azimuth angle (presumably relative to north through east, satellite from dam)
-OZA = 14.151356;  % deg. Observation zenith angle (satellite zenith angle as seen from the dam)
-SAA = 38.719933;  % deg. Solar azimuth angle (presumably relative to north through east)
-SZA = 59.316036;  % deg. Solar zenith angle
+OAA = % ?;  % deg. Observation azimuth angle (presumably relative to north through east, satellite from dam)
+OZA = % ?;  % deg. Observation zenith angle (satellite zenith angle as seen from the dam)
+SAA = % ?;  % deg. Solar azimuth angle (presumably relative to north through east)
+SZA = % ?;  % deg. Solar zenith angle
 
 % Note : the observation zenith angle is also the angle at which the
 % observation ray strikes the water. It is therefore necessary to compute
@@ -86,9 +86,9 @@ GNDALT = 1.225; % km ground altitude
 % AOT675 = 0.362
 % AOT870 = 0.206
 % AOT936 = 0.188
-AOTwv = [440 500 675 870];
-AOT = [0.703 0.615 0.362 0.206];
-AOT550 = interp1(AOTwv, AOT, 550);
+AOTwv = [440 500 675 870]; % TBD ---------
+AOT = [0.703 0.615 0.362 0.206]; % TBD -------------
+AOT550 = interp1(AOTwv, AOT, 550); % TBD -----------
 % Water vapour 1.05 cm
 % Surface pressure 892 mb
 % Temperature 22 degC
