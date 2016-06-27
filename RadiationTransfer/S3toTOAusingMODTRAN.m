@@ -241,7 +241,9 @@ ChnRad = ChnRad * 10000 * 1000;  % Convert from W/sr/cm^2/nm to mW/sr/m^2/nm
 %% Obtain the mean area-averaged channel radiances from the S3 overpass
 % Read pixels isolated from the S3 images for retrieving area-averaged
 % surface reflectance.
-S3AApixData = importSNAPpixels(AreaSNAPpixels);
+S3AApixData = ReadSNAPpinData(AreaSNAPpixels, ...
+      {'all_radiance', 'all_lambda0', 'all_solar_flux'}, ...
+      {'Oa([0-9]+)_radiance', 'lambda0_band_([0-9]+)', 'solar_flux_band_([0-9]+)'});
 CentreWavelengths = mean(S3AApixData.all_lambda0);
 TargetChnRad = mean(S3AApixData.all_radiance);  % mW/sr/m^2/nm
 % Exclude b21
