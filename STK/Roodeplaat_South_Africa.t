@@ -11,7 +11,7 @@ Name        Roodeplaat_South_Africa
 		DisplayCoords          Geodetic
 		EcfLatitude            -2.56481990814209e+001
 		EcfLongitude           2.83386001586914e+001
-		EcfAltitude            0.00000000000000e+000
+		EcfAltitude            1.25200000000000e+003
 		HeightAboveGround      0.00000000000000e+000
 		ComputeTrnMaskAsNeeded Off
 		DisplayAltRef          Ellipsoid
@@ -47,7 +47,7 @@ BEGIN Extensions
                 AzElFillAltTranslucency 0.500000
                 UseAzElColor            Off
                 AzElColor               #ffffff
-                MinDisplayAlt           0.000
+                MinDisplayAlt           1252.000
                 MaxDisplayAlt           10000000.000
                 NumAzElMaskSteps        1
                 ShowAzElAtRangeMask       Off
@@ -84,7 +84,7 @@ BEGIN Extensions
     
     BEGIN AccessConstraints
 		LineOfSight   IncludeIntervals 
-		ElevationAngle		Min  6.5000000000e+001   IncludeIntervals 
+		ElevationAngle		Min  8.1000000000e+001   IncludeIntervals 
     END AccessConstraints
     
     BEGIN ObjectCoverage

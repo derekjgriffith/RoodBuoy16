@@ -8,7 +8,28 @@ BEGIN Access
     UpdateOnReference        Yes
     DupIsDifferent           No
     UIOrderReversed          No
-    UITimePeriod             Scenario
+    UITimePeriod             Custom
+    CustomTimeInterval
+		BEGIN	EVENTINTERVAL
+				StartEvent
+					BEGIN	EVENT
+							Epoch	Today
+							EventEpoch
+								BEGIN	EVENT
+									Type	EVENT_LINKTO
+									Name	Today
+									AbsolutePath	Scenario
+								END	EVENT
+							EpochState	Implicit
+					END	EVENT
+				StopEvent
+					BEGIN	EVENT
+							Epoch	31 Aug 2016 00:00:00.000000000
+							EpochState	Explicit
+					END	EVENT
+				IntervalState	StartStop
+		END	EVENTINTERVAL
+
     UseLightTimeDelay        Yes
     ClockHost                Base
     TimeSense                Transmit
@@ -21,7 +42,7 @@ BEGIN Access
     RelValueConvergence      1.000000e-008
     DetectEventsUsingSamplesOnly No
 	BEGINUserList 
-        0.000000 7516800.000000
+        1893600.000000 7516800.000000
 	ENDUserList 
     Show                     Yes
     Inherit                  Yes
@@ -42,7 +63,28 @@ BEGIN Access
     UpdateOnReference        Yes
     DupIsDifferent           No
     UIOrderReversed          No
-    UITimePeriod             Scenario
+    UITimePeriod             Custom
+    CustomTimeInterval
+		BEGIN	EVENTINTERVAL
+				StartEvent
+					BEGIN	EVENT
+							Epoch	Today
+							EventEpoch
+								BEGIN	EVENT
+									Type	EVENT_LINKTO
+									Name	Today
+									AbsolutePath	Scenario
+								END	EVENT
+							EpochState	Implicit
+					END	EVENT
+				StopEvent
+					BEGIN	EVENT
+							Epoch	31 Aug 2016 00:00:00.000000000
+							EpochState	Explicit
+					END	EVENT
+				IntervalState	StartStop
+		END	EVENTINTERVAL
+
     UseLightTimeDelay        Yes
     ClockHost                Base
     TimeSense                Transmit
@@ -55,7 +97,7 @@ BEGIN Access
     RelValueConvergence      1.000000e-008
     DetectEventsUsingSamplesOnly No
 	BEGINUserList 
-        0.000000 7516800.000000
+        1893600.000000 7516800.000000
 	ENDUserList 
     Show                     Yes
     Inherit                  Yes
