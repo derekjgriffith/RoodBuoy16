@@ -450,7 +450,7 @@ SaveTaggedPlots(GitDescr, ResultsFolder,  'LwOverTotalLatTOA', Rev, FileExts, Ta
 
 
 % Just do a loop rather that acrobatics with matrix dimensions
-% Final Destination si ChanLTOA - channel radiance at TOA
+% Final Destination is ChanLTOA - channel radiance at TOA
 ChanLTOA = zeros(size(S2FltInterp, 2), size(TotalLTOA, 2));
 for iChan = 1:numel(S2FltInterpIntegral)
     % Grab the channel flt function and replicate up to the number of
@@ -462,16 +462,19 @@ end
 % Convert to mW/sr/m^2/nm from microwatts/sr/cm^2/nm, a factor of 10
 ChanLTOAmW = ChanLTOA * 10;
 
-% Read some water dominated pixels from the S2 image
+%% Read some water dominated pixels from the S2 image
 S2SNAPpixels = ReadSNAPpinData(WaterSNAPpixels, ...
     'all_refl', 'B([0-9]+[A]?)');
 S2BandLegends = [S2SNAPpixels.all_refl_toks{1:10}];
 S2SNAPpixels.all_refl = S2SNAPpixels.all_refl(:,1:10);  % Take only first 10 channels (VNIR)
 ChanWv = [443 490 560 665 705 740 783 842 865 945];
+
+S2ChnRad = ChanGlobTOAsolirrad .* mean(S2SNAPpixels.all_refl(:, 1:10))/10000/pi;  % mW/sr/m^2/nm
+
 %% Plot the S2 TOA radiances with MODTRAN TOA radiances
 % First have to convert S2 reflectances to radiances.
 figure;
-plot(ChanWv, ChanLTOAmW, ChanWv, S2SNAPpixels.all_radiance', 'o');
+plot(ChanWv, ChanLTOAmW, ChanWv, S2ChnRad, 'o');
 title(['TOA Channel Radiance : S2 on ' OverpassDate ' at Roodeplaat']);
 xlabel('Wavelength [nm]');
 ylabel('Channel Radiance [mW/sr/m^2/nm]');
@@ -479,13 +482,15 @@ legend('MOD P1', 'MOD P2', 'MOD P3', 'MOD P4', 'S2');
 grid();
 SaveTaggedPlots(GitDescr, ResultsFolder,  'S2andMODTRANTotalLatTOA', Rev, FileExts, TagFontProperties);
 %% Comparison of means
-if size(S2SNAPpixels.all_radiance, 1) > 1  % Take mean over all pixels
-    MeanS2Radiances = mean(S2SNAPpixels.all_radiance);
-else
-    MeanS2Radiances = S2SNAPpixels.all_radiance;
-end
+% if size(S2SNAPpixels.all_radiance, 1) > 1  % Take mean over all pixels
+%     MeanS2Radiances = mean(S2SNAPpixels.all_radiance);
+% else
+%     MeanS2Radiances = S2SNAPpixels.all_radiance;
+% end
+MeanS2Radiances = S2ChnRad;
 MeanChanLTOAmW = mean(ChanLTOAmW, 2);
-%plot(ChanWv, MeanChanLTOAmW, 'o-', ChanWv, MeanS2Radiances, 'x-');
+figure;
+plot(ChanWv, MeanChanLTOAmW, 'o-', ChanWv, MeanS2Radiances, 'x-');
 
 %% Plot percentage errors
 figure;
@@ -496,39 +501,39 @@ ylabel('Error (Difference over Mean) [%]');
 grid;
 SaveTaggedPlots(GitDescr, ResultsFolder,  'RelativeErrorMODTRANvsS2', Rev, FileExts, TagFontProperties)
 
-%% Compare the solar flux data
-GlobalTOAsolirrad = S2.flx.DirectSol(:,2);  % W/cm^2/nm
-GlobalTOAsolirrad = repmat(GlobalTOAsolirrad, 1, size(S2FltInterp, 2)); % W/cm^2/nm
-ChanGlobTOAsolirrad = trapz(Wv, GlobalTOAsolirrad .* S2FltInterp) ./ S2FltInterpIntegral;
-ChanGlobTOAsolirrad = ChanGlobTOAsolirrad * 1000 * 10000;  % Convert to mW/m^2/nm as for S2 data
-ChanGlobTOAsolDNI = ChanGlobTOAsolirrad ./ cos(deg2rad(SZA));   % Get the direct normal irradiance
-% Now read in the S2 data
-S2SolarIrrad = ReadSNAPpinData('..\Data\Sentinel2\S2SolarFluxDataAtRoodeplaatOn20160605.txt', 'all_solar_flux', 'solar_flux_band_([0-9]+)');
-% Unfortunately not in order, so determine the order
-BandOrder = str2double([S2SolarIrrad.all_solar_flux_toks{:}]);
-S2SolarFlux = mean(S2SolarIrrad.all_solar_flux);
-% And reorder
-NewOrder = sortrows([BandOrder' [1:numel(BandOrder)]']);
-S2SolarFlux = S2SolarFlux(NewOrder(:,2));
-%% Plot ratio of MODTRAN solar DNI at TOA to S2 product.
-figure
-plot(ChanWv, ChanGlobTOAsolDNI./S2SolarFlux, 'o');
-title(['Solar DNI at TOA : MODTRAN / S2 (Spectrum ' SolarSpectrum ' )']);
-xlabel('Wavelength [nm]')
-ylabel('Solar DNI MODTRAN / S2');
-grid();
-SaveTaggedPlots(GitDescr, ResultsFolder,  'TOASolarDNIFluxMODTRANoverS2', Rev, FileExts, TagFontProperties);
+% %% Compare the solar flux data
+% GlobalTOAsolirrad = S2.flx.DirectSol(:,2);  % W/cm^2/nm
+% GlobalTOAsolirrad = repmat(GlobalTOAsolirrad, 1, size(S2FltInterp, 2)); % W/cm^2/nm
+% ChanGlobTOAsolirrad = trapz(Wv, GlobalTOAsolirrad .* S2FltInterp) ./ S2FltInterpIntegral;
+% ChanGlobTOAsolirrad = ChanGlobTOAsolirrad * 1000 * 10000;  % Convert to mW/m^2/nm as for S2 data
+% ChanGlobTOAsolDNI = ChanGlobTOAsolirrad ./ cos(deg2rad(SZA));   % Get the direct normal irradiance
+% % Now read in the S2 data
+% S2SolarIrrad = ReadSNAPpinData('..\Data\Sentinel2\S2SolarFluxDataAtRoodeplaatOn20160605.txt', 'all_solar_flux', 'solar_flux_band_([0-9]+)');
+% % Unfortunately not in order, so determine the order
+% BandOrder = str2double([S2SolarIrrad.all_solar_flux_toks{:}]);
+% S2SolarFlux = mean(S2SolarIrrad.all_solar_flux);
+% % And reorder
+% NewOrder = sortrows([BandOrder' [1:numel(BandOrder)]']);
+% S2SolarFlux = S2SolarFlux(NewOrder(:,2));
+% %% Plot ratio of MODTRAN solar DNI at TOA to S2 product.
+% figure
+% plot(ChanWv, ChanGlobTOAsolDNI./S2SolarFlux, 'o');
+% title(['Solar DNI at TOA : MODTRAN / S2 (Spectrum ' SolarSpectrum ' )']);
+% xlabel('Wavelength [nm]')
+% ylabel('Solar DNI MODTRAN / S2');
+% grid();
+% SaveTaggedPlots(GitDescr, ResultsFolder,  'TOASolarDNIFluxMODTRANoverS2', Rev, FileExts, TagFontProperties);
 
-%% Comparison of means after correcting to S2 solar flux
-% Percentage errors
-MeanChanLTOAmWCorr = MeanChanLTOAmW' .* S2SolarFlux ./ ChanGlobTOAsolDNI;
-figure;
-plot(ChanWv, 100*2*(MeanS2Radiances-MeanChanLTOAmWCorr)./(MeanS2Radiances+MeanChanLTOAmWCorr), 'o');
-title(['Flux-Corrected Percentage Error : S2 vs MODTRAN at TOA on ' OverpassDate]);
-xlabel('Wavelength [nm]');
-ylabel('Error (Difference over Mean) [%]');
-grid;
-SaveTaggedPlots(GitDescr, ResultsFolder,  'RelErrorMODTRANfluxcorrectedVsS2', Rev, FileExts, TagFontProperties);
+% %% Comparison of means after correcting to S2 solar flux
+% % Percentage errors
+% MeanChanLTOAmWCorr = MeanChanLTOAmW' .* S2SolarFlux ./ ChanGlobTOAsolDNI;
+% figure;
+% plot(ChanWv, 100*2*(MeanS2Radiances-MeanChanLTOAmWCorr)./(MeanS2Radiances+MeanChanLTOAmWCorr), 'o');
+% title(['Flux-Corrected Percentage Error : S2 vs MODTRAN at TOA on ' OverpassDate]);
+% xlabel('Wavelength [nm]');
+% ylabel('Error (Difference over Mean) [%]');
+% grid;
+% SaveTaggedPlots(GitDescr, ResultsFolder,  'RelErrorMODTRANfluxcorrectedVsS2', Rev, FileExts, TagFontProperties);
 
 %% Now attempt a retrieval of Lw at BOA
 RadianceBOAWithoutLw = WaterReflectedSkyRadiance;  % microwatts/sr/cm^2/nm
@@ -551,9 +556,8 @@ ChanLTOAmWWoLw = ChanLTOAWoLw * 10;
 MeanChanLTOAmWWoLw = mean(ChanLTOAmWWoLw, 2);
 figure
 plot(ChanWv, MeanChanLTOAmWWoLw, 'o-', ChanWv, MeanS2Radiances, 'x-');
-% Correct for solar flux differences
-MeanChanLTOAmWWoLwCorr = MeanChanLTOAmWWoLw' .* S2SolarFlux ./ ChanGlobTOAsolDNI;
-RetrievedLwAtTOA = MeanS2Radiances - MeanChanLTOAmWWoLwCorr;
+
+RetrievedLwAtTOA = MeanS2Radiances - MeanChanLTOAmW';
 figure;
 plot(ChanWv, RetrievedLwAtTOA);
 
