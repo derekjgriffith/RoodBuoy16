@@ -94,8 +94,13 @@ AOT550 = interp1(AOTwv, AOT, 550); % TBD -----------
 % Temperature 22 degC
 % SZA 59.31
 % Time : 07:42:31 UTC
-CDASTM = ' ';  % No aerosol Angstrom perturbations.
-NSSALB = 0;  % No single scattering albedo manipulation
+% CDASTM = ' ';  % No aerosol Angstrom perturbations.
+% NSSALB = 0;  % No single scattering albedo manipulation
+CDASTM = 'b';  % Perturb boundary layer aerosol extinction
+ASTMX = 0.6;
+NSSALB = 4;  % Number of single scattering albedo point to read on card
+AWAVLN = [0.4 0.675 0.875 1.0];
+ASSALB = [0.9 0.85 0.82 0.79];  % Roughly taken from AERONET
 
 %H2O = 1.30; % cm Retrieved from S2
 H2O = 1.05; % From MicroTOPS
