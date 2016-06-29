@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<Placemarks>
+    <Placemark name="pin_1">
+        <LABEL>Pin 1</LABEL>
+        <DESCRIPTION />
+        <LATITUDE>-25.62483356186586</LATITUDE>
+        <LONGITUDE>28.373767769467765</LONGITUDE>
+        <PIXEL_X>4304.5</PIXEL_X>
+        <PIXEL_Y>769.5</PIXEL_Y>
+    </Placemark>
+</Placemarks>
