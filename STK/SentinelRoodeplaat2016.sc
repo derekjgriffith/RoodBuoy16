@@ -1,5 +1,5 @@
-stk.v.10.0
-WrittenBy    STK_v10.1.0
+stk.v.11.0
+WrittenBy    STK_v11.0.1
 BEGIN Scenario
     Name            SentinelRoodeplaat2016
 
@@ -61,6 +61,20 @@ END CentralBody
 
 BEGIN CentralBodyTerrain
 
+    BEGIN CentralBody
+        Name            Earth
+        UseTerrainCache Yes
+        TotalCacheSize  402653184
+
+        BEGIN StreamingTerrain
+            UseCurrentStreamingTerrainServer     No
+            StreamingTerrainServerName           assets.agi.com/stk-terrain/
+            StreamingTerrainAzimuthElevationMaskEnabled       Yes
+            StreamingTerrainObscurationEnabled       Yes
+            StreamingTerrainCoverageGridObscurationEnabled       Yes
+        END StreamingTerrain
+    END CentralBody
+
 END CentralBodyTerrain
 
 BEGIN StarCollection
@@ -70,7 +84,7 @@ BEGIN StarCollection
 END StarCollection
 
 BEGIN ScenarioLicenses
-    Module    STKv10.0
+    Module    STKv11.0
 END ScenarioLicenses
 
 BEGIN WebData
@@ -987,11 +1001,6 @@ END MapData
 				Default "*"
 			END Field
 
-			BEGIN Field
-				Name "Status"
-				Default "Active"
-			END Field
-
 		END FieldDefaults
 
 		END Database
@@ -1020,11 +1029,6 @@ END MapData
 		    MaxMatches   2000
 
 		BEGIN FieldDefaults
-
-			BEGIN Field
-				Name "Site Name"
-				Default "*"
-			END Field
 
 		END FieldDefaults
 
@@ -1123,6 +1127,10 @@ END MapData
 		Include    Yes
 	    END Type
 	    BEGIN Type
+		FileType  Volume Grid Intervals File
+		Include    Yes
+	    END Type
+	    BEGIN Type
 		FileType  Volumetric File
 		Include    No
 	    END Type
@@ -1141,7 +1149,7 @@ END MapData
     
     BEGIN ExportDataFile
     FileType         Ephemeris
-    IntervalType    Ephemeris
+    IntervalType     Ephemeris
     TimePeriodStart  0.000000e+000
     TimePeriodStop   0.000000e+000
     StepType         Ephemeris
@@ -1166,12 +1174,18 @@ END MapData
     CCSDSTimeSystem    UTC
     CCSDSRefFrame      ICRF
     UseSatCenterAndFrame   No
+    IncludeCovariance      No
+    IncludeAcceleration    No
     END ExportDataFile
     
     BEGIN Desc
-        LongText    87
+    Begin LongText
 Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in June 2016
+    End LongText
     END Desc
+    
+    BEGIN KeyValueMetadata
+    END KeyValueMetadata
     
     BEGIN RfEnv
 <?xml version = "1.0" standalone = "yes"?>
@@ -1370,6 +1384,9 @@ Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in Ju
                                         <REAL>273.15</REAL>
                                     </QUANTITY>
                                 </VAR>
+                                <VAR name = "EnableDepolarizationLoss">
+                                    <BOOL>false</BOOL>
+                                </VAR>
                             </SCOPE>
                         </VAR>
                     </VAR>
@@ -1495,10 +1512,11 @@ Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in Ju
 		BEGIN	EVENT
 			Type	EVENT_DATECONSTANT
 			Name	Today
+			Hardcoded
 			Description	Local midnight today.
 				LocalOffsetWholeDays      0
 				LocalOffsetTime      	0.00000000000000e+000
-				ComputedDate      	26 Jun 2016 22:00:00.000000000
+				ComputedDate      	29 Jun 2016 22:00:00.000000000
 		END	EVENT
     END Crdn
     

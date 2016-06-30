@@ -1,5 +1,5 @@
-stk.v.10.0
-WrittenBy    STK_v10.1.0
+stk.v.11.0
+WrittenBy    STK_v11.0.1
 
 BEGIN Target
 
@@ -91,10 +91,9 @@ BEGIN Extensions
     END ObjectCoverage
     
     BEGIN Desc
-        ShortText    10
+    Begin ShortText
 roodeplaat
-        LongText    0
-
+    End ShortText
     END Desc
     
     BEGIN Atmosphere

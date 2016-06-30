@@ -1,4 +1,4 @@
-VO_V100
+VO_V110
     InitializeSolarPanels No
     Modelfile             Land\target.mdl
     UseModelList          No
@@ -293,7 +293,7 @@ VO_V100
     Begin Plane
         Begin PlaneData
             Begin PlaneDef
-                Name "BodyXY"
+                Name "Body.XY"
                 Object _Default
             End
             Show                    No
@@ -302,7 +302,7 @@ VO_V100
             ShowAxisLabels          No
             PosAtObject             Yes
             Transparent             Yes
-            PercentTransparent      79.999989
+            PercentTransparent      79.999992
             IgnoreSceneVAScale      No
             LineWidth               2.000000
             ColorIndex              #00ced1
@@ -314,12 +314,6 @@ VO_V100
             IntervalType            AlwaysOn
         End
     End
-
-    BEGIN VolumesGfx
-
-	Show       Yes
-
-    END VolumesGfx
     Begin Point
         Show No
         Size 5.000000
@@ -349,7 +343,6 @@ VO_V100
     RangeCntrLineTransl   0.5000
     RangeLblSwapDist      -2.5000
     AOULblSwapDist        -1.5000
-    VolumeSwapDist        -2.5000
     BorderWallShowOnOff              No
     BorderWallUseTerrainAltFileOnOff No
     BorderWallTransparencyOnOff      No
@@ -400,8 +393,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No

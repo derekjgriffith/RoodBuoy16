@@ -1,5 +1,5 @@
-stk.v.10.0
-WrittenBy    STK_v10.1.0
+stk.v.11.0
+WrittenBy    STK_v11.0.1
 BEGIN Access 
         Scenario/SentinelRoodeplaat2016/Target/Roodeplaat_South_Africa
         Scenario/SentinelRoodeplaat2016/Satellite/SENTINEL-2A_40697
@@ -42,7 +42,7 @@ BEGIN Access
     RelValueConvergence      1.000000e-008
     DetectEventsUsingSamplesOnly No
 	BEGINUserList 
-        1893600.000000 7516800.000000
+        2152800.000000 7516800.000000
 	ENDUserList 
     Show                     Yes
     Inherit                  Yes
@@ -97,7 +97,7 @@ BEGIN Access
     RelValueConvergence      1.000000e-008
     DetectEventsUsingSamplesOnly No
 	BEGINUserList 
-        1893600.000000 7516800.000000
+        2152800.000000 7516800.000000
 	ENDUserList 
     Show                     Yes
     Inherit                  Yes

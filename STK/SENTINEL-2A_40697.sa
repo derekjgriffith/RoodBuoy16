@@ -1,5 +1,5 @@
-stk.v.10.0
-WrittenBy    STK_v10.1.0
+stk.v.11.0
+WrittenBy    STK_v11.0.1
 
 BEGIN Satellite
 
@@ -52,7 +52,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         4 Jun 2016 20:05:11.219
@@ -69,7 +69,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         5 Jun 2016 04:28:41.006
@@ -86,7 +86,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         5 Jun 2016 17:54:16.525
@@ -103,7 +103,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         6 Jun 2016 09:00:34.042
@@ -120,7 +120,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         6 Jun 2016 15:43:21.812
@@ -137,7 +137,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         7 Jun 2016 20:15:14.922
@@ -154,7 +154,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         8 Jun 2016 19:45:02.208
@@ -171,7 +171,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         9 Jun 2016 04:08:31.967
@@ -188,7 +188,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         9 Jun 2016 17:34:07.473
@@ -205,7 +205,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         10 Jun 2016 06:59:43.030
@@ -222,7 +222,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         10 Jun 2016 20:25:18.561
@@ -239,7 +239,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         11 Jun 2016 11:31:36.119
@@ -256,7 +256,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         12 Jun 2016 16:03:29.180
@@ -273,7 +273,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         13 Jun 2016 20:35:22.160
@@ -290,7 +290,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         15 Jun 2016 01:07:15.208
@@ -307,7 +307,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         15 Jun 2016 21:15:38.547
@@ -324,7 +324,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         16 Jun 2016 03:58:26.356
@@ -341,7 +341,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         16 Jun 2016 12:21:56.011
@@ -358,7 +358,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         16 Jun 2016 17:24:01.828
@@ -375,7 +375,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         17 Jun 2016 15:13:07.058
@@ -392,7 +392,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         17 Jun 2016 20:15:12.881
@@ -409,7 +409,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         18 Jun 2016 18:04:18.178
@@ -426,7 +426,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         19 Jun 2016 15:53:23.398
@@ -443,7 +443,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         20 Jun 2016 00:16:53.093
@@ -460,7 +460,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         20 Jun 2016 20:25:16.390
@@ -477,7 +477,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         21 Jun 2016 04:48:46.136
@@ -494,7 +494,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         21 Jun 2016 16:33:39.690
@@ -511,7 +511,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         22 Jun 2016 07:39:57.181
@@ -528,7 +528,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         22 Jun 2016 21:05:32.643
@@ -545,7 +545,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         23 Jun 2016 18:54:37.827
@@ -562,7 +562,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         24 Jun 2016 15:03:01.251
@@ -579,7 +579,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         24 Jun 2016 21:45:49.125
@@ -596,7 +596,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         25 Jun 2016 19:34:55.014
@@ -613,7 +613,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         26 Jun 2016 02:17:42.984
@@ -630,7 +630,7 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         27 Jun 2016 17:50:54.000
+    LastUpdated         30 Jun 2016 13:01:11.000
 
     SwitchMethod        Epoch
     SwitchEpoch         26 Jun 2016 09:00:30.941
@@ -638,6 +638,57 @@ BEGIN VehiclePath
     TLE
     1 40697U 15028A   16178.37535811 -.00001448  00000-0 -53605-3 0  9999
     2 40697  98.5665 252.4579 0001218  88.4935 271.6423 14.30810992 52818
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         30 Jun 2016 13:01:11.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         26 Jun 2016 15:43:18.835
+
+    TLE
+    1 40697U 15028A   16178.65507911 -.00001397  00000-0 -51639-3 0  9998
+    2 40697  98.5665 252.7341 0001273  95.0197 265.1170 14.30810685 52853
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         30 Jun 2016 13:01:11.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         27 Jun 2016 20:15:12.325
+
+    TLE
+    1 40697U 15028A   16179.84389265 -.00000562  00000-0 -19794-3 0  9999
+    2 40697  98.5663 253.9058 0001253  87.1179 273.0166 14.30812510 53021
+
+    END TwoLineElement
+
+
+    Begin TwoLineElement
+
+    Enabled             Yes
+
+    Source              OnlineAGI
+    LastUpdated         30 Jun 2016 13:01:11.000
+
+    SwitchMethod        Epoch
+    SwitchEpoch         28 Jun 2016 23:06:23.726
+
+    TLE
+    1 40697U 15028A   16180.96277461 -.00000000  00000-0  16490-4 0  9995
+    2 40697  98.5663 255.0089 0001251  92.0915 268.0405 14.30814637 53188
 
     END TwoLineElement
 
@@ -733,6 +784,7 @@ BEGIN Extensions
     BEGIN Graphics
 
         BEGIN GenericGraphics
+            IntvlHideShowAll     Off
             ShowPassLabel        Off
             ShowPathLabel        Off
             TransformTrajectory  On
@@ -746,14 +798,8 @@ BEGIN Extensions
         END GenericGraphics
 
         BEGIN AttributeData
-
-            AttributeType    Basic
-            ScenarioEpoch 5 Jun 2016 00:00:00.000000
-
             ShowGfx          On
-
-            IntvlHideShowAll Off
-
+            AttributeType    Basic
             BEGIN DefaultAttributes
                 Show                 On
                 Inherit              On
@@ -1077,33 +1123,6 @@ BEGIN Extensions
     END ExternData
     
     BEGIN Lifetime
-        Semi_parameter       6.678137000000e+006
-        Eccentricity         0.000000000000e+000
-        Argument_Perigee     0.000000000000e+000
-        RA_Asc_Node          0.000000000000e+000
-        Inclination          4.974188368180e-001
-        UTC_Year             1997
-        UTC_Month            1
-        UTC_Day              1
-        UTC_Hour             0
-        UTC_Minute           0
-        UTC_Second           0.000000000000e+000
-        Limit_Type           OrbitCount
-        Duration_Limit       36525.000000
-        Rev_Count_Limit      99999
-        Revs_Calculation     10
-        Gaussian_Quadratures 1
-        Flux_Sigma_Level     0.000000
-        Gravity_Model_Flag   1
-        Reflection_Coef      1.000000000000e+000
-        Sun_Area             1.543000000000e+001
-        Mass                 -1.000000000000e+000
-        Drag_Coef            2.200000000000e+000
-        Drag_Area            1.365000000000e+001
-        Rotating_Atm_Flag    0
-        Compute_Gamma_Flag   0
-        Initial_Time         0.000000000000e+000
-        Decay_Alt            6.500000000000e+004
     END Lifetime
     
     BEGIN ADFFileData
@@ -1206,6 +1225,9 @@ BEGIN Extensions
     
     BEGIN Desc
     END Desc
+    
+    BEGIN KeyValueMetadata
+    END KeyValueMetadata
     
     BEGIN Ellipse
         TimesTrackVehStartTime Yes

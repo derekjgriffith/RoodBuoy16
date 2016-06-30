@@ -1,4 +1,4 @@
-VO_V100
+VO_V110
     InitializeSolarPanels     Yes
     Modelfile                 Space\satellite.dae
     UseCatalogModelFile       Yes
@@ -45,7 +45,9 @@ VO_V100
     End
     Begin OrbitFrames
         InertialCoordFrame     Yes
+        PersistCBIForAllPasses No
         FixedCoordFrame        No
+        PersistCBFForAllPasses No
     End OrbitFrames
     Begin Covariance
         UseProbability Yes
@@ -66,7 +68,6 @@ VO_V100
          FixScaleToModel      Yes
          ConeScale            50000.000000
     End
-    VolumeSwapDist        -2.5000
     UseModelFilePosOffset     No
     UseModelPosOffset         No
     ModelPosOffset            0.000000000000 0.000000000000 0.000000000000
@@ -373,7 +374,7 @@ VO_V100
     Begin Plane
         Begin PlaneData
             Begin PlaneDef
-                Name "BodyXY"
+                Name "Body.XY"
                 Object _Default
             End
             Show                    No
@@ -382,7 +383,7 @@ VO_V100
             ShowAxisLabels          No
             PosAtObject             Yes
             Transparent             Yes
-            PercentTransparent      80.000001
+            PercentTransparent      79.999992
             IgnoreSceneVAScale      No
             LineWidth               2.000000
             ColorIndex              #fff0f5
@@ -394,12 +395,6 @@ VO_V100
             IntervalType            AlwaysOn
         End
     End
-
-    BEGIN VolumesGfx
-
-	Show       Yes
-
-    END VolumesGfx
     SetModelColorArtic    No
     SaveArticStateAsDef       No
     ShowElevFov               No
@@ -489,8 +484,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No
@@ -515,8 +508,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No
@@ -541,8 +532,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No
@@ -567,8 +556,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No
@@ -593,8 +580,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No
@@ -619,8 +604,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No
@@ -645,8 +628,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No
@@ -671,8 +652,6 @@ VO_V100
         AttachY            MAX
         X                  10
         Y                  10
-        X_v1               10
-        Y_v1               10
         FontIndex          0
         TextColorIndex     #ffff00
         BGEnabled          No
