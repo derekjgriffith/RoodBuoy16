@@ -53,3 +53,4 @@ for iM = 1:numel(BWTek)
 end
 
 % Only numbers 10 and 30 seemd to have worked !!
+save BWTekData20160624.mat BWTek
