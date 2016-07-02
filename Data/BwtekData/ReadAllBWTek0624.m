@@ -42,15 +42,17 @@ Trans = [BWTek.TR1];
 Light = [BWTek.Rawdata1];
 Diff2Glob = (Light - Dark) ./ (Reference - Dark);
 
-plot(Wv, Light-Dark);
-plot(Wv, Reference - Dark);
-plot(Wv, Diff2Glob);
+%plot(Wv, Light-Dark);
+%plot(Wv, Reference - Dark);
+%plot(Wv, Diff2Glob);
 for iM = 1:numel(BWTek)
     figure;
     plot(Wv, Trans(:,iM));
     title(num2str(iM));
     ylim([0 100]);
 end
+%%
+
 
 % Only numbers 10 and 30 seemd to have worked !!
 save BWTekData20160624.mat BWTek
