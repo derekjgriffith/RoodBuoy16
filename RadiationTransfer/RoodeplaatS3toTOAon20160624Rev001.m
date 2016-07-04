@@ -33,7 +33,7 @@ close all
 % The following are exact angles taken from S3 image data
 % In MODTRAN H2 is the target pixel and H1 is the satellite
 % Satellite was in the east as viewed from the dam
-OverpassDateVec = [2016 06 05 7 42 31];  % UTC
+OverpassDateVec = [2016 06 05 7 50 30];  % UTC
 OverpassDate = datestr(OverpassDateVec, 'YYYYmmdd');
 OverpassDateNum = datenum(OverpassDateVec);
 ScriptName = mfilename;
@@ -78,27 +78,27 @@ GNDALT = 1.225; % km ground altitude
 % water absorption points are not used.
 % Set up basic MODTRAN satellite observation case
 % MicroTOPS readings are
-% AOT440 = 0.703
-% AOT500 = 0.615
-% AOT675 = 0.362
-% AOT870 = 0.206
-% AOT936 = 0.188
-%AOTwv = [440 500 675 870];
-%AOT = [0.703 0.615 0.362 0.206];
+% SN	DATE	TIME	LATITUDE	LONGITUDE	ALTITUDE PRESSURE SZA	AM	SDCORR	TEMP	ID	SIG440	SIG500	SIG675	SIG870	SIG936	STD440	STD500	STD675	STD870	STD936	R440_500	R500_675	R675_870	R870_936
+% 10572	06/24/2016	 7:49:17	-25.622	28.37	1215	896	59.56	1.968	1.033	21.5	0	392.16	455.5	734.13	534.08	384.5	0.003	0.002	0.006	0.007	0.008	0.8609	0.6205	1.3746	1.389	
+% AOT440	AOT500	AOT675	AOT870	AOT936	WATER
+% 0.251	0.214	0.124	0.098	0.089	0.78
+
+AOTwv = [440 500 675 870];
+AOT = [0.251	0.214	0.124	0.098];
 AOT550 = interp1(AOTwv, AOT, 550, 'pchip');
 % Water vapour 1.05 cm
-% Surface pressure 892 mb
-% Temperature 22 degC
-% SZA 59.31
-% Time : 07:42:31 UTC
+% Surface pressure 896 mb
+% Temperature 21.5 degC
+% SZA 59.56
+% Time : 07:49:17 UTC
 CDASTM = 'b';  % Perturb boundary layer aerosol extinction
 ASTMX = 0.6;
 NSSALB = 4;  % Number of single scattering albedo point to read on card
 AWAVLN = [0.4 0.675 0.875 1.0];
 ASSALB = [0.9 0.966 0.933 0.8];  % Roughly taken from AERONET
 
-%H2O = 1.30; % cm Retrieved from S3
-H2O = 1.05; % From MicroTOPS
+%H2O = ????; % cm Retrieved from S3
+H2O = 0.78; % From MicroTOPS
 H2O = H2O * 1.0; % tweak water vapour column
 H2OSTR = ['g' num2str(H2O)];
 O3 = 0.2661; % atm-cm  TBR ????????????????????????????
@@ -109,9 +109,11 @@ NSTR = 4;  % Number of streams to use for DISORT
 % Set up file name of area SNAP pixels for retrieveing area-averaged 
 % ground reflectance. A diameter of about 2.6 km centred on the
 % irradiance station was used.
-AreaSNAPpixels = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_MaskAARev003.txt';
-WaterSNAPpixels = '../Data/Sentinel3/S3_0605_Roodeplaat_data.txt';
+%AreaSNAPpixels = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_MaskAARev003.txt';
+%WaterSNAPpixels = '../Data/Sentinel3/S3_0605_Roodeplaat_data.txt';
 RrsFile = '..\Data\Rrs\Roodeplaat_ASD_rrs.txt';
+
+%% Rrs data unfortunately not available for this date - buoy was not operational
 RrsColumns = 1 + [1 3 5 7]; % Columns measured on 2016-06-05, see ../Data/Rrs/Roodeplaat_ASD_rrs_names.txt
 %% Water surface reflectance
 % Set the spectral water reflectance for the specific geometry
