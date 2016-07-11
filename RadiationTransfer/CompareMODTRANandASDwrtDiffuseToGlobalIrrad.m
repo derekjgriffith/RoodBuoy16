@@ -94,7 +94,7 @@ end
 
 % Set up Card 2 (mandatory - main aerosol and cloud options)
 Diff2Glob.APLUS = '  ';     % Don't use flexible aerosol manipulations
-Diff2Glob.IHAZE = 1;        % Rural aerosol model, visibility = 23 km (modified below)
+Diff2Glob.IHAZE = IHAZE;        % Rural aerosol model, visibility = 23 km (modified below)
 Diff2Glob.CNOVAM = ' ';     % Don't invoke NOVAM
 Diff2Glob.ISEASN = 0;       % Use default seasonal aerosol tweaking
 Diff2Glob.ARUSS = '   ';    % Don't use extended user-defined aerosol facility
@@ -224,28 +224,33 @@ ylabel('Diffuse/Global Ratio');
 grid();
 SaveTaggedPlots(GitDescr, ResultsFolder,  'DiffuseToGlobalIrradBOA', Rev, FileExts, TagFontProperties);
 
-%% Read in ASD diffuse to global and plot together
-% Saved by ReadPlotSunPopRefl.m
+%% Read in ASD and BWTek diffuse to global and plot together
+% ASD data saved by Saved by ReadPlotSunPopRefl.m
 % save IrradDiffuseGlobalRatio20160605.mat IrradRatio IrradRatioMean
 load(ASDSunPopDiff2GlobFile);
+
+% BWTek data saved by ReadAllBWTekIrradExp0605.m
+% save BWTekDataIrradExp20160605.mat BWTekDataUnordered Wavelength GlobMeanIrrad DiffMeanIrrad Diff2GlobRatio Diff2GlobRatioSmooth
+load(BWTekSunPopDiff2GlobFile);
 
 % Compute the misfit at the AOT control wavelengths
 % Interpolate the ASD and MODTRAN results at the AOT wavelengths
 Diff2GlobMOD = interp1(Wv, DiffuseToGlobalBOA, AOTwv, 'linear');
 Diff2GlobASD = interp1(IrradRatioMean.Wv, IrradRatioMean.RadData, AOTwv, 'linear');
+Diff2GlobBWTek = interp1(Wavelength, Diff2GlobRatioSmooth, AOTwv, 'linear');
 
 Misfit = sqrt(sum((Diff2GlobMOD - Diff2GlobASD).^2))
 
 figure;
-plot(Wv, DiffuseToGlobalBOA, IrradRatioMean.Wv, IrradRatioMean.RadData, ...
+plot(Wv, DiffuseToGlobalBOA, IrradRatioMean.Wv, IrradRatioMean.RadData, Wavelength, Diff2GlobRatioSmooth, ...
     AOTwv, Diff2GlobMOD, 'bo', AOTwv, Diff2GlobASD, 'go');
 title('Diffuse/Global Ratio, Downwelling Irradiance at BOA');
 xlabel('Wavelength [nm]');
 ylabel('Diffuse/Global Ratio');
 axis([350 1000 0 1]);
-legend('MODTRAN', ['ASD Misfit ' num2str(Misfit)], 'location', 'northeast')
+legend('MODTRAN', ['ASD Misfit ' num2str(Misfit)], 'BWTek', 'location', 'northeast')
 grid();
-SaveTaggedPlots(GitDescr, ResultsFolder,  'Diff2GlobMODvsASD', Rev, FileExts, TagFontProperties);
+SaveTaggedPlots(GitDescr, ResultsFolder,  'Diff2GlobMODvsASDvsBWTek', Rev, FileExts, TagFontProperties);
 
 % Compute the misfit at the AOT control wavelengths
 % Interpolate the ASD and MODTRAN results at the AOT wavelengths

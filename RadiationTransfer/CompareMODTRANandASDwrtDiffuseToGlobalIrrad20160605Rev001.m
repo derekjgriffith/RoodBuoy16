@@ -12,7 +12,8 @@
 % 0.694 0.583 0.334 0.196 0.178
 % Water Vapour
 % 0.96
-
+clear all
+close all
 
 %% Set up solar zenith/azimuth geometry
 
@@ -61,8 +62,18 @@ SolarSpectrum = 'Thuillier + Kurucz 1997';
 GNDALT = 1.225; % km ground altitude
 
 %% First set up the key atmospheric model parameters
-
-
+% MODTRAN aerosol selection with IHAZE
+% = 1 RURAL extinction, default VIS = 23 km.
+% = 2 RURAL extinction, default VIS = 5 km.
+% = 3 NAVY MARITIME extinction. Sets VIS based on wind speed and relative humidity.
+% = 4 MARITIME extinction, default VIS = 23 km (LOWTRAN model).
+% = 5 URBAN extinction, default VIS = 5 km.
+% = 6 TROPOSPHERIC extinction, default VIS = 50 km.
+% = 7 User-defined aerosol extinction coefficients. Triggers reading CARDs 2D, 2Dl and 2D2 for up to 4 altitude regions of user-defined extinction, absorption and asymmetry parameters. (This option is kept for backward compatibility; the ARUSS = 'USS' option affords greater flexibility in specifying user-defined aerosols).
+% = 8 FOG1 (Advective Fog) extinction, 0.2 km VIS.
+% = 9 FOG2 (Radiative Fog) extinction, 0.5 km VIS.
+% = 10 DESERT extinction, sets visibility from wind speed (WSS).
+IHAZE = 5; % 
 % MicroTOPS readings are
 
 AOTwv = [440 500 675 870];
@@ -82,5 +93,6 @@ NSTR = 4;  % Number of streams to use for DISORT
 
 
 ASDSunPopDiff2GlobFile = '..\Data\ASDIrrad\SunPopRefl0605\IrradDiffuseGlobalRatio20160605.mat';
+BWTekSunPopDiff2GlobFile = '..\Data\BWtekData\BWTekDataIrradExp20160605.mat';
 %% Heavy lifting
 CompareMODTRANandASDwrtDiffuseToGlobalIrrad;
