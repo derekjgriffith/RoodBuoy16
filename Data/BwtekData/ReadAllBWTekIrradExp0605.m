@@ -31,8 +31,8 @@ plot(BWTekData.Wavelength, [BWTekDataUnordered(iGlob).IrradiancemWcm2nm1]);
 GlobMeanIrrad = mean([BWTekDataUnordered(iGlob).IrradiancemWcm2nm1], 2);
 DiffMeanIrrad = mean([BWTekDataUnordered(iDiff).IrradiancemWcm2nm1], 2);
 plot(BWTekData.Wavelength, GlobMeanIrrad, BWTekData.Wavelength, DiffMeanIrrad);
-Diff2GlobRatio = DiffMeanIrrad(34:end) ./ GlobMeanIrrad(34:end); % First 33 values are nan
-Wavelength = BWTekData.Wavelength(34:end);
+Diff2GlobRatio = DiffMeanIrrad(247:2032) ./ GlobMeanIrrad(247:2032); % First 33 values are nan
+Wavelength = BWTekData.Wavelength(247:2032);
 figure;
 plot(Wavelength, Diff2GlobRatio);
 axis([350, 1000, 0, 0.8])
