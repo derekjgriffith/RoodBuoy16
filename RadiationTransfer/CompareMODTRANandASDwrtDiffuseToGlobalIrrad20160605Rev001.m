@@ -73,7 +73,8 @@ GNDALT = 1.225; % km ground altitude
 % = 8 FOG1 (Advective Fog) extinction, 0.2 km VIS.
 % = 9 FOG2 (Radiative Fog) extinction, 0.5 km VIS.
 % = 10 DESERT extinction, sets visibility from wind speed (WSS).
-IHAZE = 5; % 
+IHAZE = 5; %
+IHAZEModel = 'Urban';
 % MicroTOPS readings are
 
 AOTwv = [440 500 675 870];

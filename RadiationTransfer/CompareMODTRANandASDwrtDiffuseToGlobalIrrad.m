@@ -21,6 +21,10 @@ Diff2Glob = Mod5;    % Get a completely empty case instance
 Diff2Glob = Diff2Glob.SetCaseName(['Diff2GlobRood' MeasureDate]); % The SetCaseName method is the only way to set the CaseName property
 Diff2Glob.CaseDescr = ['Diff2Glob Measure at Roodeplaat Dam on ' MeasureDate];
 
+% Plotting sizes
+theFontSize = 14;
+theLineWidth = 2.0;
+
 % Note that if a card is required, ALL parameters on that card must be set,
 % even if the parameters are not used.
 
@@ -103,8 +107,8 @@ Diff2Glob.ICSTL = 1;        % Continental influence of maritime aerosols - not a
 Diff2Glob.ICLD = 0;         % No clouds or rain
 Diff2Glob.IVSA = 0;         % Don't use Army Vertical Structure Algorithm for boundary layer aerosols
 Diff2Glob.VIS = -AOT550;    % Negative of the AOT at 550
-Diff2Glob.WSS = 0;          % Use default wind speed for named MODEL
-Diff2Glob.WHH = 0;          % Use default 24 hr average wind speed for named MODEL
+Diff2Glob.WSS = 2;          % Use default wind speed for named MODEL
+Diff2Glob.WHH = 2;          % Use default 24 hr average wind speed for named MODEL
 Diff2Glob.RAINRT = 0;       % Rain rate is zero (mm/hour), anyway no cloud/rain (ICLD)
 Diff2Glob.GNDALT = GNDALT;       % Target surface (H2) is at sea level
 
@@ -190,17 +194,23 @@ Diff2GlobTrans = Diff2GlobTrans.Run;
 Diff2GlobTransNoAerosolOD = Diff2GlobTrans.sc7.DEPTH;
 Diff2GlobAOD = Diff2GlobTransTotalOD - Diff2GlobTransNoAerosolOD;
 AODWv = Diff2GlobTrans.sc7.WAVLNM;
+
+%% Plot the AOT vs measurements
 figure;
-plot(AODWv, Diff2GlobAOD, AOTwv, AOT, 'o', 550, AOT550, 'o');
-title(['Vertical Aerosol Optical Depth, Roodeplaat ' MeasureDate])
+plot(AODWv, Diff2GlobAOD, AOTwv, AOT, 'or', 'LineWidth', theLineWidth);
+set(gca, 'LineWidth', theLineWidth);
+set(gca, 'FontSize', theFontSize);
+title(['Vertical AOD, Roodeplaat ' MeasureDate])
 xlabel('Wavelength [nm]');
 ylabel('AOD')
-legend('MODTRAN', 'MicroTOPS', 'MicroTOPS Interpolated', 'location', 'best')
+legend(['MODTRAN ' IHAZEModel], 'MicroTOPS', 'location', 'best');
+axis([350, 900, 0, 1])
 grid();
-SaveTaggedPlots(GitDescr, ResultsFolder,  'AOD', Rev, FileExts, TagFontProperties)
+SaveTaggedPlots(GitDescr, ResultsFolder,  'AOD', Rev, FileExts, TagFontProperties);
+% Save AOT Measurements
+save(['RoodeplaatAOT' MeasureDate IHAZEModel '.mat'], 'AODWv', 'Diff2GlobAOD', 'AOTwv', 'AOT');
 
 %% Calculate and plot the downwelling spectral irradiance
-figure;
 Wv = Diff2Glob.flx.Spectral;  % nm
 % Compute total downwelling
 GlobalBOAirrad = Diff2Glob.flx.DownDiff(:,1) + Diff2Glob.flx.DirectSol(:,1);
@@ -240,6 +250,7 @@ Diff2GlobASD = interp1(IrradRatioMean.Wv, IrradRatioMean.RadData, AOTwv, 'linear
 Diff2GlobBWTek = interp1(Wavelength, Diff2GlobRatioSmooth, AOTwv, 'linear');
 
 Misfit = sqrt(sum((Diff2GlobMOD - Diff2GlobASD).^2))
+BWTekMisfit = sqrt(sum((Diff2GlobMOD - Diff2GlobBWTek).^2))
 
 figure;
 plot(Wv, DiffuseToGlobalBOA, IrradRatioMean.Wv, IrradRatioMean.RadData, Wavelength, Diff2GlobRatioSmooth, ...
@@ -247,7 +258,7 @@ plot(Wv, DiffuseToGlobalBOA, IrradRatioMean.Wv, IrradRatioMean.RadData, Waveleng
 title('Diffuse/Global Ratio, Downwelling Irradiance at BOA');
 xlabel('Wavelength [nm]');
 ylabel('Diffuse/Global Ratio');
-axis([350 1000 0 1]);
+axis([350 1000 0 0.8]);
 legend('MODTRAN', ['ASD Misfit ' num2str(Misfit)], 'BWTek', 'location', 'northeast')
 grid();
 SaveTaggedPlots(GitDescr, ResultsFolder,  'Diff2GlobMODvsASDvsBWTek', Rev, FileExts, TagFontProperties);
@@ -265,7 +276,36 @@ Diffuse2GlobMODSmooth = fastsmooth(DiffuseToGlobalBOA, 200, 1, 1);
 plot(Wv, 200 * (Diff2GlobASDatMODWv - Diffuse2GlobMODSmooth) ...
            ./ (Diff2GlobASDatMODWv + Diffuse2GlobMODSmooth));
 %% Plot again with smoothed MODTRAN data       
+
 figure;
-plot(Wv, Diffuse2GlobMODSmooth, Wv, Diff2GlobASDatMODWv, ...
-    AOTwv, Diff2GlobMOD, 'bo', AOTwv, Diff2GlobASD, 'go');
+plot(Wv, Diffuse2GlobMODSmooth, '--', IrradRatioMean.Wv, IrradRatioMean.RadData, Wavelength, Diff2GlobRatioSmooth, ':', ...
+    AOTwv, Diff2GlobMOD, 'bo', AOTwv, Diff2GlobASD, 'go', AOTwv, Diff2GlobBWTek, 'rx', 'LineWidth', theLineWidth);
+set(gca, 'LineWidth', theLineWidth);
+set(gca, 'FontSize', theFontSize);
+title('Diffuse/Global Ratio, Downwelling Irradiance');
+xlabel('Wavelength [nm]');
+ylabel('Diffuse/Global Ratio');
+axis([350 1000 0.1 0.8]);
+legend(['MODTRAN ' IHAZEModel], ['ASD, Misfit ' num2str(Misfit)], ['BWTek, Misfit ' num2str(BWTekMisfit)], 'location', 'northeast')
+grid();
+%SaveTaggedPlots('', ResultsFolder,  'DiffuseToGlobalIrradBOASmooth', Rev, FileExts, TagFontProperties);
+
+%% Also do a percentage error plot
+
+Diff2GlobASDatModWv = interp1(IrradRatioMean.Wv, IrradRatioMean.RadData, Wv, 'linear');
+Diff2GlobBWTekAtModWv = interp1(Wavelength, Diff2GlobRatioSmooth, Wv, 'linear');
+Diff2GlobErrorMODvsASD = 200 * (Diff2GlobASDatModWv - Diffuse2GlobMODSmooth) ...
+           ./ (Diff2GlobASDatModWv + Diffuse2GlobMODSmooth);
+Diff2GlobErrorMODvsBWTek = 200 * (Diff2GlobBWTekAtModWv - Diffuse2GlobMODSmooth) ...
+           ./ (Diff2GlobBWTekAtModWv + Diffuse2GlobMODSmooth);
+figure;       
+plot(Wv, Diff2GlobErrorMODvsASD, 'b--', Wv, Diff2GlobErrorMODvsBWTek, 'g', 'LineWidth', theLineWidth);       
+set(gca, 'LineWidth', theLineWidth);
+set(gca, 'FontSize', theFontSize);
+title('Diffuse/Global Ratio Error');
+xlabel('Wavelength [nm]');
+ylabel('Diffuse/Global Ratio Error [%]');
+legend(['MODTRAN ' IHAZEModel ' vs ASD'], ['MODTRAN ' IHAZEModel ' vs BWTek']);
+xlim([350 900]);
+grid();
 
