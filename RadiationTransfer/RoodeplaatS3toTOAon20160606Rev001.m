@@ -30,6 +30,7 @@ close all
 % by dividing by the atmospheric path band transmittance.
 
 %% Set up viewing and solar azimuth geometry
+
 % The following are exact angles taken from S3 image data
 % In MODTRAN H2 is the target pixel and H1 is the satellite
 % Satellite was in the east as viewed from the dam
@@ -54,6 +55,19 @@ SZA = 63.2531;  % deg. Solar zenith angle
 % In MODTRAN, the solar azimuth is given relative to the
 % satellite azimuth, measured positive north through east.
 %% Set up major adjustables parameters for MODTRAN atmosphere
+% MODTRAN aerosol selection with IHAZE
+% = 1 RURAL extinction, default VIS = 23 km.
+% = 2 RURAL extinction, default VIS = 5 km.
+% = 3 NAVY MARITIME extinction. Sets VIS based on wind speed and relative humidity.
+% = 4 MARITIME extinction, default VIS = 23 km (LOWTRAN model).
+% = 5 URBAN extinction, default VIS = 5 km.
+% = 6 TROPOSPHERIC extinction, default VIS = 50 km.
+% = 7 User-defined aerosol extinction coefficients. Triggers reading CARDs 2D, 2Dl and 2D2 for up to 4 altitude regions of user-defined extinction, absorption and asymmetry parameters. (This option is kept for backward compatibility; the ARUSS = 'USS' option affords greater flexibility in specifying user-defined aerosols).
+% = 8 FOG1 (Advective Fog) extinction, 0.2 km VIS.
+% = 9 FOG2 (Radiative Fog) extinction, 0.5 km VIS.
+% = 10 DESERT extinction, sets visibility from wind speed (WSS).
+IHAZE = 1; %  Actually will tune the aerosol model
+IHAZEModel = 'Tuned';
 % Exoatmospheric solar irradiance, 'f' for default (Kurucz 1997), then
 % 1 : Kurucz 2005
 % 2 : Chance + Kurucz 1997
