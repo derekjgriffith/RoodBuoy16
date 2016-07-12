@@ -3,6 +3,9 @@
 %% Set up initial run of MODTRAN
 FileExts = {'pdf', 'png'};  % Save plots in these formats
 TagFontProperties = {'FontSize', 6, 'FontAngle', 'italic'}; % Tag font properties in plots
+% Plotting sizes
+theFontSize = 14;
+theLineWidth = 2.0;
 % Get a Git description of the repo to use as the plot tag in lower left
 % corner
 [RetCode, GitDescr] = system('git describe --dirty --always --tags');
@@ -104,7 +107,7 @@ S3 = S3.AttachFlt(S3Flt); % This will automatically set FILTNM (Card 1A3)
 
 % Set up Card 2 (mandatory - main aerosol and cloud options)
 S3.APLUS = '  ';     % Don't use flexible aerosol manipulations
-S3.IHAZE = 1;        % Rural aerosol model, visibility = 23 km (modified below)
+S3.IHAZE = IHAZE;        % Choose base aerosol model
 S3.CNOVAM = ' ';     % Don't invoke NOVAM
 S3.ISEASN = 0;       % Use default seasonal aerosol tweaking
 S3.ARUSS = '   ';    % Don't use extended user-defined aerosol facility
@@ -579,5 +582,18 @@ SaveTaggedPlots(GitDescr, ResultsFolder,  'S3RetrievedAndMeasuredLwAtBOA', Rev, 
 
 print([ResultsFolder filesep 'S3RetrievedAndMeasuredLwAtBOARev' Rev '.pdf'], '-dpdf');
 print([ResultsFolder filesep 'S3RetrievedAndMeasuredLwAtBOARev' Rev '.png'], '-dpng');
+
+%% Plot again with publication font sizes
+% Lw is in units of W/sr/cm^2/sr, so multiply by 1000 * 100 * 100
+figure;
+plot(Wv, mean(Lw*100*100*1000, 2), ChanWv, RetrievedLwAtBOA, 'ko-', 'LineWidth', theLineWidth);  % in mW/sr/m^2/nm
+set(gca, 'LineWidth', theLineWidth);
+set(gca, 'FontSize', theFontSize);
+title(['S3 Retrieved and Measured L_w, MODTRAN ' IHAZEModel]);
+xlabel('Wavelength [nm]');
+ylabel('L_w at BOA [mW/sr/m^2/nm]');
+legend('Measured via R_{rs}', 'Retrieved from S3', 'location', 'south')
+xlim([400, 900])
+grid();
 
 
