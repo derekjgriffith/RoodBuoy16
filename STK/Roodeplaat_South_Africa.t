@@ -84,7 +84,7 @@ BEGIN Extensions
     
     BEGIN AccessConstraints
 		LineOfSight   IncludeIntervals 
-		ElevationAngle		Min  8.1000000000e+001   IncludeIntervals 
+		ElevationAngle		Min  6.0000000000e+001   IncludeIntervals 
     END AccessConstraints
     
     BEGIN ObjectCoverage
@@ -94,6 +94,9 @@ BEGIN Extensions
     Begin ShortText
 roodeplaat
     End ShortText
+    Begin LongText
+
+    End LongText
     END Desc
     
     BEGIN Atmosphere

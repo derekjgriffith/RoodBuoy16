@@ -1516,7 +1516,7 @@ Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in Ju
 			Description	Local midnight today.
 				LocalOffsetWholeDays      0
 				LocalOffsetTime      	0.00000000000000e+000
-				ComputedDate      	29 Jun 2016 22:00:00.000000000
+				ComputedDate      	31 Jul 2016 22:00:00.000000000
 		END	EVENT
     END Crdn
     

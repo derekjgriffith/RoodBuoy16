@@ -108,8 +108,8 @@ VO_V110
             SceneID                  1
             CentralBody              Earth
             DisplayMode              Normal
-            StereoProjectionMode     FixedDistance
-            ProjectionDistance       100000.000000
+            StereoProjectionMode     Automatic
+            ProjectionDistance       32515003.832879
             EyeSeparationFactor      0.020000
             WireframeMode            No
             CameraLightAntiSun       No
@@ -209,6 +209,52 @@ VO_V110
 
             Begin Globe
 AA Yes
+BeginCentralBody "Moon"
+    Show Yes
+    Textured Yes
+    AltOffset 0.000000
+    Color #ffffff
+    SpecularColor #545454
+    Shininess 40.000000
+    ShowWater No
+    _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
+        BlendMode Value
+        BlendFactor 1.000000
+        BlendAltitudeLowerFactor 1.000000
+        BlendAltitudeUpperFactor 0.000000
+        BlendAltitudeLowerAltitude 500000.000000
+        BlendAltitudeUpperAltitude 2500000.000000
+        TextureRole Day
+        URI "file:///Moon.jp2"
+        BeginImageSetDefOn
+        End
+        InBase Yes
+        BaseOn Yes
+    End
+EndCentralBody
+BeginCentralBody "Sun"
+    Show Yes
+    Textured No
+    AltOffset 0.000000
+    Color #ffff00
+    SpecularColor #545454
+    Shininess 40.000000
+    ShowWater No
+    _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
+        BlendMode Value
+        BlendFactor 1.000000
+        BlendAltitudeLowerFactor 1.000000
+        BlendAltitudeUpperFactor 0.000000
+        BlendAltitudeLowerAltitude 500000.000000
+        BlendAltitudeUpperAltitude 2500000.000000
+        TextureRole Day
+        URI "file:///Sun.jp2"
+        BeginImageSetDefOn
+        End
+        InBase Yes
+        BaseOn Yes
+    End
+EndCentralBody
 BeginCentralBody "Earth"
     Show Yes
     Textured Yes
@@ -239,52 +285,6 @@ BeginCentralBody "Earth"
         BlendAltitudeLowerAltitude 500000.000000
         BlendAltitudeUpperAltitude 2500000.000000
         URI "virtual_earth://virtualearth.net/Aerial.ve"
-        BeginImageSetDefOn
-        End
-        InBase Yes
-        BaseOn Yes
-    End
-EndCentralBody
-BeginCentralBody "Sun"
-    Show Yes
-    Textured No
-    AltOffset 0.000000
-    Color #ffff00
-    SpecularColor #545454
-    Shininess 40.000000
-    ShowWater No
-    _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
-        BlendMode Value
-        BlendFactor 1.000000
-        BlendAltitudeLowerFactor 1.000000
-        BlendAltitudeUpperFactor 0.000000
-        BlendAltitudeLowerAltitude 500000.000000
-        BlendAltitudeUpperAltitude 2500000.000000
-        TextureRole Day
-        URI "file:///Sun.jp2"
-        BeginImageSetDefOn
-        End
-        InBase Yes
-        BaseOn Yes
-    End
-EndCentralBody
-BeginCentralBody "Moon"
-    Show Yes
-    Textured Yes
-    AltOffset 0.000000
-    Color #ffffff
-    SpecularColor #545454
-    Shininess 40.000000
-    ShowWater No
-    _AGI_PIBEGINTERRAINIMAGECALLDATA "SRC"
-        BlendMode Value
-        BlendFactor 1.000000
-        BlendAltitudeLowerFactor 1.000000
-        BlendAltitudeUpperFactor 0.000000
-        BlendAltitudeLowerAltitude 500000.000000
-        BlendAltitudeUpperAltitude 2500000.000000
-        TextureRole Day
-        URI "file:///Moon.jp2"
         BeginImageSetDefOn
         End
         InBase Yes
@@ -373,16 +373,16 @@ EndCentralBody
             End
             Begin CentralBodyOpts
                 BeginCentralBody
-                    Name "Earth"
-                    ShowLabel No
+                    Name "Moon"
+                    ShowLabel Yes
                 EndCentralBody
                 BeginCentralBody
                     Name "Sun"
                     ShowLabel No
                 EndCentralBody
                 BeginCentralBody
-                    Name "Moon"
-                    ShowLabel Yes
+                    Name "Earth"
+                    ShowLabel No
                 EndCentralBody
             End CentralBodyOpts
             isShowingOverlay            Yes
