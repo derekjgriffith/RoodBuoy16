@@ -8,28 +8,7 @@ BEGIN Access
     UpdateOnReference        Yes
     DupIsDifferent           No
     UIOrderReversed          No
-    UITimePeriod             Custom
-    CustomTimeInterval
-		BEGIN	EVENTINTERVAL
-				StartEvent
-					BEGIN	EVENT
-							Epoch	Today
-							EventEpoch
-								BEGIN	EVENT
-									Type	EVENT_LINKTO
-									Name	Today
-									AbsolutePath	Scenario
-								END	EVENT
-							EpochState	Implicit
-					END	EVENT
-				StopEvent
-					BEGIN	EVENT
-							Epoch	31 Aug 2016 00:00:00.000000000
-							EpochState	Explicit
-					END	EVENT
-				IntervalState	StartStop
-		END	EVENTINTERVAL
-
+    UITimePeriod             Object
     UseLightTimeDelay        Yes
     ClockHost                Base
     TimeSense                Transmit
@@ -41,64 +20,6 @@ BEGIN Access
     AbsValueConvergence      1.000000e-014
     RelValueConvergence      1.000000e-008
     DetectEventsUsingSamplesOnly No
-	BEGINUserList 
-        4917600.000000 7516800.000000
-	ENDUserList 
-    Show                     Yes
-    Inherit                  Yes
-    ShowIV                   Yes
-    ShowLineGfx              Yes
-    ShowHiliteGfx            Yes
-    LineWidth                1.000000e+000
-    BEGIN  Crdn
-    END  Crdn
-
-END Access
-
-BEGIN Access 
-        Scenario/SentinelRoodeplaat2016/Target/Roodeplaat_South_Africa
-        Scenario/SentinelRoodeplaat2016/Satellite/SENTINEL-2A_40697
-
-    IsComputed               Yes
-    UpdateOnReference        Yes
-    DupIsDifferent           No
-    UIOrderReversed          No
-    UITimePeriod             Custom
-    CustomTimeInterval
-		BEGIN	EVENTINTERVAL
-				StartEvent
-					BEGIN	EVENT
-							Epoch	Today
-							EventEpoch
-								BEGIN	EVENT
-									Type	EVENT_LINKTO
-									Name	Today
-									AbsolutePath	Scenario
-								END	EVENT
-							EpochState	Implicit
-					END	EVENT
-				StopEvent
-					BEGIN	EVENT
-							Epoch	31 Aug 2016 00:00:00.000000000
-							EpochState	Explicit
-					END	EVENT
-				IntervalState	StartStop
-		END	EVENTINTERVAL
-
-    UseLightTimeDelay        Yes
-    ClockHost                Base
-    TimeSense                Transmit
-    AberrationType           Annual
-    TimeDelayConvergence     5.000000e-005
-    MaxTimeStep              3.600000e+002
-    MinTimeStep              1.000000e-002
-    TimeConvergence          5.000000e-003
-    AbsValueConvergence      1.000000e-014
-    RelValueConvergence      1.000000e-008
-    DetectEventsUsingSamplesOnly No
-	BEGINUserList 
-        4917600.000000 7516800.000000
-	ENDUserList 
     Show                     Yes
     Inherit                  Yes
     ShowIV                   Yes

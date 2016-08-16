@@ -182,7 +182,7 @@ VO_V110
             Object _Default
         End
         Duration                600.000
-        IsShowing               No
+        IsShowing               Yes
         IsPersistent            No
         IsTransparent           No
         DrawFirstArrowOnly      Yes
@@ -369,7 +369,7 @@ VO_V110
     VaporRadius               1000.000000
     VaporExpansionRate        0.010000
     VaporStartTime            0.000000
-    VaporEndTime              7516800.000000
+    VaporEndTime              6573600.000000
     VaporIntervalPtr
 	BEGIN	EVENTINTERVAL
 			EventInterval

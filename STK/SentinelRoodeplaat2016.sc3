@@ -831,7 +831,7 @@ EndCentralBody
     End SceneWindow
     Begin View
         ViewName                HomeView
-        ViewTime                -136800.000000
+        ViewTime                -6350400.000000
         ViewUpdateDelta         60.000000
         CentralBody             Earth
         Begin ViewCrdnAxes

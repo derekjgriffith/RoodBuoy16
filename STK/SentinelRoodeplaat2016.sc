@@ -5,10 +5,10 @@ BEGIN Scenario
 
 BEGIN Epoch
 
-    Epoch        5 Jun 2016 00:00:00.000000000
+    Epoch        15 Aug 2016 22:00:00.000000000
     SmartEpoch
 	BEGIN	EVENT
-			Epoch	5 Jun 2016 00:00:00.000000000
+			Epoch	15 Aug 2016 22:00:00.000000000
 			EventEpoch
 				BEGIN	EVENT
 					Type	EVENT_LINKTO
@@ -22,15 +22,26 @@ END Epoch
 
 BEGIN Interval
 
-Start                   5 Jun 2016 00:00:00.000000000
-Stop                    31 Aug 2016 00:00:00.000000000
+StartStr                Today
+Stop                    31 Oct 2016 00:00:00.000000000
     SmartInterval
 	BEGIN	EVENTINTERVAL
-			BEGIN Interval
-				Start	5 Jun 2016 00:00:00.000000000
-				Stop	31 Aug 2016 00:00:00.000000000
-			END Interval
-			IntervalState	Explicit
+			StartEvent
+				BEGIN	EVENT
+						Epoch	Today
+						EventEpoch
+							BEGIN	EVENT
+								Type	EVENT_LINKTO
+								Name	Today
+							END	EVENT
+						EpochState	Implicit
+				END	EVENT
+			StopEvent
+				BEGIN	EVENT
+						Epoch	31 Oct 2016 00:00:00.000000000
+						EpochState	Explicit
+				END	EVENT
+			IntervalState	StartStop
 	END	EVENTINTERVAL
 
 EpochUsesAnalStart      No
@@ -105,8 +116,8 @@ BEGIN Extensions
 
 BEGIN Animation
 
-    StartTime          5 Jun 2016 00:00:00.000000000
-    EndTime            31 Aug 2016 00:00:00.000000000
+    StartTime          15 Aug 2016 22:00:00.000000000
+    EndTime            31 Oct 2016 00:00:00.000000000
     CurrentTime        6 Jun 2016 08:17:50.000000000
     Direction          Forward
     UpdateDelta        5.000000
@@ -404,7 +415,7 @@ BEGIN MapData
 
         BEGIN Style
         Name                DefaultWithBing
-        Time                -136800.000000
+        Time                -6350400.000000
         UpdateDelta         60.000000
 
         BEGIN MapAttributes
@@ -591,7 +602,7 @@ BEGIN MapData
 
         BEGIN Style
         Name                DefaultWithoutBing
-        Time                -136800.000000
+        Time                -6350400.000000
         UpdateDelta         60.000000
 
         BEGIN MapAttributes
@@ -1143,7 +1154,141 @@ END MapData
 	ViewerPassword	No
 	STKPassword	No
 	ExcludeInstallFiles	No
+	VDFOverview	87
+Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in June 2016
 	BEGIN ExternalFileList
+	    BEGIN File
+		Name  "DJGAnglesReport.rst"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "satellite.dae"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "satellite_bus_diff-trans.dds"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "satellite_bus_diff.dds"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "satellite_bus_normals.jpg"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "satellite_bus_spec.dds"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "satellite_panel_diff.dds"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "satellite_panel_normals.jpg"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "satellite_panel_spec.dds"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "target.mdl"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "Target.bmp"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "EOP-v1.1.txt"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "Basic.bmp"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "Earth_PE_b.jp2"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "water.jp2"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "Moon.jp2"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "Sun.jp2"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "AGI_logo.png"
+		IncludeInVDF    Yes
+	    END File
+	    BEGIN File
+		Name  "README.md"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Report_  Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-2A_40697 - AER.pdf"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Report_  Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-3A_41335 - AER.pdf"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Report_  Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-3A_41335 - AERa.pdf"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "SENTINEL-2A_40697 Access20160627.pdf"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "SENTINEL-3A_41335 Access20160627.pdf"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-2A_40697 Access.txt"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-2A_40697 Access20160627.txt"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-2A_40697 Access20160627e.txt"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-2A_40697 AER20160627.txt"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-3A_41335 Access.txt"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-3A_41335 Access20160627.txt"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-3A_41335 Access20160627e.txt"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-3A_41335 AER.txt"
+		IncludeInVDF    No
+	    END File
+	    BEGIN File
+		Name  "Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-3A_41335 AER20160627.txt"
+		IncludeInVDF    No
+	    END File
 	END ExternalFileList
     END Author
     
@@ -1179,6 +1324,9 @@ END MapData
     END ExportDataFile
     
     BEGIN Desc
+    Begin ShortText
+
+    End ShortText
     Begin LongText
 Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in June 2016
     End LongText
@@ -1516,7 +1664,7 @@ Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in Ju
 			Description	Local midnight today.
 				LocalOffsetWholeDays      0
 				LocalOffsetTime      	0.00000000000000e+000
-				ComputedDate      	31 Jul 2016 22:00:00.000000000
+				ComputedDate      	15 Aug 2016 22:00:00.000000000
 		END	EVENT
     END Crdn
     

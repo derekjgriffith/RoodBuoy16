@@ -11,15 +11,14 @@ ptn_Child1=Frames
 ptn_Child1=MainFrame
 ptn_Child2=ChildFrames
 [WorkState_v1_2.Frames.MainFrame]
-WindowPlacement=MCAAAAAACAAAAAAADAAAAAAAAADIPPPPAADIPPPPPPPPPPPPPPPPPPPPLEAAAAAACAAAAAAALJFAAAAAGDDAAAAA
-Title=SentinelRoodeplaat2016 - STK 11 - [Report:  Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-2A_40697 - AER]
+WindowPlacement=MCAAAAAACAAAAAAADAAAAAAAAAAAAAAAAAAAAAAAPPPPPPPPPPPPPPPPLEAAAAAACAAAAAAALJFAAAAAGDDAAAAA
+Title=SentinelRoodeplaat2016 - STK 11 - [Report:  Target-Roodeplaat_South_Africa-To-Satellite-SENTINEL-3A_41335 - AER]
 [WorkState_v1_2.Frames.ChildFrames]
 ptn_Child1=Document-0
 ptn_Child2=Document-1
 ptn_Child3=Document-2
 ptn_Child4=Document-3
 ptn_Child5=Document-4
-ptn_Child6=Document-5
 [WorkState_v1_2.Frames.ChildFrames.Document-0]
 ptn_Child1=ViewFrame-0
 [WorkState_v1_2.Frames.ChildFrames.Document-0.ViewFrame-0]
@@ -51,40 +50,8 @@ ptn_Child1=ViewFrame-0
 DocPathName=D:\Projects\GitHub\RoodBuoy16\STK\AgUiAttrBrowser11.AgUiPiAttrBrowser.1
 DocumentString=AgUiAttrBrowser.AgUiPiAttrBrowser.1
 DocTemplateIndex=0
-WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAAAAAAAAAAALNAAAAAAKGCAAAAA
+WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAAAAAAAAAAALNAAAAAAPGDAAAAA
 IsActiveChildFrame=False
 IsFrameVisible=True
 ProfUISBarID=63000
 ptn_Child1=AGI Custom Node Data
-[WorkState_v1_2.Frames.ChildFrames.Document-4]
-ptn_Child1=ViewFrame-0
-[WorkState_v1_2.Frames.ChildFrames.Document-4.ViewFrame-0]
-DocPathName=D:\Projects\GitHub\RoodBuoy16\STK\AgUiTimelineView11.AgUiPiTimelineView.1
-DocumentString=AgUiTimelineView.AgUiPiTimelineView.1
-DocTemplateIndex=0
-WindowPlacement=MCAAAAAAAAAAAAAABAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAAAAAAAAAAAAIHAAAAAJOAAAAAA
-IsActiveChildFrame=False
-IsFrameVisible=True
-ProfUISBarID=63001
-ptn_Child1=AGI Custom Node Data
-[WorkState_v1_2.Frames.ChildFrames.Document-4.ViewFrame-0.AGI Custom Node Data]
-ComponentWellWidth=200.000000000000
-CurrentContentView=Scenario Availability
-CurrentTimeView=Scenario Analysis Period
-FontSize=10.000000000000
-FullViewScaleHeight=22.000000000000
-LabelFontSize=11.000000000000
-RowHeight=28.000000000000
-ShowComponents=True
-ShowFullViewBar=True
-ShowFullViewRuler=True
-ShowGlobalScale=True
-ShowGlobalTimeline=True
-ShowIntervalLabels=True
-ShowStartTime=True
-ShowStopTime=True
-ShowToolbar=True
-ShowViewportRuler=True
-Theme=Default
-Title=Timeline 1
-ViewportScaleHeight=33.000000000000
