@@ -192,3 +192,6 @@ Docs/SASAS2016/EstimationOfRrsFromAboveSurfaceMeasurements.pdf
 Docs/SASAS2016/Remote sensing reflectance and inherent optical properties Chesapeake Bay.pdf
 RadiationTransfer/.ipynb_checkpoints/RoodeplaatS3toTOAon20160606-checkpoint.ipynb
 RadiationTransfer/libRadtran.pdf
+Literature/IOCCGreport10.pdf
+RadiationTransfer/.ipynb_checkpoints/*.ipynb
+Literature/SIMilarity Environment Correction (SIMEC) applied to MERIS data over.pdf
