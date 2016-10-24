@@ -73,7 +73,7 @@ GNDALT = 1.225; % km ground altitude
 % = 8 FOG1 (Advective Fog) extinction, 0.2 km VIS.
 % = 9 FOG2 (Radiative Fog) extinction, 0.5 km VIS.
 % = 10 DESERT extinction, sets visibility from wind speed (WSS).
-IHAZE = 1; % Actually will use a tuned model
+IHAZE = 6; % Actually will use a tuned model, but this probably still defines the phase functions
 IHAZEModel = 'Tuned';
 % The Area-Averaged (AA) surface reflectance is computed from a set
 % of S3 pixels in a radius of 1.3 km of the observation site.
@@ -99,7 +99,7 @@ CDASTM = 'b';  % Perturb boundary layer aerosol extinction
 ASTMX = 0.6;
 NSSALB = 4;  % Number of single scattering albedo point to read on card
 AWAVLN = [0.4 0.675 0.875 1.0];
-ASSALB = [0.9 0.966 0.933 0.8];  % Roughly taken from AERONET
+ASSALB = [0.9 0.866 0.833 0.8];  % Roughly taken from AERONET
 
 %H2O = 1.30; % cm Retrieved from S3
 H2O = 1.05; % From MicroTOPS

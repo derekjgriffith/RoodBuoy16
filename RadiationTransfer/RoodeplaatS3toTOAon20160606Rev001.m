@@ -66,7 +66,7 @@ SZA = 63.2531;  % deg. Solar zenith angle
 % = 8 FOG1 (Advective Fog) extinction, 0.2 km VIS.
 % = 9 FOG2 (Radiative Fog) extinction, 0.5 km VIS.
 % = 10 DESERT extinction, sets visibility from wind speed (WSS).
-IHAZE = 1; %  Actually will tune the aerosol model
+IHAZE = 6; %  Actually will tune the aerosol model
 IHAZEModel = 'Tuned';
 % Exoatmospheric solar irradiance, 'f' for default (Kurucz 1997), then
 % 1 : Kurucz 2005

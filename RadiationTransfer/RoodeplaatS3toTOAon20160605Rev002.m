@@ -73,8 +73,8 @@ GNDALT = 1.225; % km ground altitude
 % = 8 FOG1 (Advective Fog) extinction, 0.2 km VIS.
 % = 9 FOG2 (Radiative Fog) extinction, 0.5 km VIS.
 % = 10 DESERT extinction, sets visibility from wind speed (WSS).
-IHAZE = 5; %
-IHAZEModel = 'Urban';
+IHAZE = 6; %
+IHAZEModel = 'Tropo';
 % The Area-Averaged (AA) surface reflectance is computed from a set
 % of S3 pixels in a radius of 1.3 km of the observation site.
 % This is computed by running MODTRAN with spectrally flat surface
@@ -89,14 +89,19 @@ IHAZEModel = 'Urban';
 % AOT936 = 0.188
 AOTwv = [440 500 675 870];
 AOT = [0.703 0.615 0.362 0.206];
-AOT550 = interp1(AOTwv, AOT, 550, 'pchip');
+AOT550 = interp1(AOTwv, AOT, 550, 'pchip')-0.02;
 % Water vapour 1.05 cm
 % Surface pressure 892 mb
 % Temperature 22 degC
 % SZA 59.31
 % Time : 07:42:31 UTC
-CDASTM = ' ';  % No aerosol Angstrom perturbations.
+%CDASTM = ' ';  % No aerosol Angstrom perturbations.
+CDASTM = 'b';  % Perturb boundary layer aerosol extinction
+ASTMX = 0.6;
 NSSALB = 0;  % No single scattering albedo manipulation
+%NSSALB = 4;  % Number of single scattering albedo point to read on card
+%AWAVLN = [0.4 0.675 0.875 1.0];
+%ASSALB = [0.9 0.866 0.833 0.8];  % Roughly taken from AERONET
 
 %H2O = 1.30; % cm Retrieved from S3
 H2O = 1.05; % From MicroTOPS
@@ -110,7 +115,8 @@ NSTR = 4;  % Number of streams to use for DISORT
 % Set up file name of area SNAP pixels for retrieveing area-averaged 
 % ground reflectance. A diameter of about 2.6 km centred on the
 % irradiance station was used.
-AreaSNAPpixels = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt';
+%AreaSNAPpixels = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_Mask.txt';
+AreaSNAPpixels = '../Data/Sentinel3/S3A_OL_1_EFR____20160605T074147_20160605T074447_20160606T174711_0180_005_049_3419_LN1_O_NT_001_geometry_MaskAARev003.txt';
 WaterSNAPpixels = '../Data/Sentinel3/S3_0605_Roodeplaat_data.txt';
 RrsFile = '..\Data\Rrs\Roodeplaat_ASD_rrs.txt';
 RrsColumns = 1 + [1 3 5 7]; % Columns measured on 2016-06-05, see ../Data/Rrs/Roodeplaat_ASD_rrs_names.txt
