@@ -217,6 +217,7 @@ S3Trans = S3Trans.Run;
 S3TransNoAerosolOD = S3Trans.sc7.DEPTH;
 S3AOD = S3TransTotalOD - S3TransNoAerosolOD;
 AODWv = S3Trans.sc7.WAVLNM;
+%% Plot the vertical AOT for verification purposes
 figure;
 plot(AODWv, S3AOD, AOTwv, AOT, 'o', 550, AOT550, 'o');
 title(['Vertical Aerosol Optical Depth, Roodeplaat ' OverpassDate])
@@ -260,6 +261,8 @@ end
 WantedChannels = [1:15 17:19];
 WantedRetrievedAlbedo = RetrievedAlbedo(WantedChannels);
 WantedCentreWv = CentreWavelengths(WantedChannels);
+
+%% Plot the area-average surface albedo
 figure;
 plot(WantedCentreWv, WantedRetrievedAlbedo);
 title(['Retrieved Area-Averaged Surface Reflectance, Roodeplaat ' OverpassDate])
@@ -269,22 +272,30 @@ grid();
 SaveTaggedPlots(GitDescr, ResultsFolder,  'AreaAveAlbedo', Rev, FileExts, TagFontProperties);
 
 %% Set up run with retrieved AA surface reflectance on black target
+% This is the "black tarp" scenario
 % Will run an NSURF = 2 case with black pixel and area-averaged albedo
 % Build a surface albedo structure for the area-averaged reflectance
 Roode1AA(1).Filename = 'Roode1AA.dat';
 Roode1AA(1).Header = ['Area-averaged reflectance at Roodeplaat Dam on ' OverpassDate ', retrieved from Sentinel 3'];
 Roode1AA(1).title = '   1   Roode1AA';
-Roode1AA(1).wv = [350; WantedCentreWv'; 1000];  % Add points at start and end to fully cover run spectral range
+Roode1AA(1).wv = [350; WantedCentreWv'; 1000]/1000;  % Add points at start and end to fully cover run spectral range, wavelengths in microns
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% !!!!!!!!!!!!!!!!!
 Roode1AA(1).refl = [WantedRetrievedAlbedo(1); WantedRetrievedAlbedo'; WantedRetrievedAlbedo(end)];
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% !!!!!!!!!!!!!!!!!
 Roode1AA(2).Filename = 'Roode1AA.dat';
 Roode1AA(2).Header = 'Black surface';
 Roode1AA(2).title = '    2   Black';
-Roode1AA(2).wv = [350; 1000];
+Roode1AA(2).wv = [350; 1000]/1000.0; % Must be in microns  
 Roode1AA(2).refl = [0; 0];
 % Just set up the original case instead of copying
 % The following statement does everything necessary to set up NSURF = 2 case
 S3 = S3.AttachAlb(Roode1AA, 2, 1);
+% S3 = S3.AttachAlb(Roode1AA, 1, 2);
 S3 = S3.Run;
+
+%% Plot the total radiance at TOA for a "black tarp" scenario
+%figure()
+%plot(Wv, S3.sc7.TOTALRAD);
 
 %% Calculate and plot the downwelling spectral irradiance
 figure;
@@ -383,7 +394,7 @@ SaveTaggedPlots(GitDescr, ResultsFolder,  'RemainingLwAtTOA', Rev, FileExts, Tag
 %% Compute the sky radiance as seen by reflection
 % H1 = sensor, H2 = target
 S3Sky = S3.AttachAlb(Roode1AA, 1); % NSURF = 1, area-averaged albedo
-S3Sky.SetCaseName(['S3Rood' OverpassDate 'Sky']);
+S3Sky = S3Sky.SetCaseName(['S3Rood' OverpassDate 'Sky']);
 % Modify the path geometry to looking upwards using the ANGLE parameter
 S3Sky.PHI = 0;  % Submit to ANGLE input
 S3Sky.ANGLE = OZA;
@@ -400,6 +411,12 @@ S3Sky.Run;
 % Interpolate the water reflectance to the wavelength grid
 WaterReflRhoInterp = interp1(WaterReflRho(:,1), WaterReflRho(:,2), Wv, 'pchip');
 WaterReflectedSkyRadiance = S3Sky.sc7.TOTALRAD .* WaterReflRhoInterp; % microwatts/sr/cm^2/nm
+
+%% Plot sky radiance on water-surface-reflected satellite sightline
+%figure
+%plot(Wv, S3Sky.sc7.TOTALRAD)
+%grid()
+
 
 %% Plot the waterleaving radiance and water-reflected sky radiance together
 % Remember to convert to common units of microwatts/sr/cm^2/nm
@@ -424,7 +441,9 @@ ylabel('Total Radiance at TOA [\muW/sr/cm^2/nm]')
 legend('P1','P2','P3','P4', 'location', 'best');
 grid();
 SaveTaggedPlots(GitDescr, ResultsFolder,  'TotalLatTOA', Rev, FileExts, TagFontProperties);
-
+%% Plot Atmospheric component of total radiance at TOA
+figure;
+plot(Wv, S3.sc7.TOTALRAD);
 
 %% Plot LwTOA over TotalLTOA
 figure;
@@ -574,7 +593,7 @@ RetrievedLwAtBOA = RetrievedLwAtTOA ./ S3BandPathTransmittance'; % mW/sr/m^2/nm
 % Lw is in units of W/sr/cm^2/sr, so multiply by 1000 * 100 * 100
 figure;
 plot(Wv, Lw*100*100*1000, ChanWv, RetrievedLwAtBOA, 'ko-');  % in mW/sr/m^2/nm
-title('S3 Retrieved L_w and Calculated L_w at BOA');
+title(['S3 Retrieved L_w and Calculated L_w at BOA on ' OverpassDate]);
 xlabel('Wavelength [nm]');
 ylabel('L_w at BOA [mW/sr/m^2/nm]');
 grid();

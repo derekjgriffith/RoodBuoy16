@@ -283,12 +283,12 @@ SaveTaggedPlots(GitDescr, ResultsFolder,  'AreaAveAlbedo', Rev, FileExts, TagFon
 Roode1AA(1).Filename = 'Roode1AA.dat';
 Roode1AA(1).Header = ['Area-averaged reflectance at Roodeplaat Dam on ' OverpassDate ', retrieved from Sentinel 3'];
 Roode1AA(1).title = '   1   Roode1AA';
-Roode1AA(1).wv = [350; WantedCentreWv'; 1000];  % Add points at start and end to fully cover run spectral range
+Roode1AA(1).wv = [350; WantedCentreWv'; 1000]/1000;  % Add points at start and end to fully cover run spectral range
 Roode1AA(1).refl = [WantedRetrievedAlbedo(1); WantedRetrievedAlbedo'; WantedRetrievedAlbedo(end)];
 Roode1AA(2).Filename = 'Roode1AA.dat';
 Roode1AA(2).Header = 'Black surface';
 Roode1AA(2).title = '    2   Black';
-Roode1AA(2).wv = [350; 1000];
+Roode1AA(2).wv = [350; 1000]/1000;
 Roode1AA(2).refl = [0; 0];
 % Just set up the original case instead of copying
 % The following statement does everything necessary to set up NSURF = 2 case
