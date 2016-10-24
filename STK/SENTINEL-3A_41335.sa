@@ -10,8 +10,8 @@ BEGIN VehiclePath
 
     BEGIN Interval
 
-         StartTime            15 Aug 2016 22:00:00.000000000
-         StopTime             31 Oct 2016 00:00:00.000000000
+         StartTime            17 Oct 2016 22:00:00.000000000
+         StopTime             3 Nov 2016 00:00:00.000000000
 
     END Interval
 
@@ -37,8 +37,8 @@ BEGIN VehiclePath
 			IntervalState	Implicit
 	END	EVENTINTERVAL
 
-    StartTime           15 Aug 2016 22:00:00.000
-    StopTime            31 Oct 2016 00:00:00.000
+    StartTime           17 Oct 2016 22:00:00.000
+    StopTime            3 Nov 2016 00:00:00.000
     TimeStep            300.000000
     Use1PtInterpolation Yes
     Use1PtValidation    No
@@ -52,14 +52,14 @@ BEGIN VehiclePath
     Enabled             Yes
 
     Source              OnlineAGI
-    LastUpdated         16 Aug 2016 11:55:55.000
+    LastUpdated         18 Oct 2016 07:38:31.000
 
     SwitchMethod        Epoch
-    SwitchEpoch         14 Aug 2016 21:38:41.780
+    SwitchEpoch         17 Oct 2016 18:57:55.734
 
     TLE
-    1 41335U 16011A   16227.90187245  .00000010  00000-0  22239-4 0  9992
-    2 41335  98.6222 293.7140 0000985  97.1210 263.0082 14.26738374 25682
+    1 41335U 16011A   16291.79022840  .00000050  00000-0  38669-4 0  9997
+    2 41335  98.6264 356.6954 0001322  96.5719 263.5611 14.26739036 34794
 
     END TwoLineElement
 
@@ -81,7 +81,7 @@ BEGIN PassDefn
     RangeFirstPass      1
     RangeLastPass       2147483647
     DisplayScheme       AllEphemeris
-    ScenarioEpoch       15 Aug 2016 22:00:00.000000
+    ScenarioEpoch       17 Oct 2016 22:00:00.000000
 END PassDefn
 
 END VehiclePath
@@ -100,7 +100,7 @@ END MassProperties
 
 BEGIN Attitude
 
-     	ScenarioEpoch		 15 Aug 2016 22:00:00.000000
+     	ScenarioEpoch		 17 Oct 2016 22:00:00.000000
 
       BEGIN Profile
           Name			 CBIVelLHAtt
@@ -433,8 +433,8 @@ BEGIN Extensions
 		LaunchWindowUseEntireTraj               Yes
 		LaunchWindowTrajMETStart                0.000
 		LaunchWindowTrajMETStop                 900.000
-		LaunchWindowStart                       0.000
-		LaunchWindowStop                        2678400.000
+		LaunchWindowStart                       -11656800.000
+		LaunchWindowStop                        -2592000.000
 		LaunchMETOffset                         0.000
 		LaunchWindowUseSecEphem                 No 
 		LaunchWindowUseScenFolderForSecEphem    Yes

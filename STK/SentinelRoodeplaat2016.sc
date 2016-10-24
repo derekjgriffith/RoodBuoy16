@@ -5,10 +5,10 @@ BEGIN Scenario
 
 BEGIN Epoch
 
-    Epoch        15 Aug 2016 22:00:00.000000000
+    Epoch        17 Oct 2016 22:00:00.000000000
     SmartEpoch
 	BEGIN	EVENT
-			Epoch	15 Aug 2016 22:00:00.000000000
+			Epoch	17 Oct 2016 22:00:00.000000000
 			EventEpoch
 				BEGIN	EVENT
 					Type	EVENT_LINKTO
@@ -23,7 +23,7 @@ END Epoch
 BEGIN Interval
 
 StartStr                Today
-Stop                    31 Oct 2016 00:00:00.000000000
+Stop                    3 Nov 2016 00:00:00.000000000
     SmartInterval
 	BEGIN	EVENTINTERVAL
 			StartEvent
@@ -38,7 +38,7 @@ Stop                    31 Oct 2016 00:00:00.000000000
 				END	EVENT
 			StopEvent
 				BEGIN	EVENT
-						Epoch	31 Oct 2016 00:00:00.000000000
+						Epoch	3 Nov 2016 00:00:00.000000000
 						EpochState	Explicit
 				END	EVENT
 			IntervalState	StartStop
@@ -116,9 +116,9 @@ BEGIN Extensions
 
 BEGIN Animation
 
-    StartTime          15 Aug 2016 22:00:00.000000000
-    EndTime            31 Oct 2016 00:00:00.000000000
-    CurrentTime        6 Jun 2016 08:17:50.000000000
+    StartTime          17 Oct 2016 22:00:00.000000000
+    EndTime            3 Nov 2016 00:00:00.000000000
+    CurrentTime        17 Oct 2016 22:00:00.000000000
     Direction          Forward
     UpdateDelta        5.000000
     RefreshDelta       0.010000
@@ -415,7 +415,7 @@ BEGIN MapData
 
         BEGIN Style
         Name                DefaultWithBing
-        Time                -6350400.000000
+        Time                -11793600.000000
         UpdateDelta         60.000000
 
         BEGIN MapAttributes
@@ -602,7 +602,7 @@ BEGIN MapData
 
         BEGIN Style
         Name                DefaultWithoutBing
-        Time                -6350400.000000
+        Time                -11793600.000000
         UpdateDelta         60.000000
 
         BEGIN MapAttributes
@@ -836,8 +836,8 @@ END MapData
 		LaunchWindowUseEntireTraj               Yes
 		LaunchWindowTrajMETStart                0.000
 		LaunchWindowTrajMETStop                 900.000
-		LaunchWindowStart                       -136800.000
-		LaunchWindowStop                        -7567200.000
+		LaunchWindowStart                       -11793600.000
+		LaunchWindowStop                        -12837600.000
 		LaunchMETOffset                         0.000
 		LaunchWindowUseSecEphem                 No 
 		LaunchWindowUseScenFolderForSecEphem    Yes
@@ -1664,7 +1664,7 @@ Calval activities for Sentinel 2 and Sentinel 3 at Roodeplaat Dam starting in Ju
 			Description	Local midnight today.
 				LocalOffsetWholeDays      0
 				LocalOffsetTime      	0.00000000000000e+000
-				ComputedDate      	15 Aug 2016 22:00:00.000000000
+				ComputedDate      	17 Oct 2016 22:00:00.000000000
 		END	EVENT
     END Crdn
     

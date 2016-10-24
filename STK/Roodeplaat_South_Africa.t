@@ -84,7 +84,7 @@ BEGIN Extensions
     
     BEGIN AccessConstraints
 		LineOfSight   IncludeIntervals 
-		ElevationAngle		Min  7.0000000000e+001   IncludeIntervals 
+		ElevationAngle		Min  8.1500000000e+001   IncludeIntervals 
     END AccessConstraints
     
     BEGIN ObjectCoverage
