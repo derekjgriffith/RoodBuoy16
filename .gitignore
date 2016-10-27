@@ -195,3 +195,7 @@ RadiationTransfer/libRadtran.pdf
 Literature/IOCCGreport10.pdf
 RadiationTransfer/.ipynb_checkpoints/*.ipynb
 Literature/SIMilarity Environment Correction (SIMEC) applied to MERIS data over.pdf
+*.pyc
+*.pdf
+*.fig
+Docs/SASAS2016/SASAS 2016 ABSTRACT SUBMISSION PAPERReviewedZF.docx
